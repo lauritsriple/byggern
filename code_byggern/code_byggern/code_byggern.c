@@ -9,13 +9,12 @@
 
 #include <avr/io.h>
 #include <avr/delay.h>
+#include "uart.h"
 
 int main(void) {
 	DDRB |= (1 << PB0);
     while(1) {
 		PORTB ^= (1 << PB0);
-        //TODO:: Please write your application code 
-		//comment for testcommit nothing really changed
-		//one more
+        _delay_ms(80);
     }
 }
