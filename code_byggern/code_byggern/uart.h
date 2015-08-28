@@ -9,9 +9,10 @@
 #ifndef UART_H_
 #define UART_H_
 
+
 void uart_init(void);
-void uart_putChar(char c);
-char uart_getChar(void);
+void uart_putChar(unsigned char c);
+unsigned char uart_getChar(void);
 
 //function to redirect printf
 

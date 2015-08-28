@@ -11,10 +11,16 @@
 #include <avr/delay.h>
 #include "uart.h"
 
+
+
+
 int main(void) {
+	uart_init();
+	
 	DDRB |= (1 << PB0);
     while(1) {
 		PORTB ^= (1 << PB0);
-        _delay_ms(80);
+        uart_putChar(F);
+		_delay_ms(50);
     }
 }
