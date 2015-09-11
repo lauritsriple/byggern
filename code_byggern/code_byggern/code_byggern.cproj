@@ -109,10 +109,22 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="SRAM_test.c">
+    <Compile Include="ADC.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ADC.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="code_byggern.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="joy.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="joy.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SRAM_test.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SRAM_test.h">
