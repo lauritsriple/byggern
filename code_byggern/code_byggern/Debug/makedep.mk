@@ -8,6 +8,8 @@ code_byggern.c
 
 joy.c
 
+oled.c
+
 SRAM_test.c
 
 uart.c

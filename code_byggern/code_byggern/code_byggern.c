@@ -15,6 +15,7 @@
 #include <avr/interrupt.h>
 #include "ADC.h"
 #include "joy.h"
+#include "oled.h"
 
 #define LED 0
 #define SW1 1
@@ -39,6 +40,9 @@ int main(void) {
 	puts("Global interrupts enabled\r");				
 	joy_init();
 	puts("Joystick initialized\r");
+	oled_init();
+	puts("Oled initialized\r");
+	
 	uint8_t val;
     while(1) {
 		
@@ -48,7 +52,10 @@ int main(void) {
 		PORTB ^= (1 << LED);
 		//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read(0b00000100),adc_read(0b00000101), adc_read(0b00000110), adc_read(0b00000111));
 		joy_pos_t pos = joy_getPos();
-		printf("X:%4i y:%4i\r",pos.x,pos.y);
+		printf("X:%4i Y:%4i\r",pos.x,pos.y);
+		for (uint8_t i=0;i<8;i++){
+			oled_clear_page(i);
+		}
 		
 		_delay_ms(50);
     }

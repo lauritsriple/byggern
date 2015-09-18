@@ -40,6 +40,7 @@ C_SRCS +=  \
 ../ADC.c \
 ../code_byggern.c \
 ../joy.c \
+../oled.c \
 ../SRAM_test.c \
 ../uart.c
 
@@ -54,6 +55,7 @@ OBJS +=  \
 ADC.o \
 code_byggern.o \
 joy.o \
+oled.o \
 SRAM_test.o \
 uart.o
 
@@ -61,6 +63,7 @@ OBJS_AS_ARGS +=  \
 ADC.o \
 code_byggern.o \
 joy.o \
+oled.o \
 SRAM_test.o \
 uart.o
 
@@ -68,6 +71,7 @@ C_DEPS +=  \
 ADC.d \
 code_byggern.d \
 joy.d \
+oled.d \
 SRAM_test.d \
 uart.d
 
@@ -75,6 +79,7 @@ C_DEPS_AS_ARGS +=  \
 ADC.d \
 code_byggern.d \
 joy.d \
+oled.d \
 SRAM_test.d \
 uart.d
 
@@ -92,6 +97,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

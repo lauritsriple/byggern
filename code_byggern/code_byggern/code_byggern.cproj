@@ -124,6 +124,12 @@
     <Compile Include="joy.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="oled.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="oled.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SRAM_test.c">
       <SubType>compile</SubType>
     </Compile>
