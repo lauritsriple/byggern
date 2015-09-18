@@ -19,5 +19,5 @@ struct joy_pos_t {
 
 void joy_init(void);
 joy_pos_t joy_getPos(void);
-
+joy_pos_t joy_getPosRaw(void);
 #endif /* JOY_H_ */ 

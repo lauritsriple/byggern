@@ -31,3 +31,14 @@ joy_pos_t joy_getPos(void){
 	return pos_tmp;
 }
 
+joy_pos_t joy_getPosRaw(void){
+	int16_t pos_x=adc_read(joy_x);
+	int16_t pos_y=adc_read(joy_y);
+	joy_pos_t pos_tmp;
+	pos_tmp.x=pos_x;
+	pos_tmp.y=pos_y;
+	return pos_tmp;
+}
+
+
+

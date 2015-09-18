@@ -16,6 +16,9 @@
 #include "ADC.h"
 #include "joy.h"
 
+#define LED 0
+#define SW1 1
+
 
 
 ISR(INT2_vect){
@@ -28,26 +31,25 @@ int main(void) {
 	DDRB &= ~(1 << PB2);
 	MCUCR |= (1 << SRE);
 	uart_init();
-	puts("Uart initialized");
+	printf("\f");
+	puts("Uart initialized\r");
 	adc_init();
-	puts("ADC initialized");
+	puts("ADC initialized\r");
 	sei();
-	puts("Global interrupts enabled");				
+	puts("Global interrupts enabled\r");				
 	joy_init();
-	puts("Joystick initialized");
-	
+	puts("Joystick initialized\r");
+	uint8_t val;
     while(1) {
 		
-		if ((PINB &(1<<PB1))){
-			PORTB ^= (1 << PB0);	
+		if ((PINB &(1<<SW1))){
+			PORTB ^= (1 << LED);	
 		}
-		PORTB ^= (1 << PB0);
+		PORTB ^= (1 << LED);
 		//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read(0b00000100),adc_read(0b00000101), adc_read(0b00000110), adc_read(0b00000111));
 		joy_pos_t pos = joy_getPos();
-		printf("X:%4i y:%4i\n",pos.x,pos.y);
-		//uart_putChar('f');
-		//puts("ho");
-		//printf("test int: %i", count);
+		printf("X:%4i y:%4i\r",pos.x,pos.y);
+		
 		_delay_ms(50);
     }
 }
