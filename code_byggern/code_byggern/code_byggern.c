@@ -42,10 +42,7 @@ int main(void) {
 	puts("Joystick initialized\r");
 	oled_init();
 	puts("Oled initialized\r");
-	
-	uint8_t val;
-    while(1) {
-		
+	while(1) {
 		if ((PINB &(1<<SW1))){
 			PORTB ^= (1 << LED);	
 		}
@@ -53,9 +50,6 @@ int main(void) {
 		//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read(0b00000100),adc_read(0b00000101), adc_read(0b00000110), adc_read(0b00000111));
 		joy_pos_t pos = joy_getPos();
 		printf("X:%4i Y:%4i\r",pos.x,pos.y);
-		for (uint8_t i=0;i<8;i++){
-			oled_clear_page(i);
-		}
 		
 		_delay_ms(50);
     }
