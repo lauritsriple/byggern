@@ -23,26 +23,24 @@ ISR(INT2_vect){
 }
 
 int main(void) {
-	adc_init();
-	sei();
-	uart_init();
-	joy_calibrate();
-								
 	DDRB |= (1 << PB0);
 	DDRB &= ~(1 << PB1);
 	DDRB &= ~(1 << PB2);
 	MCUCR |= (1 << SRE);
-	
-	
-	
-	
+	uart_init();
+	puts("Uart initialized");
+	adc_init();
+	puts("ADC initialized");
+	sei();
+	puts("Global interrupts enabled");				
+	joy_init();
+	puts("Joystick initialized");
 	
     while(1) {
 		
-		/*if ((PINB &(1<<PB1))){
+		if ((PINB &(1<<PB1))){
 			PORTB ^= (1 << PB0);	
-		}*/
-		
+		}
 		PORTB ^= (1 << PB0);
 		//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read(0b00000100),adc_read(0b00000101), adc_read(0b00000110), adc_read(0b00000111));
 		joy_pos_t pos = joy_getPos();

@@ -17,10 +17,7 @@ struct joy_pos_t {
 	int16_t y;
 };
 
-void joy_calibrate(void);
+void joy_init(void);
 joy_pos_t joy_getPos(void);
-
-
-
 
 #endif /* JOY_H_ */ 

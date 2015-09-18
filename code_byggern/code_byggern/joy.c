@@ -13,7 +13,7 @@
 static int16_t x_center;
 static int16_t y_center;
 
-void joy_calibrate(void){
+void joy_init(void){
 	x_center=adc_read(joy_x);
 	y_center=adc_read(joy_y);
 }
