@@ -6,6 +6,8 @@ ADC.c
 
 code_byggern.c
 
+font.c
+
 joy.c
 
 oled.c

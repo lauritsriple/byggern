@@ -6,6 +6,7 @@
  */ 
 #include <stdlib.h> 
 #include <avr/io.h>
+#include <stdio.h>
 #include "SRAM_test.h"
 #include "uart.h"
 

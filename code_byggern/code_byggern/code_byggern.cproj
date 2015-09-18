@@ -118,6 +118,12 @@
     <Compile Include="code_byggern.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="font.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="font.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="joy.c">
       <SubType>compile</SubType>
     </Compile>
