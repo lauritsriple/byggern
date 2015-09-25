@@ -46,9 +46,14 @@ int main(void) {
 	
 	char *c1 = "item1";
 	char *c2 = "item2";
-	char *c[2] = {c1,c2};
-	gui_item_t current=gui_createMenu(NULL,c);
+	char *c3 = "item3";
+	char *c4 = "item4";
+	char *c[4] = {c1,c2,c3,c4};
+	gui_item_t topMenu=gui_createMenu(NULL,c);
+	gui_item_t current=topMenu;
 	current = gui_createMenu(&current.next,c);
+	
+	
 	
 	
 	oled_home();
