@@ -16,6 +16,7 @@
 #include "ADC.h"
 #include "joy.h"
 #include "oled.h"
+#include "gui.h"
 
 #define LED 0
 #define SW1 1
@@ -43,18 +44,25 @@ int main(void) {
 	oled_init();
 	puts("Oled initialized\r");
 	
+	char *c1 = "item1";
+	char *c2 = "item2";
+	char *c[2] = {c1,c2};
+	gui_item_t current=gui_createMenu(NULL,c);
+	current = gui_createMenu(&current.next,c);
 	
-	oled_clear_all();
+	
 	oled_home();
 	while(1) {
+		
+		//oled_clear_all();
 		if ((PINB &(1<<SW1))){
 			PORTB ^= (1 << LED);	
 		}
 		PORTB ^= (1 << LED);
 		//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read(0b00000100),adc_read(0b00000101), adc_read(0b00000110), adc_read(0b00000111));
-		joy_pos_t pos = joy_getPos();
-		printf("X:%4i Y:%4i\r",pos.x,pos.y);
-		oled_printf("test");
+		//joy_pos_t pos = joy_getPos();
+		//printf("X:%4i Y:%4i\r",pos.x,pos.y);
+		//oled_printf("Shahrukh Er Best");
 		
 		_delay_ms(50);
     }

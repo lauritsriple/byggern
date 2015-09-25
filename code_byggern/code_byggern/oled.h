@@ -9,6 +9,10 @@
 #ifndef OLED_H_
 #define OLED_H_
 
+#include <avr/io.h>
+
+//const uint8_t SCREEN_ROWS = 128;
+//const uint8_t SCREEN_COLS= 64;
 
 void oled_init(void);
 void oled_home(void);

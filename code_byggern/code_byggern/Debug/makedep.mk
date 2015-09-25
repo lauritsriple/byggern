@@ -8,6 +8,8 @@ code_byggern.c
 
 font.c
 
+gui.c
+
 joy.c
 
 oled.c
