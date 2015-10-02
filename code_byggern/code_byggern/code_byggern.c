@@ -17,6 +17,7 @@
 #include "joy.h"
 #include "oled.h"
 #include "gui.h"
+#include "can.h"
 
 #define LED 0
 #define SW1 1
@@ -43,6 +44,9 @@ int main(void) {
 	puts("Joystick initialized\r");
 	oled_init();
 	puts("Oled initialized\r");
+	can_init();
+	puts("Can controller, mcp2515, initialized");
+	
 	
 	/*char *c1 = "item1";
 	char *c2 = "item2";

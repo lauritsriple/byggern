@@ -8,6 +8,25 @@
 #include "mcp2515.h"
 #include "mcp2515defines.h"
 #include <avr/io.h>
+#include "uart.h"
+
+uint8_t mcp2515_init(void){
+	uint8_t value:
+	
+	spi_init();
+	mcp2515_reset();
+	
+	//selftest
+	value=mcp2515_read(MCP_CANSTAT);
+	if ((value & MODE_MASK) != MODE_CONFIG) {
+		puts("MCP2515 is NOT in configuration mode after reset!");
+		return 1; //error code
+	}
+	
+	//more initializtion? But for now, is ok because we are using loopbackmode
+	
+	return 0;
+}
 
 uint8_t mcp2515_read(uint8_t address){
 	uint8_t result;

@@ -9,7 +9,19 @@
 #ifndef CAN_H_
 #define CAN_H_
 
+typedef struct can_message_t can_message_t;
+struct can_message_t{
+	uint16_t id; //16bit enough?
+	uint8_t length;
+	uint8_t data[8];
+};
 
+void can_init(uint8_t operationMode);
+void can_messageSend(can_message_t* msg);
+can_error();
+uint8_t can_transmitComplete();
+uint8_t can_dataReceive();
+can_intVect();
 
 
 
