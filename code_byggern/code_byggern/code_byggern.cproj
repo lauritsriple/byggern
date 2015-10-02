@@ -115,6 +115,12 @@
     <Compile Include="ADC.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="mcp2515.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mcp2515.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="code_byggern.c">
       <SubType>compile</SubType>
     </Compile>
@@ -136,10 +142,19 @@
     <Compile Include="joy.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="mcp2515defines.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="oled.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="oled.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="spi.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="SRAM_test.c">

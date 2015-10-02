@@ -22,8 +22,9 @@ struct gui_item_t {
 gui_item_t gui_searchNode(gui_item_t topNode, char* nodeName);
 gui_item_t gui_createMenu(char* parentName,char **menuItems);
 gui_item_t gui_createMenuSystem();
-void gui_DrawOled
-void gui_Traversere(next,prev,up,down)
-void gui_
- 
+void gui_DrawOled();
+//void gui_Traversere(next,prev,up,down);
+void gui_();
+
 #endif /* GUI_H_ */
+

@@ -44,14 +44,14 @@ int main(void) {
 	oled_init();
 	puts("Oled initialized\r");
 	
-	char *c1 = "item1";
+	/*char *c1 = "item1";
 	char *c2 = "item2";
 	char *c3 = "item3";
 	char *c4 = "item4";
 	char *c[4] = {c1,c2,c3,c4};
 	gui_item_t topMenu=gui_createMenu(NULL,c);
 	gui_item_t current=topMenu;
-	current = gui_createMenu(&current.next,c);
+	current = gui_createMenu(&current.next,c);*/
 	
 	
 	
@@ -65,9 +65,9 @@ int main(void) {
 		}
 		PORTB ^= (1 << LED);
 		//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read(0b00000100),adc_read(0b00000101), adc_read(0b00000110), adc_read(0b00000111));
-		//joy_pos_t pos = joy_getPos();
-		//printf("X:%4i Y:%4i\r",pos.x,pos.y);
-		//oled_printf("Shahrukh Er Best");
+		joy_pos_t pos = joy_getPos();
+		printf("X:%4i Y:%4i\r",pos.x,pos.y);
+		oled_printf("Shahrukh Er Best");
 		
 		_delay_ms(50);
     }

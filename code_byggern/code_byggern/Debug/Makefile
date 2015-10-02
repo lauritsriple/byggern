@@ -38,11 +38,13 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../ADC.c \
+../mcp2515.c \
 ../code_byggern.c \
 ../font.c \
 ../gui.c \
 ../joy.c \
 ../oled.c \
+../spi.c \
 ../SRAM_test.c \
 ../uart.c
 
@@ -55,41 +57,49 @@ ASM_SRCS +=
 
 OBJS +=  \
 ADC.o \
+mcp2515.o \
 code_byggern.o \
 font.o \
 gui.o \
 joy.o \
 oled.o \
+spi.o \
 SRAM_test.o \
 uart.o
 
 OBJS_AS_ARGS +=  \
 ADC.o \
+mcp2515.o \
 code_byggern.o \
 font.o \
 gui.o \
 joy.o \
 oled.o \
+spi.o \
 SRAM_test.o \
 uart.o
 
 C_DEPS +=  \
 ADC.d \
+mcp2515.d \
 code_byggern.d \
 font.d \
 gui.d \
 joy.d \
 oled.d \
+spi.d \
 SRAM_test.d \
 uart.d
 
 C_DEPS_AS_ARGS +=  \
 ADC.d \
+mcp2515.d \
 code_byggern.d \
 font.d \
 gui.d \
 joy.d \
 oled.d \
+spi.d \
 SRAM_test.d \
 uart.d
 
@@ -107,6 +117,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 
