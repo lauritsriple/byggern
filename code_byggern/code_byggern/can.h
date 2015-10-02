@@ -11,8 +11,8 @@
 
 typedef struct can_message_t can_message_t;
 struct can_message_t{
-	uint16_t id; //16bit enough?
-	uint8_t length;
+	uint16_t id; //16bit enough for standard
+	uint8_t length; //4bit
 	uint8_t data[8];
 };
 
