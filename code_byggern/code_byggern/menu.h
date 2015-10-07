@@ -1,13 +1,13 @@
 /*
- * gui.h
+ * menu.h
  *
  * Created: 25.09.2015 11:15:15
  *  Author: laurittr
  */ 
 
 
-#ifndef GUI_H_
-#define GUI_H_
+#ifndef MENU_H_
+#define MENU_H_
 
 //Struct has private initializer in menu.c
 typedef struct menu_item_t menu_item_t;
@@ -40,5 +40,5 @@ menu_item_t* menu_prev(menu_item_t* const menu);
 
 
 
-#endif /* GUI_H_ */
+#endif /* MENU_H_ */
 
