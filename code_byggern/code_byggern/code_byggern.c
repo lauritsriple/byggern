@@ -25,22 +25,11 @@
 #define LED 0
 #define SW1 1
 
-
-
 ISR(INT2_vect){
 	adc_conversion = 0;
 }
 
-void can_print(can_message_t m){
-	printf("can_message_t(id:%d, len:%d, data:{", m.id, m.length);
-	if(m.length){
-		printf("%d", m.data[0]);
-	}
-	for(uint8_t i = 1; i < m.length; i++){
-		printf(", %d", m.data[i]);
-	}
-	printf("})\n");	
-}
+
 
 int main(void) {
 	DDRB |= (1 << PB0);
@@ -48,27 +37,25 @@ int main(void) {
 	DDRB &= ~(1 << PB2);
 	MCUCR |= (1 << SRE);
 	uart_init();
-	//printf("\f");
-	puts("Uart initialized\r");
+	printf("\f");
+	puts("UART\t\t initialized\r");
 	adc_init();
-	puts("ADC initialized\r");
+	puts("ADC\t\t initialized\r");
 	sei();
-	puts("Global interrupts enabled\r");				
+	puts("Interrupts\t enabled\r");				
 	joy_init();
-	puts("Joystick initialized\r");
+	puts("Joystick\t initialized\r");
 	//oled_init();
-	puts("Oled initialized\r");
+	puts("OLED\t\t initialized\r");
 	can_init(MODE_LOOPBACK);
+	puts("SPI\t\t initialized");
+	puts("MCP2515\t\t initialized");
 	
 	can_message_t* msg = malloc(sizeof(can_message_t));
 
-	//mcp2515_bitModify(MCP_CANCTRL, MODE_MASK, MODE_LOOPBACK);
-
-	printf("CANSTAT: 0x%02x\n", mcp2515_read(MCP_CANSTAT));
-	printf("CANCTRL: 0x%02x (should be 0x47)\n", mcp2515_read(MCP_CANCTRL));
-
 	while(1) {
 		PORTB ^= (1 << LED);
+		//TODO: add this print as function in joy.c
 		//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read(0b00000100),adc_read(0b00000101), adc_read(0b00000110), adc_read(0b00000111));
 		//joy_pos_t pos = joy_getPos();
 		//printf("X:%4i Y:%4i\r",pos.x,pos.y);
@@ -80,16 +67,13 @@ int main(void) {
 		msg->data[1]=0b00001111;
 		printf("sending:  ");
 		can_print(*msg);
-		can_messageSend(msg,MCP_TXB0CTRL);
+		can_messageSend(msg,MCP_TXB1CTRL);
 		
 		_delay_ms(100);
 		can_message_t receive = can_dataReceive();
 		printf("received: ");
 		can_print(receive);
 		_delay_ms(100);
-		
-		//spi_write(0b00000010);
-		//printf("test: %i\n",spi_read());
 		
 		_delay_ms(50);
     }

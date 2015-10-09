@@ -99,6 +99,25 @@ Copyright 2003 Kimberly Otten Software Consulting
 
 #define MCP_RESET		0xC0
 
+// TXBnCTRL Register Values
+
+#define MCP_TXREQ		0x03
+
+// TXBnSIDH Register Values
+
+#define MCP_IDH_MASK	0xFF
+
+// TXBnSIDL Register Values
+
+#define MCP_IDL_MASK	0xE0
+
+// TXBnDLC Register Values
+
+#define MCP_DLC_MASK	0x0F
+
+// RXBnCTRL Register Values
+
+#define MCP_FILTER_MASK	0x60
 
 // CANCTRL Register Values
 

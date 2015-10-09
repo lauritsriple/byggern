@@ -5,19 +5,14 @@
  *  Author: laurittr
  */ 
 
-
-//#include "oled.h"
 #include <avr/io.h>
-//#include <stdio.h>
 #include <stdlib.h>
-//#include "uart.h"
 #include "menu.h"
 
-//uint8_t pixels[SCREEN_ROWS][SCREEN_COLS]=0;
 static menu_item_t* mainMenu;
 static uint8_t menu_initialized;
 
-//PRIVATE: creates a new menuitem (initializer)
+//private: creates a new menuitem (initializer)
 static menu_item_t* menu_new(char* name, void(*fn)(void), uint8_t num_childMenus){
 	menu_item_t* menu= malloc(sizeof(menu_item_t));
 	if (num_childMenus){
@@ -30,7 +25,7 @@ static menu_item_t* menu_new(char* name, void(*fn)(void), uint8_t num_childMenus
 	return menu;
 }
 
-//PRIVATE: Assigns the right parent pointers. recursive.
+//private: Assigns the right parent pointers. recursive.
 static void menu_fix_parents_recursive(menu_item_t* menu){
 	for (uint8_t i=0;i<menu->num_childMenus;i++){
 		menu->childMenus[i]->parent=menu;
@@ -39,7 +34,8 @@ static void menu_fix_parents_recursive(menu_item_t* menu){
 }
 
 
-//PRIVATE: creates the whole menustructure
+//private: creates the whole menu structure
+//if full memory, the menu, and submenustrings can be stored in progmem
 void menu_create(void){
 	mainMenu= menu_new("Main menu",NULL,3);
 	mainMenu->childMenus[0]= menu_new("Submenu1",NULL,2);
@@ -51,7 +47,7 @@ void menu_create(void){
 	mainMenu->childMenus[0]= menu_new("Submenu3",NULL,0);
 	menu_fix_parents_recursive(mainMenu);
 }
-//KAN HELLER PEKE TIL PROGMEM OG SKRIVER STRENGENE DER!
+
 menu_item_t* menu_get(void){
 	if (!menu_initialized){
 		menu_create();

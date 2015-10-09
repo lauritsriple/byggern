@@ -13,20 +13,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-uint8_t mcp2515_init(void){
-	uint8_t value;
+void mcp2515_init(void){
+	uint8_t value=0;
 	spi_init();
 	mcp2515_reset();
 	
-	//selftest
-	value=mcp2515_read(MCP_CANSTAT);
-	printf("here:%i\r\n",value);
-	if ((value & MODE_MASK) != MODE_CONFIG) {
-		puts("MCP2515 is NOT in configuration mode after reset!\r");
-		return 1; //error code
+	//selftest, will reset chip until it is in configuration mode
+	while(!value){
+		value=mcp2515_read(MCP_CANSTAT);
+		if ((value & MODE_MASK) != MODE_CONFIG) {
+			puts("ERROR! ERROR! MCP2515 is NOT in configuration mode after reset!\r");
+			value= 1; //error code
+		}
 	}
-	//more initializtion? But for now, is ok because we are using loopbackmode?
-	return 0;
 }
 
 uint8_t mcp2515_read(uint8_t address){
