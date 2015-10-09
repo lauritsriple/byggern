@@ -22,7 +22,8 @@ void can_init(uint8_t operationMode);
 void can_messageSend(can_message_t* msg,uint8_t bufferSelect);
 //can_error();
 //uint8_t can_transmitComplete();
-can_message_t can_dataReceive(uint8_t bufferSelect, can_message_t *recieve);
+uint8_t can_interruptHandler(void);
+can_message_t can_dataReceive(void);
 //can_intVect();
 
 

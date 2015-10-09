@@ -39,7 +39,7 @@ uint8_t mcp2515_read(uint8_t address){
 	return result;
 }
 
-void mcp2515_write(uint8_t address,uint8_t data){
+void mcp2515_write(uint8_t address, uint8_t data){
 	PORTB &= ~(1 << MCP2515_CS); //select
 	spi_transmit(MCP_WRITE);
 	spi_transmit(address);
