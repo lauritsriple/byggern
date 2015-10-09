@@ -9,6 +9,8 @@
 #ifndef MCP2515_H_
 #define MCP2515_H_
 
+#include <avr/io.h>
+
 #define MCP2515_CS 4 //ss on PB4
 
 uint8_t mcp2515_init(void);

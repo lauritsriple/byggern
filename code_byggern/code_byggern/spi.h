@@ -5,13 +5,11 @@
  *  Author: shahrukk
  */ 
 
-
+#include <avr/io.h>
 #ifndef SPI_H_
 #define SPI_H_
 
 void spi_init(void);
-void spi_write(char data);
-char spi_read(void);
-
+uint8_t spi_transmit(char data);
 
 #endif /* SPI_H_ */

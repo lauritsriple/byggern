@@ -16,17 +16,13 @@ void spi_init(void){
 	// NOT intterupt driven
 	// mcp2515, max frequency is 10mhz
 	// with external clock, F_CPU is defined to 4,9mhz. we divide by 4, so our sck is 1,2mhz
-	SPCR= (1 << SPE) | (1 << MSTR) | (1 << CPHA);
+	SPCR= (1 << SPE) | (1 << MSTR) | (1 << SPR0);
 }
 
 
 
-void spi_write(char data){
+uint8_t spi_transmit(char data){
 	SPDR = data;
-	while(!(SPSR & (1<<SPIF)));
-}
-
-char spi_read(void){
 	while(!(SPSR & (1<<SPIF)));
 	return SPDR;
 }

@@ -9,6 +9,8 @@
 #ifndef CAN_H_
 #define CAN_H_
 
+#include <avr/io.h>
+
 typedef struct can_message_t can_message_t;
 struct can_message_t{
 	uint16_t id; //16bit enough for standard
@@ -17,11 +19,11 @@ struct can_message_t{
 };
 
 void can_init(uint8_t operationMode);
-void can_messageSend(can_message_t* msg);
-can_error();
-uint8_t can_transmitComplete();
-uint8_t can_dataReceive();
-can_intVect();
+void can_messageSend(can_message_t* msg,uint8_t bufferSelect);
+//can_error();
+//uint8_t can_transmitComplete();
+can_message_t can_dataReceive(uint8_t bufferSelect, can_message_t *recieve);
+//can_intVect();
 
 
 

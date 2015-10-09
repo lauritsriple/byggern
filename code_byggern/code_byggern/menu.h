@@ -27,10 +27,10 @@ menu_item_t* current_menuitem;
 menu_item_t* get_menu (void);
 
 //returns depth (number of parents)
-uint8_t menu_depth(menu_item_t const menu);
+uint8_t menu_depth(menu_item_t* const menu);
 
 //returns index of this node in parent's submenu list
-uint8_t menu_index(menu_item_t const menu);
+uint8_t menu_index(menu_item_t* const menu);
 
 //Will try to traverse, and return itself if function "fails".
 menu_item_t* menu_down(menu_item_t* const menu);

@@ -136,12 +136,6 @@
     <Compile Include="font.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="gui.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="gui.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="joy.c">
       <SubType>compile</SubType>
     </Compile>
@@ -149,6 +143,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mcp2515defines.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="menu.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="menu.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="oled.c">
