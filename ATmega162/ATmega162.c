@@ -1,5 +1,5 @@
 /*
- * code_byggern.c
+ * ATmega162.c
  *
  * Created: 28.08.2015 12:04:28
  *  Author: laurittr
@@ -9,17 +9,17 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include "uart.h"
-#include "SRAM_test.h"
+#include "communication/uart.h"
+#include "sram/SRAM_test.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <avr/interrupt.h>
-#include "ADC.h"
-#include "joy.h"
-#include "oled.h"
-#include "can.h"
-#include "mcp2515defines.h"
-#include "mcp2515.h"
+#include "analog/adc.h"
+#include "communication/joy.h"
+#include "display/oled.h"
+#include "communication/can.h"
+#include "communication/mcp2515defines.h"
+#include "communication/mcp2515.h"
 
 
 #define LED 0
