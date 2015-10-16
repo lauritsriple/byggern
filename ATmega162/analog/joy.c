@@ -5,9 +5,9 @@
  *  Author: shahrukk
  */ 
 
-#include "joy.h"
-#include "ADC.h"
-#include "uart.h"
+#include "../analog/joy.h"
+#include "../analog/adc.h"
+#include "../communication/uart.h"
 #include <avr/io.h>
 
 static int16_t x_center;

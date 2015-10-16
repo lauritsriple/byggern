@@ -11,7 +11,7 @@
 
 #include <avr/io.h>
 
-#define MCP2515_CS 4 //ss on PB4
+#define MCP2515_CS 0 //ss on PB0
 
 void mcp2515_init(void);
 uint8_t mcp2515_read(uint8_t address);

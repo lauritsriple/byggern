@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include "SRAM_test.h"
-#include "uart.h"
+//#include "../communication/uart.h"
 
 void SRAM_test(void)
 {

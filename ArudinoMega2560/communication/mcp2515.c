@@ -8,7 +8,6 @@
 #include "mcp2515.h"
 #include "mcp2515defines.h"
 #include <avr/io.h>
-#include "uart.h"
 #include "spi.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -23,7 +22,7 @@ void mcp2515_init(void){
 		value=mcp2515_read(MCP_CANSTAT);
 		if ((value & MODE_MASK) != MODE_CONFIG) {
 			puts("ERROR! ERROR! MCP2515 is NOT in configuration mode after reset!\r");
-			value= 1; //error code
+			value=0;
 		}
 	}
 }

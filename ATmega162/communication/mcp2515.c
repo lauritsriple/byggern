@@ -17,7 +17,6 @@ void mcp2515_init(void){
 	uint8_t value=0;
 	spi_init();
 	mcp2515_reset();
-	
 	//selftest, will reset chip until it is in configuration mode
 	while(!value){
 		value=mcp2515_read(MCP_CANSTAT);

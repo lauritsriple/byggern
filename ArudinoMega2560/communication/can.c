@@ -82,7 +82,7 @@ can_message_t can_dataReceive(void){
 
 uint8_t can_pollInt(){
 	//PD2 is set as input in can_init()
-	while(!(PIND & (1<<PD2))){} //w8 for interrupt, hopefully not forever!
+	while(!(PINB & (1<<PB4))){} //w8 for interrupt, hopefully not forever!
 	//find out which buffer is full
 	//if both is full, will only read the first one. Might be problematic if we send lot of data on the can-bus
 	if (mcp2515_read(MCP_CANINTF) & MCP_RX0IF){

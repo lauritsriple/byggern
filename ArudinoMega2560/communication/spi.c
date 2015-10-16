@@ -10,9 +10,9 @@
 
 
 void spi_init(void){
-	//SCK UT, MISO IN, MOSI UT, SS UT
-	DDRB |= (1 << PB5) | (1<<PB7) | (1 << PB4);
-	DDRB &= ~(1 << PB6);
+	//SCK UT, MISO IN, MOSI UT
+	DDRB |= (1 << PB2) | (1<<PB1) | (1 << PB0);
+	DDRB &= ~(1 << PB3);
 	// NOT intterupt driven
 	// mcp2515, max frequency is 10mhz
 	// with external clock, F_CPU is defined to 4,9mhz. we divide by 4, so our sck is 1,2mhz
