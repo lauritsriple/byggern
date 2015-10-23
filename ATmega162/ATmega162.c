@@ -69,8 +69,6 @@ int main(void) {
 		printf("sending:  ");
 		can_print(*msg);
 		can_messageSend(msg,MCP_TXB1CTRL);
-		
-		_delay_ms(10);
     }
 }
 

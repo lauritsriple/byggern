@@ -25,6 +25,18 @@ joy_pos_t joy_getPos(void){
 	pos_y-=y_center;
 	pos_x=(pos_x*100)/127;
 	pos_y=(pos_y*100)/127;
+	if (pos_x>100){
+		pos_x=100;
+	}
+	else if (pos_x<-100){
+		pos_x=-100;
+	}
+	if (pos_y>100){
+		pos_y=100;
+	}
+	else if (pos_y<-100){
+		pos_y=-100;
+	}
 	joy_pos_t pos_tmp;
 	pos_tmp.x=pos_x;
 	pos_tmp.y=pos_y;

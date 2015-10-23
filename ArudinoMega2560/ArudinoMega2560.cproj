@@ -98,6 +98,18 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="analog\adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="analog\adc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="analog\ir.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="analog\ir.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="ArudinoMega2560.c">
       <SubType>compile</SubType>
     </Compile>
@@ -134,10 +146,17 @@
     <Compile Include="digital\pwm.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="game.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="game.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="communication" />
     <Folder Include="digital" />
+    <Folder Include="analog" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

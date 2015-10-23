@@ -8,7 +8,7 @@
 #include "pwm.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
-
+#include "../communication/uart.h"
 
 void pwm_init(void){
 	//fast pwm
@@ -28,13 +28,32 @@ void pwm_init(void){
 	ICR3 = 312;
 }
 
-//val is inverted.
 void pwm_setValue(uint8_t val){
-	if ((val>=24) && (val<=42)){
-		OCR3AL=val;
+	OCR3AL=val;
+}
+
+//values between -100 and +100
+void pwm_setServo(int16_t val){
+	static uint8_t max=39;
+	static uint8_t min=21;
+	uint8_t mid=(max+min)/2;
+	
+	//transelate -100->+100 to values between 24 and 42
+	val+=100;
+	//now, we have 0-200; we want 0-18 and then + 24
+	val=((val*18)/200)+min;
+		
+	printf("val: %4i \n",val);
+	
+	if ((val<=(mid+1)) && (val>=(mid-1))){
+		pwm_setValue(mid);
+	}
+	
+	else if ((val>=min) && (val<=max)){
+		pwm_setValue(val);
 	}
 	else{
-		OCR3AL=33;
+		pwm_setValue(mid);
 	}
 }
 

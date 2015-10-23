@@ -568,7 +568,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xee0
+.text           0x00000000      0xf00
  *(.vectors)
  .vectors       0x00000000       0x70 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5/crtm162.o
                 0x00000000                __vector_default
@@ -664,110 +664,110 @@ END GROUP
                 0x000000d6       0x26 analog/joy.o
                 0x000000d6                joy_init
  .text.joy_getPos
-                0x000000fc       0x72 analog/joy.o
+                0x000000fc       0x9e analog/joy.o
                 0x000000fc                joy_getPos
  .text.__vector_3
-                0x0000016e       0x18 ATmega162.o
-                0x0000016e                __vector_3
- .text.main     0x00000186      0x152 ATmega162.o
-                0x00000186                main
+                0x0000019a       0x18 ATmega162.o
+                0x0000019a                __vector_3
+ .text.main     0x000001b2      0x146 ATmega162.o
+                0x000001b2                main
  .text.can_init
-                0x000002d8       0x2c communication/can.o
-                0x000002d8                can_init
+                0x000002f8       0x2c communication/can.o
+                0x000002f8                can_init
  .text.can_messageSend
-                0x00000304       0xac communication/can.o
-                0x00000304                can_messageSend
+                0x00000324       0xac communication/can.o
+                0x00000324                can_messageSend
  .text.can_print
-                0x000003b0       0xd6 communication/can.o
-                0x000003b0                can_print
+                0x000003d0       0xd6 communication/can.o
+                0x000003d0                can_print
  .text.mcp2515_read
-                0x00000486       0x1e communication/mcp2515.o
-                0x00000486                mcp2515_read
+                0x000004a6       0x1e communication/mcp2515.o
+                0x000004a6                mcp2515_read
  .text.mcp2515_write
-                0x000004a4       0x24 communication/mcp2515.o
-                0x000004a4                mcp2515_write
+                0x000004c4       0x24 communication/mcp2515.o
+                0x000004c4                mcp2515_write
  .text.mcp2515_requestToSend
-                0x000004c8        0xa communication/mcp2515.o
-                0x000004c8                mcp2515_requestToSend
+                0x000004e8        0xa communication/mcp2515.o
+                0x000004e8                mcp2515_requestToSend
  .text.mcp2515_bitModify
-                0x000004d2       0x30 communication/mcp2515.o
-                0x000004d2                mcp2515_bitModify
+                0x000004f2       0x30 communication/mcp2515.o
+                0x000004f2                mcp2515_bitModify
  .text.mcp2515_reset
-                0x00000502        0xc communication/mcp2515.o
-                0x00000502                mcp2515_reset
+                0x00000522        0xc communication/mcp2515.o
+                0x00000522                mcp2515_reset
  .text.mcp2515_init
-                0x0000050e       0x26 communication/mcp2515.o
-                0x0000050e                mcp2515_init
+                0x0000052e       0x26 communication/mcp2515.o
+                0x0000052e                mcp2515_init
  .text.spi_init
-                0x00000534        0xe communication/spi.o
-                0x00000534                spi_init
+                0x00000554        0xe communication/spi.o
+                0x00000554                spi_init
  .text.spi_transmit
-                0x00000542        0xa communication/spi.o
-                0x00000542                spi_transmit
+                0x00000562        0xa communication/spi.o
+                0x00000562                spi_transmit
  .text.uart_putChar
-                0x0000054c        0x8 communication/uart.o
-                0x0000054c                uart_putChar
+                0x0000056c        0x8 communication/uart.o
+                0x0000056c                uart_putChar
  .text.uart_getChar
-                0x00000554        0x8 communication/uart.o
-                0x00000554                uart_getChar
+                0x00000574        0x8 communication/uart.o
+                0x00000574                uart_getChar
  .text.uart_init
-                0x0000055c       0x18 communication/uart.o
-                0x0000055c                uart_init
+                0x0000057c       0x18 communication/uart.o
+                0x0000057c                uart_init
  .text.libgcc.div
-                0x00000574       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_divmodhi4.o)
-                0x00000574                _div
-                0x00000574                __divmodhi4
+                0x00000594       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_divmodhi4.o)
+                0x00000594                _div
+                0x00000594                __divmodhi4
  .text.libgcc.div
-                0x0000059c       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
-                0x0000059c                __udivmodhi4
+                0x000005bc       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_udivmodhi4.o)
+                0x000005bc                __udivmodhi4
  .text.avr-libc
-                0x000005c4      0x24e c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(malloc.o)
-                0x000005c4                malloc
-                0x000006f4                free
+                0x000005e4      0x24e c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(malloc.o)
+                0x000005e4                malloc
+                0x00000714                free
  .text.avr-libc
-                0x00000812       0x96 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(fdevopen.o)
-                0x00000812                fdevopen
+                0x00000832       0x96 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(fdevopen.o)
+                0x00000832                fdevopen
  .text.avr-libc
-                0x000008a8       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(printf.o)
-                0x000008a8                printf
+                0x000008c8       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(printf.o)
+                0x000008c8                printf
  .text.avr-libc
-                0x000008d0        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(putchar.o)
-                0x000008d0                putchar
+                0x000008f0        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(putchar.o)
+                0x000008f0                putchar
  .text.avr-libc
-                0x000008de       0x5a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(puts.o)
-                0x000008de                puts
+                0x000008fe       0x5a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(puts.o)
+                0x000008fe                puts
  .text.avr-libc
-                0x00000938      0x3a4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
-                0x00000938                vfprintf
+                0x00000958      0x3a4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(vfprintf_std.o)
+                0x00000958                vfprintf
  .text.avr-libc
-                0x00000cdc       0x38 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(calloc.o)
-                0x00000cdc                calloc
+                0x00000cfc       0x38 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(calloc.o)
+                0x00000cfc                calloc
  .text.avr-libc
-                0x00000d14       0x16 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
-                0x00000d14                strnlen_P
+                0x00000d34       0x16 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(strnlen_P.o)
+                0x00000d34                strnlen_P
  .text.avr-libc
-                0x00000d2a        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(memset.o)
-                0x00000d2a                memset
+                0x00000d4a        0xe c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(memset.o)
+                0x00000d4a                memset
  .text.avr-libc
-                0x00000d38       0x16 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(strnlen.o)
-                0x00000d38                strnlen
+                0x00000d58       0x16 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(strnlen.o)
+                0x00000d58                strnlen
  .text.avr-libc
-                0x00000d4e       0x64 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(fputc.o)
-                0x00000d4e                fputc
+                0x00000d6e       0x64 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(fputc.o)
+                0x00000d6e                fputc
  .text.avr-libc
-                0x00000db2       0xbc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
-                0x00000db2                __ultoa_invert
+                0x00000dd2       0xbc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(ultoa_invert.o)
+                0x00000dd2                __ultoa_invert
  .text.libgcc.prologue
-                0x00000e6e       0x38 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_prologue.o)
-                0x00000e6e                __prologue_saves__
+                0x00000e8e       0x38 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_prologue.o)
+                0x00000e8e                __prologue_saves__
  .text.libgcc.prologue
-                0x00000ea6       0x36 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_epilogue.o)
-                0x00000ea6                __epilogue_restores__
-                0x00000edc                . = ALIGN (0x2)
+                0x00000ec6       0x36 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_epilogue.o)
+                0x00000ec6                __epilogue_restores__
+                0x00000efc                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000edc        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
-                0x00000edc                _exit
-                0x00000edc                exit
+ .fini9         0x00000efc        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+                0x00000efc                _exit
+                0x00000efc                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -786,11 +786,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000edc        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000efc        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000ee0                _etext = .
+                0x00000f00                _etext = .
 
-.data           0x00800100      0x142 load address 0x00000ee0
+.data           0x00800100      0x142 load address 0x00000f00
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x6 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(malloc.o)
@@ -827,8 +827,8 @@ END GROUP
  COMMON         0x0080024b        0x6 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(iob.o)
                 0x0080024b                __iob
                 0x00800251                PROVIDE (__bss_end, .)
-                0x00000ee0                __data_load_start = LOADADDR (.data)
-                0x00001022                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000f00                __data_load_start = LOADADDR (.data)
+                0x00001042                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800251        0x0
                 0x00800251                PROVIDE (__noinit_start, .)
@@ -930,71 +930,71 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xff4
+.debug_info     0x00000000      0xf80
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x116 analog/adc.o
  .debug_info    0x00000116      0x25f analog/joy.o
- .debug_info    0x00000375      0x20c ATmega162.o
- .debug_info    0x00000581      0x4a1 communication/can.o
- .debug_info    0x00000a22      0x34a communication/mcp2515.o
- .debug_info    0x00000d6c       0xb8 communication/spi.o
- .debug_info    0x00000e24      0x1d0 communication/uart.o
+ .debug_info    0x00000375      0x198 ATmega162.o
+ .debug_info    0x0000050d      0x4a1 communication/can.o
+ .debug_info    0x000009ae      0x34a communication/mcp2515.o
+ .debug_info    0x00000cf8       0xb8 communication/spi.o
+ .debug_info    0x00000db0      0x1d0 communication/uart.o
 
-.debug_abbrev   0x00000000      0x7b7
+.debug_abbrev   0x00000000      0x75e
  *(.debug_abbrev)
  .debug_abbrev  0x00000000       0xc4 analog/adc.o
  .debug_abbrev  0x000000c4      0x119 analog/joy.o
- .debug_abbrev  0x000001dd      0x13e ATmega162.o
- .debug_abbrev  0x0000031b      0x1ba communication/can.o
- .debug_abbrev  0x000004d5      0x153 communication/mcp2515.o
- .debug_abbrev  0x00000628       0x7c communication/spi.o
- .debug_abbrev  0x000006a4      0x113 communication/uart.o
+ .debug_abbrev  0x000001dd       0xe5 ATmega162.o
+ .debug_abbrev  0x000002c2      0x1ba communication/can.o
+ .debug_abbrev  0x0000047c      0x153 communication/mcp2515.o
+ .debug_abbrev  0x000005cf       0x7c communication/spi.o
+ .debug_abbrev  0x0000064b      0x113 communication/uart.o
 
-.debug_line     0x00000000      0x824
+.debug_line     0x00000000      0x7a7
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000       0xd1 analog/adc.o
- .debug_line    0x000000d1      0x100 analog/joy.o
- .debug_line    0x000001d1      0x1d3 ATmega162.o
- .debug_line    0x000003a4      0x173 communication/can.o
- .debug_line    0x00000517      0x14f communication/mcp2515.o
- .debug_line    0x00000666       0xce communication/spi.o
- .debug_line    0x00000734       0xf0 communication/uart.o
+ .debug_line    0x000000d1      0x102 analog/joy.o
+ .debug_line    0x000001d3      0x154 ATmega162.o
+ .debug_line    0x00000327      0x173 communication/can.o
+ .debug_line    0x0000049a      0x14f communication/mcp2515.o
+ .debug_line    0x000005e9       0xce communication/spi.o
+ .debug_line    0x000006b7       0xf0 communication/uart.o
 
-.debug_frame    0x00000000      0x30c
+.debug_frame    0x00000000      0x304
  *(.debug_frame)
  .debug_frame   0x00000000       0x34 analog/adc.o
- .debug_frame   0x00000034       0x60 analog/joy.o
- .debug_frame   0x00000094       0x7c ATmega162.o
- .debug_frame   0x00000110       0xdc communication/can.o
- .debug_frame   0x000001ec       0xa8 communication/mcp2515.o
- .debug_frame   0x00000294       0x34 communication/spi.o
- .debug_frame   0x000002c8       0x44 communication/uart.o
+ .debug_frame   0x00000034       0x58 analog/joy.o
+ .debug_frame   0x0000008c       0x7c ATmega162.o
+ .debug_frame   0x00000108       0xdc communication/can.o
+ .debug_frame   0x000001e4       0xa8 communication/mcp2515.o
+ .debug_frame   0x0000028c       0x34 communication/spi.o
+ .debug_frame   0x000002c0       0x44 communication/uart.o
 
-.debug_str      0x00000000      0x417
+.debug_str      0x00000000      0x3cc
  *(.debug_str)
  .debug_str     0x00000000      0x157 analog/adc.o
                                 0x190 (size before relaxing)
  .debug_str     0x00000157       0x62 analog/joy.o
                                 0x1d4 (size before relaxing)
- .debug_str     0x000001b9       0x93 ATmega162.o
-                                0x1f1 (size before relaxing)
- .debug_str     0x0000024c       0xe5 communication/can.o
+ .debug_str     0x000001b9       0x48 ATmega162.o
+                                0x1a6 (size before relaxing)
+ .debug_str     0x00000201       0xe5 communication/can.o
                                 0x24e (size before relaxing)
- .debug_str     0x00000331       0x6c communication/mcp2515.o
+ .debug_str     0x000002e6       0x6c communication/mcp2515.o
                                 0x20b (size before relaxing)
- .debug_str     0x0000039d       0x17 communication/spi.o
+ .debug_str     0x00000352       0x17 communication/spi.o
                                 0x16a (size before relaxing)
- .debug_str     0x000003b4       0x63 communication/uart.o
+ .debug_str     0x00000369       0x63 communication/uart.o
                                 0x19b (size before relaxing)
 
-.debug_loc      0x00000000      0x871
+.debug_loc      0x00000000      0x8d5
  *(.debug_loc)
  .debug_loc     0x00000000       0x26 analog/adc.o
- .debug_loc     0x00000026      0x239 analog/joy.o
- .debug_loc     0x0000025f      0x13b ATmega162.o
- .debug_loc     0x0000039a      0x2cc communication/can.o
- .debug_loc     0x00000666      0x1ec communication/mcp2515.o
- .debug_loc     0x00000852       0x1f communication/spi.o
+ .debug_loc     0x00000026      0x29d analog/joy.o
+ .debug_loc     0x000002c3      0x13b ATmega162.o
+ .debug_loc     0x000003fe      0x2cc communication/can.o
+ .debug_loc     0x000006ca      0x1ec communication/mcp2515.o
+ .debug_loc     0x000008b6       0x1f communication/spi.o
 
 .debug_macinfo
  *(.debug_macinfo)
