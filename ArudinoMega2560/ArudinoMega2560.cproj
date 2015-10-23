@@ -128,9 +128,16 @@
     <Compile Include="communication\uart.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="digital\pwm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="digital\pwm.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="communication" />
+    <Folder Include="digital" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

@@ -12,3 +12,5 @@ communication\spi.c
 
 communication\uart.c
 
+digital\pwm.c
+

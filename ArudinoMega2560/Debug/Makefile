@@ -33,7 +33,8 @@ LINKER_SCRIPT_DEP:=
 
 # Every subdirectory with source files must be described here
 SUBDIRS :=  \
-../communication
+../communication \
+../digital
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
@@ -42,7 +43,8 @@ C_SRCS +=  \
 ../communication/can.c \
 ../communication/mcp2515.c \
 ../communication/spi.c \
-../communication/uart.c
+../communication/uart.c \
+../digital/pwm.c
 
 
 PREPROCESSING_SRCS += 
@@ -56,28 +58,32 @@ ArudinoMega2560.o \
 communication/can.o \
 communication/mcp2515.o \
 communication/spi.o \
-communication/uart.o
+communication/uart.o \
+digital/pwm.o
 
 OBJS_AS_ARGS +=  \
 ArudinoMega2560.o \
 communication/can.o \
 communication/mcp2515.o \
 communication/spi.o \
-communication/uart.o
+communication/uart.o \
+digital/pwm.o
 
 C_DEPS +=  \
 ArudinoMega2560.d \
 communication/can.d \
 communication/mcp2515.d \
 communication/spi.d \
-communication/uart.d
+communication/uart.d \
+digital/pwm.d
 
 C_DEPS_AS_ARGS +=  \
 ArudinoMega2560.d \
 communication/can.d \
 communication/mcp2515.d \
 communication/spi.d \
-communication/uart.d
+communication/uart.d \
+digital/pwm.d
 
 OUTPUT_FILE_PATH +=ArudinoMega2560.elf
 
@@ -104,6 +110,8 @@ LINKER_SCRIPT_DEP+=
 
 
 
+
+
 ./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
@@ -112,6 +120,13 @@ LINKER_SCRIPT_DEP+=
 	
 
 communication/%.o: ../communication/%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 4.8.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+digital/%.o: ../digital/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
