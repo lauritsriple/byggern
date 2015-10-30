@@ -90,6 +90,18 @@ void oled_fill_page(uint8_t page){
 	}
 }
 
+void oled_writeMatrix(uint8_t* matrix){
+	oled_home();
+	uint8_t tmp=0;
+	for (uint8_t page = 0; page < 8; page ++){
+		for(uint8_t i = 0; i < 128; i++){
+			for(uint8_t j = 0; j < 8; j++){
+				tmp[i]=matrix[i][j];
+			}
+			oled_write_data(tmp);
+		}
+}
+
 void oled_put_char(char c){
 	for (uint8_t i = 0; i<FONT_WIDTH; i++){
 		oled_write_data(pgm_read_byte(&font[c - FONT_OFFSET][i]));

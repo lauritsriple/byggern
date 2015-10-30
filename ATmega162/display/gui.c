@@ -57,8 +57,8 @@ Page7 [                         ]
 *************************************
 */
 
-uint8_t buffer1[128][64];
-uint8_t buffer2[128][64];
+uint8_t buffer_draw[128][64];
+uint8_t buffer_screen[128][64];
 
 typedef struct pos_t pos_t;
 struct pos_t {
@@ -66,40 +66,97 @@ struct pos_t {
 	uint8_t y;
 };
 
-void swap(int* a, int* b){
+void gui_swap(int* a, int* b){
 	 int* temp = a;
 	 a = b;
 	 b = temp;
 }
 
-void gui_drawLine(pos_t pos1, pos_t pos2){
-	//3 cases; vertically, horisontaly, skraa?	
-	if (x1=x2){ //two cases, draw up or down
-		if (y2<y1){ //swap
-			gui_swap(x1,x2);
-			gui_swap(y1,y2);
-		}
-		for (uint8_t i = y1 ; i < y2;i++){	
-			buffer1[x1][i]=1;
-		}
+void gui_setPixel(uint8_t posx, uint8_t posy, uint8_t val){
+	if (posx < 128 && posx > 0 && posy < 64 && posy > 0){
+		buffer_draw[posx][posy];
+	}
+}
 
-	else if (y1=y2) { // draw left or right
-		if (x2<x1){ //swap
-			uint8_t tmp=x1;
-			x1=x2;
-			x2;tmp;
-		for (uint8_t i=x1;i<x2;i++){
-			buffer[i][y1]=1;
+void gui_drawLine(pos_t pos1, pos_t pos2){					//3 cases; vertically, horisontaly, skraa?	
+	if (pos1.x == pos2.x){									//vertical, draw up or down
+		if (pos2.y < pos1.y){								//swap
+			gui_swap(pos1.y, pos2.y);
 		}
-	else{ //not straight line, 4 cases
-		if (x2<x1) //swap elems
+		for (uint8_t i = pos1.y; i < pos2.y;i++){
+			gui_setPixel(pos1.x, i, 1);	
+		}
+	}
+	else if (pos1.y == pos2.y){								//horisontal draw left or right
+		if (pos2.x < pos1.x){								//swap
+			gui_swap(pos1.x, pos2.x);
+		}
+		for (uint8_t i = pos1.x; i < pos2.x; i++){
+			gui_setPixel(i, pos1.y, 1);
+		}
+	}
+	else{													//skraa, 4 case
+		float_t a = (pos2.y - pos1.y)/(pos2.x - pos1.x);
+		if( pos2.x < pos1.x){
+			gui_swap(pos1.x, pos2.x);
+			gui_swap(pos1.y, pos2.x);
+		}
+		for (uint8_t i = pos1.x; i < pos2 x; i ++){
+			uint8_t posy = a*(i - pos1.x) + pos1.y;
+			gui_setPixel(i, posy, 1); 
+		}		
+	}
+}
 
+void gui_drawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2){
+	gui_drawLine(x1, x2);
+	gui_drawLine(y1, y2);
+	gui_drawLine(x1, y1);
+	gui_drawLine(x2, y2);
+}
+
+void gui_drawRectanglefilled(pos_t pos1, pos_t pos2){
+	pos_t j = pos1; 
+	while(j.y <= pos2.y){
+		gui_drawLine(pos1,j);
+		j.y++;
+	}
+}
+
+void gui_drawCircle(pos_t centre, uint8_t rad){
+	for(uint8_t i = centre.x - rad; i < centre.x; i++){
+		for(uint8_t j = centre.y - rad; j < centre.y; j++){
+			uint8_t r = sqrt(i*i + j*j);
+			if (r == rad){
+				gui_setPixel(i, j, 1);
+			}
+		}
+	}
+}
+
+void gui_drawCircleFill(pos_t centre, uint8_t rad){
+	for (uint8_t i = rad; i < 1; i--){
+		gui_drawCircle(centre, i);
+	}
+}
+
+void gui_drawToScreen(void){
+	buffer_screen = buffer_draw;
+	
 
 }
 
-void gui_drawRectangle(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
-void gui_drawRectanglefilled(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
-void gui_drawCircle(uint8_t centre, uint8_t rad);
+
+
+
+
+
+
+
+
+
+
+
 
 void gui_drawMenu(menu_item_t* menu){
 	gui_drawRectangle(0,0,128,64); //Outer border
@@ -143,4 +200,3 @@ void gui_drawMenu(menu_item_t* menu){
 		}
 	}
 }
-
