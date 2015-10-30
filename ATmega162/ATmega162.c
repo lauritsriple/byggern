@@ -56,9 +56,9 @@ int main(void) {
 	while(1) {
 		PORTB ^= (1 << LED);
 		//TODO: add this print as function in joy.c
-		printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read(0b00000100),adc_read(0b00000101), adc_read(0b00000110), adc_read(0b00000111));
+		//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read(0b00000100),adc_read(0b00000101), adc_read(0b00000110), adc_read(0b00000111));
 		joy_pos_t pos = joy_getPos();
-		printf("X:%4i Y:%4i\r",pos.x,pos.y);
+		//printf("X:%4i Y:%4i\r",pos.x,pos.y);
 		//oled_printf("Shahrukh Er Best");
 		msg->id=5;
 		msg->length=4;
@@ -66,8 +66,8 @@ int main(void) {
 		msg->data[1]=pos.x;
 		msg->data[2]=pos.y>>8;
 		msg->data[3]=pos.y;
-		printf("sending:  ");
-		can_print(*msg);
+		//printf("sending:  ");
+		//can_print(*msg);
 		can_messageSend(msg,MCP_TXB1CTRL);
     }
 }

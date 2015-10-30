@@ -18,8 +18,10 @@ void can_init(uint8_t operationMode){
 	mcp2515_init();
 	mcp2515_bitModify(MCP_RXB0CTRL, MCP_FILTER_MASK, 0xff); //turn off filter
 	mcp2515_bitModify(MCP_RXB1CTRL, MCP_FILTER_MASK, 0xff); //turn off filter
+	mcp2515_bitModify(MCP_RXB0CTRL, 0x04, 0); // rollover off
 	mcp2515_bitModify(MCP_CANCTRL, MODE_MASK, operationMode);
-	DDRD &= ~(1<<PD2); //for can_pollInt()
+	//mcp2515_write(MCP_CANINTE,MCP_RX0IF|MCP_RX1IF);
+	DDRB &= ~(1<<PB4); //for can_pollInt()
 }
 
 //TODO: Should find a empty buffer by itself. No need for bufferselect. Should rather have priorities
@@ -58,6 +60,7 @@ void can_messageSend(can_message_t* msg,uint8_t bufferSelect){
 	mcp2515_requestToSend(bufferControl);
 }
 
+/*
 //TODO: can use real interrupts to read from buffers when message is received
 can_message_t can_dataReceive(void){
 	//creating msg stuct. Also sets all elem to zero
@@ -77,23 +80,55 @@ can_message_t can_dataReceive(void){
 	for (uint8_t i = 0; i < m.length; i++){
 		m.data[i] = mcp2515_read(bufferSelect + 6 + i);
 	}
+	
+	
+	if(bufferSelect == MCP_RXB0CTRL){
+		mcp2515_bitModify(MCP_CANINTF, MCP_RX0IF, 0x00); //unset flag
+	}
+	else if(bufferSelect == MCP_RXB1CTRL){
+		mcp2515_bitModify(MCP_CANINTF, MCP_RX1IF, 0x00); //unset flag
+	}
+	return m;
+}
+*/
+
+can_message_t can_dataReceive(void){
+	//creating msg stuct. Also sets all elem to zero
+	can_message_t m = {0};
+
+	if(mcp2515_read(MCP_CANINTF) & MCP_RX0IF){//get id and length
+		//id is 16bit, and needs some shifting of two registers which are then or'ed together
+		m.id=(uint16_t)((mcp2515_read(MCP_RXB0CTRL+2) >> 5) | (mcp2515_read(MCP_RXB0CTRL+1) << 3));
+		//length is 8bit, bit actual data only on 4 lsb. Therefore the bitmask
+		m.length = mcp2515_read(MCP_RXB0CTRL+5) & 0x0f;
+
+		//iterate all the data bytes
+		for (uint8_t i = 0; i < m.length; i++){
+			m.data[i] = mcp2515_read(MCP_RXB0CTRL + 6 + i);
+		}
+		
+		mcp2515_bitModify(MCP_CANINTF, MCP_RX0IF, 0x00); //unset flag
+		
+	} else {
+		m.id = 2050;
+	}
+
 	return m;
 }
 
 uint8_t can_pollInt(){
 	//PD2 is set as input in can_init()
-	while(!(PINB & (1<<PB4))){} //w8 for interrupt, hopefully not forever!
+	while((PINB & (1<<PB4))) //w8 for interrupt, hopefully not forever!
 	//find out which buffer is full
 	//if both is full, will only read the first one. Might be problematic if we send lot of data on the can-bus
 	if (mcp2515_read(MCP_CANINTF) & MCP_RX0IF){
-		mcp2515_bitModify(MCP_CANINTF, MCP_RX0IF, 0x00); //unset flag
 		return MCP_RXB0CTRL;
-	}
-	
-	else if (mcp2515_read(MCP_CANINTF) & MCP_RX1IF){
-		mcp2515_bitModify(MCP_CANINTF, MCP_RX1IF, 0x00); //unset flag
+	} else if (mcp2515_read(MCP_CANINTF) & MCP_RX1IF){
 		return MCP_RXB1CTRL;
-	}		
+	} else {
+		printf("wat\n");
+		abort();
+	}
 }
 
 void can_print(can_message_t m){ //for debugging

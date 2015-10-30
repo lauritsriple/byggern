@@ -44,8 +44,10 @@ C_SRCS +=  \
 ../analog/ir.c \
 ../ArudinoMega2560.c \
 ../communication/can.c \
+../communication/main.c \
 ../communication/mcp2515.c \
 ../communication/spi.c \
+../communication/TWI_Master.c \
 ../communication/uart.c \
 ../digital/pwm.c \
 ../game.c
@@ -62,8 +64,10 @@ analog/adc.o \
 analog/ir.o \
 ArudinoMega2560.o \
 communication/can.o \
+communication/main.o \
 communication/mcp2515.o \
 communication/spi.o \
+communication/TWI_Master.o \
 communication/uart.o \
 digital/pwm.o \
 game.o
@@ -73,8 +77,10 @@ analog/adc.o \
 analog/ir.o \
 ArudinoMega2560.o \
 communication/can.o \
+communication/main.o \
 communication/mcp2515.o \
 communication/spi.o \
+communication/TWI_Master.o \
 communication/uart.o \
 digital/pwm.o \
 game.o
@@ -84,8 +90,10 @@ analog/adc.d \
 analog/ir.d \
 ArudinoMega2560.d \
 communication/can.d \
+communication/main.d \
 communication/mcp2515.d \
 communication/spi.d \
+communication/TWI_Master.d \
 communication/uart.d \
 digital/pwm.d \
 game.d
@@ -95,8 +103,10 @@ analog/adc.d \
 analog/ir.d \
 ArudinoMega2560.d \
 communication/can.d \
+communication/main.d \
 communication/mcp2515.d \
 communication/spi.d \
+communication/TWI_Master.d \
 communication/uart.d \
 digital/pwm.d \
 game.d
@@ -115,6 +125,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

@@ -43,7 +43,8 @@ void pwm_setServo(int16_t val){
 	//now, we have 0-200; we want 0-18 and then + 24
 	val=((val*18)/200)+min;
 		
-	printf("val: %4i \n",val);
+	//printf("val: %4i \n",val);
+	
 	
 	if ((val<=(mid+1)) && (val>=(mid-1))){
 		pwm_setValue(mid);

@@ -119,6 +119,9 @@
     <Compile Include="communication\can.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="communication\main.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="communication\mcp2515.c">
       <SubType>compile</SubType>
     </Compile>
@@ -132,6 +135,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="communication\spi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="communication\TWI_Master.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="communication\TWI_Master.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="communication\uart.c">

@@ -10,6 +10,7 @@
 #include "can.h"
 #include "mcp2515.h"
 #include "mcp2515defines.h"
+#include "uart.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -77,6 +78,14 @@ can_message_t can_dataReceive(void){
 	for (uint8_t i = 0; i < m.length; i++){
 		m.data[i] = mcp2515_read(bufferSelect + 6 + i);
 	}
+	
+	if(bufferSelect == MCP_RXB0CTRL){
+		mcp2515_bitModify(MCP_CANINTF, MCP_RX0IF, 0x00); //unset flag
+	}
+	else if(bufferSelect == MCP_RXB1CTRL){
+		mcp2515_bitModify(MCP_CANINTF, MCP_RX1IF, 0x00); //unset flag
+	}
+	
 	return m;
 }
 
@@ -86,12 +95,10 @@ uint8_t can_pollInt(){
 	//find out which buffer is full
 	//if both is full, will only read the first one. Might be problematic if we send lot of data on the can-bus
 	if (mcp2515_read(MCP_CANINTF) & MCP_RX0IF){
-		mcp2515_bitModify(MCP_CANINTF, MCP_RX0IF, 0x00); //unset flag
 		return MCP_RXB0CTRL;
 	}
 	
 	else if (mcp2515_read(MCP_CANINTF) & MCP_RX1IF){
-		mcp2515_bitModify(MCP_CANINTF, MCP_RX1IF, 0x00); //unset flag
 		return MCP_RXB1CTRL;
 	}		
 }
