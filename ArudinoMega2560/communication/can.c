@@ -12,6 +12,7 @@
 #include "mcp2515defines.h"
 #include <stdlib.h>
 #include <string.h>
+#include "uart.h"
 
 
 void can_init(uint8_t operationMode){
@@ -129,6 +130,7 @@ uint8_t can_pollInt(){
 		printf("wat\n");
 		abort();
 	}
+	abort();
 }
 
 void can_print(can_message_t m){ //for debugging

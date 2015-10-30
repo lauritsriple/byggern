@@ -14,6 +14,8 @@ c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-t
                               ATmega162.o (malloc)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(rand.o)
                               sram/SRAM_test.o (rand)
+c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(abort.o)
+                              communication/can.o (abort)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(fdevopen.o)
                               communication/uart.o (fdevopen)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(iob.o)
@@ -83,7 +85,7 @@ Discarded input sections
  .data          0x00000000        0x0 communication/can.o
  .bss           0x00000000        0x0 communication/can.o
  .text.can_pollInt
-                0x00000000       0x22 communication/can.o
+                0x00000000       0x24 communication/can.o
  .text.can_dataReceive
                 0x00000000       0xea communication/can.o
  .rodata.str1.1
@@ -285,6 +287,11 @@ Discarded input sections
  .text.avr-libc
                 0x00000000       0xbc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(rand.o)
  .comment       0x00000000       0x31 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(rand.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(abort.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(abort.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(abort.o)
+ .text.avr-libc
+                0x00000000        0xa c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(abort.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(fdevopen.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(fdevopen.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1061/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr5\libc.a(fdevopen.o)
@@ -920,15 +927,15 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1175
+.debug_info     0x00000000     0x118c
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x116 analog/adc.o
  .debug_info    0x00000116      0x25f analog/joy.o
  .debug_info    0x00000375      0x38d ATmega162.o
- .debug_info    0x00000702      0x4a1 communication/can.o
- .debug_info    0x00000ba3      0x34a communication/mcp2515.o
- .debug_info    0x00000eed       0xb8 communication/spi.o
- .debug_info    0x00000fa5      0x1d0 communication/uart.o
+ .debug_info    0x00000702      0x4b8 communication/can.o
+ .debug_info    0x00000bba      0x34a communication/mcp2515.o
+ .debug_info    0x00000f04       0xb8 communication/spi.o
+ .debug_info    0x00000fbc      0x1d0 communication/uart.o
 
 .debug_abbrev   0x00000000      0x81b
  *(.debug_abbrev)
@@ -940,15 +947,15 @@ END GROUP
  .debug_abbrev  0x0000068c       0x7c communication/spi.o
  .debug_abbrev  0x00000708      0x113 communication/uart.o
 
-.debug_line     0x00000000      0x840
+.debug_line     0x00000000      0x84f
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000       0xd1 analog/adc.o
  .debug_line    0x000000d1      0x102 analog/joy.o
  .debug_line    0x000001d3      0x1eb ATmega162.o
- .debug_line    0x000003be      0x175 communication/can.o
- .debug_line    0x00000533      0x14f communication/mcp2515.o
- .debug_line    0x00000682       0xce communication/spi.o
- .debug_line    0x00000750       0xf0 communication/uart.o
+ .debug_line    0x000003be      0x184 communication/can.o
+ .debug_line    0x00000542      0x14f communication/mcp2515.o
+ .debug_line    0x00000691       0xce communication/spi.o
+ .debug_line    0x0000075f       0xf0 communication/uart.o
 
 .debug_frame    0x00000000      0x2d0
  *(.debug_frame)
@@ -960,7 +967,7 @@ END GROUP
  .debug_frame   0x00000258       0x34 communication/spi.o
  .debug_frame   0x0000028c       0x44 communication/uart.o
 
-.debug_str      0x00000000      0x3ec
+.debug_str      0x00000000      0x3f2
  *(.debug_str)
  .debug_str     0x00000000      0x157 analog/adc.o
                                 0x190 (size before relaxing)
@@ -968,13 +975,13 @@ END GROUP
                                 0x1d4 (size before relaxing)
  .debug_str     0x000001b9       0x8b ATmega162.o
                                 0x213 (size before relaxing)
- .debug_str     0x00000244       0xcc communication/can.o
-                                0x24e (size before relaxing)
- .debug_str     0x00000310       0x6c communication/mcp2515.o
+ .debug_str     0x00000244       0xd2 communication/can.o
+                                0x254 (size before relaxing)
+ .debug_str     0x00000316       0x6c communication/mcp2515.o
                                 0x20b (size before relaxing)
- .debug_str     0x0000037c       0x17 communication/spi.o
+ .debug_str     0x00000382       0x17 communication/spi.o
                                 0x16a (size before relaxing)
- .debug_str     0x00000393       0x59 communication/uart.o
+ .debug_str     0x00000399       0x59 communication/uart.o
                                 0x19b (size before relaxing)
 
 .debug_loc      0x00000000      0x80b

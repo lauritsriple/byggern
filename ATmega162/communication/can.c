@@ -100,7 +100,8 @@ uint8_t can_pollInt(){
 	
 	else if (mcp2515_read(MCP_CANINTF) & MCP_RX1IF){
 		return MCP_RXB1CTRL;
-	}		
+	}
+	abort();
 }
 
 void can_print(can_message_t m){ //for debugging

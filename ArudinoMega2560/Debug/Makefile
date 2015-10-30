@@ -45,12 +45,14 @@ C_SRCS +=  \
 ../ArudinoMega2560.c \
 ../communication/can.c \
 ../communication/main.c \
+../communication/max520.c \
 ../communication/mcp2515.c \
 ../communication/spi.c \
 ../communication/TWI_Master.c \
 ../communication/uart.c \
 ../digital/pwm.c \
-../game.c
+../game.c \
+../motor.c
 
 
 PREPROCESSING_SRCS += 
@@ -65,12 +67,14 @@ analog/ir.o \
 ArudinoMega2560.o \
 communication/can.o \
 communication/main.o \
+communication/max520.o \
 communication/mcp2515.o \
 communication/spi.o \
 communication/TWI_Master.o \
 communication/uart.o \
 digital/pwm.o \
-game.o
+game.o \
+motor.o
 
 OBJS_AS_ARGS +=  \
 analog/adc.o \
@@ -78,12 +82,14 @@ analog/ir.o \
 ArudinoMega2560.o \
 communication/can.o \
 communication/main.o \
+communication/max520.o \
 communication/mcp2515.o \
 communication/spi.o \
 communication/TWI_Master.o \
 communication/uart.o \
 digital/pwm.o \
-game.o
+game.o \
+motor.o
 
 C_DEPS +=  \
 analog/adc.d \
@@ -91,12 +97,14 @@ analog/ir.d \
 ArudinoMega2560.d \
 communication/can.d \
 communication/main.d \
+communication/max520.d \
 communication/mcp2515.d \
 communication/spi.d \
 communication/TWI_Master.d \
 communication/uart.d \
 digital/pwm.d \
-game.d
+game.d \
+motor.d
 
 C_DEPS_AS_ARGS +=  \
 analog/adc.d \
@@ -104,12 +112,14 @@ analog/ir.d \
 ArudinoMega2560.d \
 communication/can.d \
 communication/main.d \
+communication/max520.d \
 communication/mcp2515.d \
 communication/spi.d \
 communication/TWI_Master.d \
 communication/uart.d \
 digital/pwm.d \
-game.d
+game.d \
+motor.d
 
 OUTPUT_FILE_PATH +=ArudinoMega2560.elf
 
@@ -125,6 +135,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

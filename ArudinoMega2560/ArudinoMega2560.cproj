@@ -122,6 +122,12 @@
     <Compile Include="communication\main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="communication\max520.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="communication\max520.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="communication\mcp2515.c">
       <SubType>compile</SubType>
     </Compile>
@@ -159,6 +165,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="game.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="motor.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

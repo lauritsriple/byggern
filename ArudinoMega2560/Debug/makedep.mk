@@ -12,6 +12,8 @@ communication\can.c
 
 communication\main.c
 
+communication\max520.c
+
 communication\mcp2515.c
 
 communication\spi.c
@@ -23,4 +25,6 @@ communication\uart.c
 digital\pwm.c
 
 game.c
+
+motor.c
 
