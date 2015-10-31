@@ -18,6 +18,8 @@ communication\uart.c
 
 display\font.c
 
+display\gui.c
+
 display\menu.c
 
 display\oled.c

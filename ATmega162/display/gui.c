@@ -56,6 +56,8 @@ Page7 [                         ]
 ******[                         ]
 *************************************
 */
+/*
+#include "stdint.h"
 
 uint8_t buffer_draw[128][64];
 uint8_t buffer_screen[128][64];
@@ -101,7 +103,7 @@ void gui_drawLine(pos_t pos1, pos_t pos2){					//3 cases; vertically, horisontal
 			gui_swap(pos1.x, pos2.x);
 			gui_swap(pos1.y, pos2.x);
 		}
-		for (uint8_t i = pos1.x; i < pos2 x; i ++){
+		for (uint8_t i = pos1.x; i < pos2.x; i ++){
 			uint8_t posy = a*(i - pos1.x) + pos1.y;
 			gui_setPixel(i, posy, 1); 
 		}		
@@ -156,12 +158,12 @@ void gui_drawToScreen(void){
 
 
 
-
-
+*/
+/*
 void gui_drawMenu(menu_item_t* menu){
 	gui_drawRectangle(0,0,128,64); //Outer border
 	gui_drawLine(5,0,5,64); //Draws the menuscroll
-	/*
+	
 	 * for elem in menu
 	 * move cursor to right page and column
 	 * oledprintf (check if outside border!)
@@ -173,7 +175,7 @@ void gui_drawMenu(menu_item_t* menu){
 	 *
 	 */
 
-	gui_drawText(10,4*8,menu.name);
+/*	gui_drawText(10,4*8,menu.name);
 	gui_invert(10,4*8,127,3*8-1); //selected elem
 
 	menu_item_t * cur=menu;
@@ -200,3 +202,4 @@ void gui_drawMenu(menu_item_t* menu){
 		}
 	}
 }
+*/

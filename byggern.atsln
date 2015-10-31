@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ATmega162", "ATmega162/ATmega162.cproj", "{330295BE-47B6-4DAD-92B6-006E2F2A6DCA}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ATmega162", "ATmega162\ATmega162.cproj", "{330295BE-47B6-4DAD-92B6-006E2F2A6DCA}"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "ArudinoMega2560", "ArudinoMega2560\ArudinoMega2560.cproj", "{1A503348-899E-40A7-A2DE-D7475BAA08CC}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "AT90USB1287", "AT90USB1287\AT90USB1287.cproj", "{CA85EED2-2DD1-44A0-9F0F-F80A6F44AC2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		{1A503348-899E-40A7-A2DE-D7475BAA08CC}.Debug|AVR.Build.0 = Debug|AVR
 		{1A503348-899E-40A7-A2DE-D7475BAA08CC}.Release|AVR.ActiveCfg = Release|AVR
 		{1A503348-899E-40A7-A2DE-D7475BAA08CC}.Release|AVR.Build.0 = Release|AVR
+		{CA85EED2-2DD1-44A0-9F0F-F80A6F44AC2B}.Debug|AVR.ActiveCfg = Debug|AVR
+		{CA85EED2-2DD1-44A0-9F0F-F80A6F44AC2B}.Debug|AVR.Build.0 = Debug|AVR
+		{CA85EED2-2DD1-44A0-9F0F-F80A6F44AC2B}.Release|AVR.ActiveCfg = Release|AVR
+		{CA85EED2-2DD1-44A0-9F0F-F80A6F44AC2B}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
