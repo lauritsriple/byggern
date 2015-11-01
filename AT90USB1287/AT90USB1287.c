@@ -17,7 +17,7 @@ int main(void)
 	//examplecode
 	touch_init(30, 30, 30, 30);
 	uint8_t ls, rs, lb, rb;
-	DDRB |= (1<<0)|(1<<1)|(1<<2)|(1<<3);
+	//DDRB |= (1<<0)|(1<<1)|(1<<2)|(1<<3);
 	DDRD |= (1 << 0);
 	DDRD |= (1 << 2);
 

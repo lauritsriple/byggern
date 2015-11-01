@@ -154,7 +154,57 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\ArudinoMega2560\drivers\adc.c">
+      <SubType>compile</SubType>
+      <Link>Drivers\adc.c</Link>
+    </Compile>
+    <Compile Include="..\ArudinoMega2560\drivers\adc.h">
+      <SubType>compile</SubType>
+      <Link>Drivers\adc.h</Link>
+    </Compile>
+    <Compile Include="..\lib\can.c">
+      <SubType>compile</SubType>
+      <Link>Drivers\Communication\can.c</Link>
+    </Compile>
+    <Compile Include="..\lib\can.h">
+      <SubType>compile</SubType>
+      <Link>Drivers\Communication\can.h</Link>
+    </Compile>
+    <Compile Include="..\lib\mcp2515.c">
+      <SubType>compile</SubType>
+      <Link>Drivers\Communication\mcp2515.c</Link>
+    </Compile>
+    <Compile Include="..\lib\mcp2515.h">
+      <SubType>compile</SubType>
+      <Link>Drivers\Communication\mcp2515.h</Link>
+    </Compile>
+    <Compile Include="..\lib\mcp2515defines.h">
+      <SubType>compile</SubType>
+      <Link>Drivers\Communication\mcp2515defines.h</Link>
+    </Compile>
+    <Compile Include="..\lib\spi.c">
+      <SubType>compile</SubType>
+      <Link>Drivers\Communication\spi.c</Link>
+    </Compile>
+    <Compile Include="..\lib\spi.h">
+      <SubType>compile</SubType>
+      <Link>Drivers\Communication\spi.h</Link>
+    </Compile>
+    <Compile Include="..\lib\uart.c">
+      <SubType>compile</SubType>
+      <Link>Drivers\Communication\uart.c</Link>
+    </Compile>
+    <Compile Include="..\lib\uart.h">
+      <SubType>compile</SubType>
+      <Link>Drivers\Communication\uart.h</Link>
+    </Compile>
     <Compile Include="AT90USB1287.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="board.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="board.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="qm_asm_tiny_mega.S">
@@ -172,6 +222,10 @@
     <Compile Include="touch_qm_config.h">
       <SubType>compile</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Drivers" />
+    <Folder Include="Drivers\Communication" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

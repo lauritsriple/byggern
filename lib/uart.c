@@ -24,7 +24,10 @@ void uart_init(void){
 				| ( 1 << UCSZ00); //char size to 8bit
 	#elif defined(__AVR_ATmega2560__)
 		UCSR0C |= (3 << UCSZ00); // char size to 8
+	#elif defined(__AVR_AT90usb1287)
+		UCSR0C |= (3 << UCSZ00);
 	#endif
+	
 
 	//for puts and printf
 	fdevopen(uart_putChar, uart_getChar);
