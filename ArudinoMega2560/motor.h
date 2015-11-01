@@ -20,6 +20,4 @@ void motor_direction(motorDirection dir);
 int16_t motor_encoderRead(void);
 void motor_encoderCounterReset(void);
 
-
-
 #endif /* MOTOR_H_ */

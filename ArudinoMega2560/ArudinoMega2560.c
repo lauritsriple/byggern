@@ -20,21 +20,21 @@
 #include "motor.h"
 #include <stdlib.h>
 #include <stdint.h>
+#include <board.h>
 
 int main(void){
+	//Set start values for pins and center the servo
+	//DDRE |= (1<<PE3); //PWM
+	//DDRH |= (1 << PH3); //LED
+	//DDRB |= (1 << PB7); what is on PB7?
+	//DDRD |= (1 << PD0) | (1<<PD1);
+	board_init();
 	uart_init();
 	adc_init();
 	pwm_init();
-	//Set start values for pins and center the servo
-	DDRE |= (1<<PE3);
-	DDRH |= (1 << PH3);
-	DDRB |= (1 << PB7);
-	
-	//DDRD |= (1 << PD0) | (1<<PD1);
-	pwm_setValue(33);
 	motor_init();
-	//initialize canbus.
 	can_init(MODE_NORMAL);
+	
 	//game_timerStart();
 	while(1){
 		can_message_t receive = can_dataReceive();
@@ -71,7 +71,7 @@ int main(void){
 		//printf("received: ");
 		//uint16_t value = adc_read(0);
 		//printf("adc value: %4i \n", value);
-		PORTH ^=(1 << PH3);
+		LED_PORT ^=(1 << LED1);
 		_delay_ms(1500);
 	}
 }

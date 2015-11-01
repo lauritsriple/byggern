@@ -5,15 +5,11 @@
  *  Author: shahrukk
  */ 
 
-#include <avr/io.h>
+#include <stdint.h>
 
 #ifndef IR_H_
 #define IR_H_
-#define IRCHANNEL 0
 
 uint8_t ir_signal(void);
-
-
-
 
 #endif /* IR_H_ */

@@ -9,14 +9,12 @@
 #include "uart.h"
 #include <stdio.h>
 
-#define F_CPU 16000000
+//#define F_CPU 16000000
 #define ubrr (F_CPU/16/9600 - 1)
 
 void uart_init(void){
 	UBRR0L = (unsigned char) ubrr;
-	
 	UCSR0B |= (1 << RXEN0) | (1 << TXEN0);
-	
 	UCSR0C |= (1<<UCSZ00);
 	
 	//for puts and printf
@@ -31,7 +29,6 @@ void uart_putChar(unsigned char c){
 
 
 unsigned char uart_getChar(){
-	
 	while((UCSR0A) & (1<<RXC0)); //Wait for "full" transmit buffer
 	return UDR0;
 }

@@ -22,7 +22,7 @@ void can_init(uint8_t operationMode){
 	mcp2515_bitModify(MCP_RXB0CTRL, 0x04, 0); // rollover off
 	mcp2515_bitModify(MCP_CANCTRL, MODE_MASK, operationMode);
 	//mcp2515_write(MCP_CANINTE,MCP_RX0IF|MCP_RX1IF);
-	DDRB &= ~(1<<PB4); //for can_pollInt()
+	CAN_INT_PORT &= ~(1<<CAN_INT); //for can_pollInt()
 }
 
 //TODO: Should find a empty buffer by itself. No need for bufferselect. Should rather have priorities
@@ -119,7 +119,7 @@ can_message_t can_dataReceive(void){
 
 uint8_t can_pollInt(){
 	//PD2 is set as input in can_init()
-	while((PINB & (1<<PB4))) //w8 for interrupt, hopefully not forever!
+	while((CAN_INT_PIN & (1<<CAN_INT))) //w8 for interrupt, hopefully not forever!
 	//find out which buffer is full
 	//if both is full, will only read the first one. Might be problematic if we send lot of data on the can-bus
 	if (mcp2515_read(MCP_CANINTF) & MCP_RX0IF){

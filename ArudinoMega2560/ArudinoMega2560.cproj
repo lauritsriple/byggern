@@ -28,15 +28,15 @@
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.6.0" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.10.1" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -111,6 +111,14 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ArudinoMega2560.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="board.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="board.c" />
+    <Compile Include="board.c" />
+    <Compile Include="board.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="communication\can.c">

@@ -10,27 +10,28 @@
 #include "motor.h"
 #include <stdint.h>
 #include "communication/max520.h"
+#include "board.h"
 
 static void motor_enable (uint8_t enable){
 	if (enable){
-		PORTF |= (1 << PF4);
+		MOTOR_PORT |= (1 << MOTOR_EN);
 	} else {
-		PORTF &= ~(1 << PF4);
+		MOTOR_PORT &= ~(1 << MOTOR_EN);
 	}
 }
 
 static void motor_encoderOuptutEnable (uint8_t enable){
 	if (enable){
-		PORTF &= ~(1 << PF7);
+		MOTOR_PORT &= ~(1 << MOTOR_ENCODER_EN);
 		} else {
-		PORTF |= (1 << PF7);
+		MOTOR_PORT |= (1 << MOTOR_ENCODER_EN);
 	}
 }
 
 void motor_encoderCounterReset(void){
-	PORTF &= ~(1<<PF6);
+	MOTOR_PORT &= ~(1<<MOTOR_ENCODER_RESET);
 	_delay_us(20);
-	PORTF |= (1 <<PF6);
+	MOTOR_PORT |= (1 <<MOTOR_ENCODER_RESET);
 }
 
 typedef enum encoderByte encoderByte;
@@ -38,10 +39,10 @@ enum encoderByte {EB_HIGH,EB_LOW};
 	
 static void motor_encoderSelectByte(encoderByte e){
 	if (e==EB_HIGH){
-		PORTF |= (1 << PF5);
+		MOTOR_PORT |= (1 << MOTOR_ENCODER_SEL);
 	}
 	else{ //EB_LOW
-		PORTF &= ~(1 << PF5);
+		MOTOR_PORT &= ~(1 << MOTOR_ENCODER_SEL);
 	}
 }
 
@@ -54,8 +55,8 @@ static uint8_t reverse_bits(uint8_t byte){
 
 void motor_init(void){
 	max520_init();
-	DDRF |= (1<<PF6) | (1<<PF7) | (1<<PF5) | (1<<PF4) | (1<<PF3);
-	DDRK=0;
+	MOTOR_DDR |= (1<<MOTOR_ENCODER_RESET) | (1<<MOTOR_ENCODER_EN) | (1<<MOTOR_ENCODER_SEL) | (1<<MOTOR_EN) | (1<<MOTOR_DIR);
+	ENCODER_PORT=0;
 	motor_encoderOuptutEnable(1);
 	motor_encoderCounterReset();
 	motor_encoderSelectByte(EB_HIGH);
@@ -65,10 +66,10 @@ void motor_init(void){
 
 void motor_direction(motorDirection dir){
 	if (dir==right){
-		PORTF |= (1 << PF3);
+		MOTOR_PORT |= (1 << MOTOR_DIR);
 	}
 	else{ //left
-		PORTF &= ~(1 << PF3);
+		MOTOR_PORT &= ~(1 << MOTOR_DIR);
 	}
 }
 
@@ -79,9 +80,9 @@ void motor_speed(uint8_t speed){
 int16_t motor_encoderRead(void){
 	motor_encoderOuptutEnable(1);
 	motor_encoderSelectByte(EB_HIGH);
-	uint8_t msb = reverse_bits(PINK);
+	uint8_t msb = reverse_bits(ENCODER_PIN);
 	motor_encoderSelectByte(EB_LOW);
-	uint8_t lsb = reverse_bits(PINK);
+	uint8_t lsb = reverse_bits(ENCODER_PIN);
 	motor_encoderOuptutEnable(0); 
 	//2s komplement
 	return -((msb << 8) | lsb);

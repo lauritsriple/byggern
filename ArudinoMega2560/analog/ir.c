@@ -5,12 +5,13 @@
  *  Author: shahrukk
  */ 
 
-#include <avr/io.h>
+#include <stdint.h>
 #include "adc.h"
 #include "ir.h"
+#include "../board.h"
 
 uint8_t ir_signal(void){
-	uint16_t value = adc_read(IRCHANNEL);
+	uint16_t value = adc_read(IR_CHANNEL);
 	if (value > 900){
 		return 1;
 	}

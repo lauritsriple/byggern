@@ -16,6 +16,6 @@ void max520_init(void){
 	sei();
 }
 void max520_send(uint8_t val){
-	unsigned char msg[3] = {0b01011100,0,val};
+	unsigned char msg[3] = {0b01011100,0,val}; //hardcoded, adress ad ch could be parametres of function
 		TWI_Start_Transceiver_With_Data(msg,3);
 }
