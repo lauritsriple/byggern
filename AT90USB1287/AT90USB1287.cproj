@@ -162,6 +162,14 @@
       <SubType>compile</SubType>
       <Link>Drivers\adc.h</Link>
     </Compile>
+    <Compile Include="..\ATmega162\analog\joy.c">
+      <SubType>compile</SubType>
+      <Link>Drivers\joy.c</Link>
+    </Compile>
+    <Compile Include="..\ATmega162\analog\joy.h">
+      <SubType>compile</SubType>
+      <Link>Drivers\joy.h</Link>
+    </Compile>
     <Compile Include="..\lib\can.c">
       <SubType>compile</SubType>
       <Link>Drivers\Communication\can.c</Link>

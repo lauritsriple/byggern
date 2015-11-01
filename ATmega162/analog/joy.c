@@ -5,8 +5,8 @@
  *  Author: shahrukk
  */ 
 
-#include "../analog/joy.h"
-#include "../analog/adc.h"
+#include "joy.h"
+#include "adc.h"
 #include <stdint.h>
 
 static int16_t x_center;
