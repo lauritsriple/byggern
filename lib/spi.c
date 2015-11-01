@@ -7,7 +7,12 @@
 
 #include "spi.h"
 #include <avr/io.h>
-#include "../board.h"
+
+#if defined(__AVR_ATMega162__)
+#include "../ATmega162/board.h"
+#elif defined(__AVR_ATMega2560__)
+#include "../ArduinoMega2560/board.h"
+#endif
 
 void spi_init(void){
 	//SCK UT, MISO IN, MOSI UT, SS UT

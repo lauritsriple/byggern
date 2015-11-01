@@ -98,16 +98,64 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="analog\adc.c">
+    <Compile Include="..\lib\can.c">
+      <SubType>compile</SubType>
+      <Link>drivers\communication\can.c</Link>
+    </Compile>
+    <Compile Include="..\lib\can.h">
+      <SubType>compile</SubType>
+      <Link>drivers\communication\can.h</Link>
+    </Compile>
+    <Compile Include="..\lib\mcp2515.c">
+      <SubType>compile</SubType>
+      <Link>drivers\communication\mcp2515.c</Link>
+    </Compile>
+    <Compile Include="..\lib\mcp2515.h">
+      <SubType>compile</SubType>
+      <Link>drivers\communication\mcp2515.h</Link>
+    </Compile>
+    <Compile Include="..\lib\mcp2515defines.h">
+      <SubType>compile</SubType>
+      <Link>drivers\communication\mcp2515defines.h</Link>
+    </Compile>
+    <Compile Include="..\lib\spi.c">
+      <SubType>compile</SubType>
+      <Link>drivers\communication\spi.c</Link>
+    </Compile>
+    <Compile Include="..\lib\spi.h">
+      <SubType>compile</SubType>
+      <Link>drivers\communication\spi.h</Link>
+    </Compile>
+    <Compile Include="..\lib\uart.c">
+      <SubType>compile</SubType>
+      <Link>drivers\communication\uart.c</Link>
+    </Compile>
+    <Compile Include="..\lib\uart.h">
+      <SubType>compile</SubType>
+      <Link>drivers\communication\uart.h</Link>
+    </Compile>
+    <Compile Include="drivers\adc.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="analog\adc.h">
+    <Compile Include="drivers\adc.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="analog\ir.c">
+    <Compile Include="drivers\communication\max520.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="analog\ir.h">
+    <Compile Include="drivers\communication\max520.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\communication\TWI_Master.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\communication\TWI_Master.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\ir.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\ir.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ArudinoMega2560.c">
@@ -121,52 +169,16 @@
     <Compile Include="board.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="communication\can.c">
+    <Compile Include="drivers\motor.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="communication\can.h">
+    <Compile Include="drivers\motor.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="communication\main.c">
+    <Compile Include="drivers\pwm.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="communication\max520.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\max520.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\mcp2515.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\mcp2515.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\mcp2515defines.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\spi.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\spi.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\TWI_Master.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\TWI_Master.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\uart.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\uart.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="digital\pwm.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="digital\pwm.h">
+    <Compile Include="drivers\pwm.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="game.c">
@@ -175,17 +187,10 @@
     <Compile Include="game.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="motor.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="motor.h">
-      <SubType>compile</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="communication" />
-    <Folder Include="digital" />
-    <Folder Include="analog" />
+    <Folder Include="drivers" />
+    <Folder Include="drivers\communication\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

@@ -28,15 +28,15 @@
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.10.1" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.10.1" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
     <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
     <com_atmel_avrdbg_tool_atmelice>
@@ -109,6 +109,42 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\lib\can.c">
+      <SubType>compile</SubType>
+      <Link>communication\can.c</Link>
+    </Compile>
+    <Compile Include="..\lib\can.h">
+      <SubType>compile</SubType>
+      <Link>communication\can.h</Link>
+    </Compile>
+    <Compile Include="..\lib\mcp2515.c">
+      <SubType>compile</SubType>
+      <Link>communication\mcp2515.c</Link>
+    </Compile>
+    <Compile Include="..\lib\mcp2515.h">
+      <SubType>compile</SubType>
+      <Link>communication\mcp2515.h</Link>
+    </Compile>
+    <Compile Include="..\lib\mcp2515defines.h">
+      <SubType>compile</SubType>
+      <Link>communication\mcp2515defines.h</Link>
+    </Compile>
+    <Compile Include="..\lib\spi.c">
+      <SubType>compile</SubType>
+      <Link>communication\spi.c</Link>
+    </Compile>
+    <Compile Include="..\lib\spi.h">
+      <SubType>compile</SubType>
+      <Link>communication\spi.h</Link>
+    </Compile>
+    <Compile Include="..\lib\uart.c">
+      <SubType>compile</SubType>
+      <Link>communication\uart.c</Link>
+    </Compile>
+    <Compile Include="..\lib\uart.h">
+      <SubType>compile</SubType>
+      <Link>communication\uart.h</Link>
+    </Compile>
     <Compile Include="analog\adc.c">
       <SubType>compile</SubType>
     </Compile>
@@ -128,33 +164,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="board.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\can.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\can.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\mcp2515.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\mcp2515.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\mcp2515defines.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\spi.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\spi.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\uart.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="communication\uart.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="display\font.c">

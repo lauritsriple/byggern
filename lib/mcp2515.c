@@ -11,7 +11,12 @@
 #include "spi.h"
 //#include <stdlib.h> needed?
 #include <stdio.h>
-#include "../board.h"
+
+#if defined(__AVR_ATMega162__)
+#include "../ATmega162/board.h"
+#elif defined(__AVR_ATMega2560__)
+#include "../ArduinoMega2560/board.h"
+#endif
 
 void mcp2515_init(void){
 	uint8_t value=0;
