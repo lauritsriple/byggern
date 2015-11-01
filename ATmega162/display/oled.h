@@ -9,10 +9,9 @@
 #ifndef OLED_H_
 #define OLED_H_
 
-#include <avr/io.h>
-
-//const uint8_t SCREEN_ROWS = 128;
-//const uint8_t SCREEN_COLS= 64;
+#include <stdint.h>
+#define SCREEN_ROWS 128;
+#define SCREEN_COLS 64;
 
 void oled_init(void);
 void oled_home(void);
@@ -22,8 +21,6 @@ void oled_pos(uint8_t page, uint8_t column);
 void oled_put_char(char c);
 void oled_printf(char* fmt, ...);
 void oled_fill_page(uint8_t page);
-
 void oled_clear_all();
-
 
 #endif /* OLED_H_ */

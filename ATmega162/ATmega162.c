@@ -20,41 +20,40 @@
 #include "communication/can.h"
 #include "communication/mcp2515defines.h"
 #include "communication/mcp2515.h"
-
-
-#define LED 0
-#define SW1 1
-
-ISR(INT2_vect){
-	adc_conversion = 0;
-}
-
-
+#include "board.h"
 
 int main(void) {
-	DDRB |= (1 << PB0);
-	DDRB &= ~(1 << PB1);
-	DDRB &= ~(1 << PB2);
-	MCUCR |= (1 << SRE);
+	//DDRB |= (1 << PB0); Moved to board.h
+	//DDRB &= ~(1 << PB1);
+	//DDRB &= ~(1 << PB2); //RX, uart as input? Is it really needed? SHOULD BE TESTED?
+	board_init();
+	puts("Board\t\t initialized\r");
+	
 	uart_init();
-	printf("\f");
+	//printf("\f"); What is this for?
 	puts("UART\t\t initialized\r");
+	
 	adc_init();
 	puts("ADC\t\t initialized\r");
-	sei();
-	puts("Interrupts\t enabled\r");				
+		
 	joy_init();
 	puts("Joystick\t initialized\r");
-	//oled_init();
-	puts("OLED\t\t initialized\r");
-	can_init(MODE_NORMAL);
-	puts("SPI\t\t initialized");
-	puts("MCP2515\t\t initialized");
 	
+	//oled_init();
+	//puts("OLED\t\t initialized\r");
+	
+	can_init(MODE_NORMAL);
+	puts("SPI\t\t initialized\r");
+	puts("MCP2515\t\t initialized\r");
+	puts("CAN\t\t initialized\r");
+	
+	sei();
+	puts("Interrupts\t enabled\r");
+		
 	can_message_t* msg = malloc(sizeof(can_message_t));
-
+	
 	while(1) {
-		PORTB ^= (1 << LED);
+		LED_PORT ^= (1 << LED);
 		//TODO: add this print as function in joy.c
 		//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read(0b00000100),adc_read(0b00000101), adc_read(0b00000110), adc_read(0b00000111));
 		joy_pos_t pos = joy_getPos();
@@ -69,12 +68,5 @@ int main(void) {
 		//printf("sending:  ");
 		//can_print(*msg);
 		can_messageSend(msg,MCP_TXB1CTRL);
-    }
+    }	
 }
-
-
-
-//LEFT TOUCH = PORT B, PIN 5 AND PIN 6
-//RIGHT TOUCH = PORT D, PIN 1 AND PIN 2
-
-//WE GET AT SMOOTHER SIGNAL AFTER PWM

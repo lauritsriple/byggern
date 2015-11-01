@@ -7,13 +7,14 @@
 
 #include <avr/io.h>
 #include "ADC.h"
+#include "../board.h"
 
 volatile uint8_t adc_conversion;
 
 void adc_init(void){
 	GICR |= (1 << INT2);
 	EMCUCR &= ~(1 << ISC2);
-	DDRE &= ~(1 << PE0); 
+	ADC_PORT &= ~(1 << ADC_INT); 
 }
 
 
@@ -26,5 +27,9 @@ uint8_t adc_read(adc_ch ch){
 			//do nothing, wait for interrupt
 		}
 		return adc_ram[0];
+}
+
+ISR(INT2_vect){ //INT2 = ADC_INT
+	adc_conversion = 0;
 }
 

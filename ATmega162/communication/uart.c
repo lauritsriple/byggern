@@ -40,7 +40,6 @@ void uart_putChar(unsigned char c){
 
 
 unsigned char uart_getChar(){
-	
 	while((UCSR0A) & (1<<UDRE0)); //Wait for "full" transmit buffer
 	return UDR0;
 }

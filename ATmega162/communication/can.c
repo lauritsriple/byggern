@@ -5,14 +5,12 @@
  *  Author: shahrukk
  */ 
 
-//SKAL KUNNE UTVIDES
-
 #include "can.h"
 #include "mcp2515.h"
 #include "mcp2515defines.h"
 #include "uart.h"
 #include <stdlib.h>
-#include <string.h>
+#include <string.h> //needed?
 
 
 void can_init(uint8_t operationMode){
@@ -20,7 +18,7 @@ void can_init(uint8_t operationMode){
 	mcp2515_bitModify(MCP_RXB0CTRL, MCP_FILTER_MASK, 0xff); //turn off filter
 	mcp2515_bitModify(MCP_RXB1CTRL, MCP_FILTER_MASK, 0xff); //turn off filter
 	mcp2515_bitModify(MCP_CANCTRL, MODE_MASK, operationMode);
-	DDRD &= ~(1<<PD2); //for can_pollInt()
+	CAN_INT_PORT &= ~(1<<CAN_INT); //for can_pollInt()
 }
 
 //TODO: Should find a empty buffer by itself. No need for bufferselect. Should rather have priorities
@@ -91,7 +89,7 @@ can_message_t can_dataReceive(void){
 
 uint8_t can_pollInt(){
 	//PD2 is set as input in can_init()
-	while(!(PIND & (1<<PD2))){} //w8 for interrupt, hopefully not forever!
+	while(!(CAN_INT_PIN & (1<<CAN_INT))){} //w8 for interrupt, hopefully not forever!
 	//find out which buffer is full
 	//if both is full, will only read the first one. Might be problematic if we send lot of data on the can-bus
 	if (mcp2515_read(MCP_CANINTF) & MCP_RX0IF){

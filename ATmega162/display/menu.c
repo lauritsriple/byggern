@@ -5,7 +5,6 @@
  *  Author: laurittr
  */ 
 
-#include <avr/io.h>
 #include <stdlib.h>
 #include "menu.h"
 

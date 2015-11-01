@@ -7,8 +7,7 @@
 
 #include "../analog/joy.h"
 #include "../analog/adc.h"
-#include "../communication/uart.h"
-#include <avr/io.h>
+#include <stdint.h>
 
 static int16_t x_center;
 static int16_t y_center;

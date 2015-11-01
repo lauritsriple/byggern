@@ -9,9 +9,7 @@
 #ifndef MCP2515_H_
 #define MCP2515_H_
 
-#include <avr/io.h>
-
-#define MCP2515_CS 4 //ss on PB4
+#include <stdint.h>
 
 void mcp2515_init(void);
 uint8_t mcp2515_read(uint8_t address);

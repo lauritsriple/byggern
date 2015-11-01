@@ -9,7 +9,7 @@
 #ifndef CAN_H_
 #define CAN_H_
 
-#include <avr/io.h>
+#include <stdint.h>
 
 typedef struct can_message_t can_message_t;
 struct can_message_t{
