@@ -9,6 +9,8 @@
 #ifndef BOARD_H_
 #define BOARD_H_
 
+#include <avr/io.h>
+
 //PORTB
 #define LED_PORT	PORTB
 #define LED_DDR		DDRB

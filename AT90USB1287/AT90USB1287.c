@@ -14,34 +14,41 @@
 //oled control from atmega162 over parallel if extsel
 
 
+#define F_CPU 8000000
 
 #include <avr/io.h>
 #include <util/delay.h>
+#include "../lib/can.h"
 //#include "touch.h"
 
-#define F_CPU 8000000
+
 
 int main(void)
 {
-	uart_init();
-	can_init();
-	adc_init();
-	touch_init(30, 30, 30, 30);
-	uint8_t ls, rs, lb, rb;
+	spi_init();
+	//uart_init();
+	//can_init();
+	//adc_init();
+	//touch_init(30, 30, 30, 30);
+	//uint8_t ls, rs, lb, rb;
 	//DDRB |= (1<<0)|(1<<1)|(1<<2)|(1<<3);
 	DDRD |= (1 << 0);
 	DDRD |= (1 << 2);
 
 	can_message_t* msg = malloc(sizeof(can_message_t));
-	uint8_t oled[8]=0;
+	//uint8_t oled[8]=0;
 	
 	while(1)
 	{
-		touch_measure(&ls, &rs, &lb, &rb);
+		spi_transmit('c');
+		for (uint16_t i =0; i<2048;i++){
+			DDRD^=(1<<0);
+		}
+		/*touch_measure(&ls, &rs, &lb, &rb);
 		joy_pos_t pos = joy_getPos();
 		//pwm_set(1,ls);
 		//pwm_set(2,rs);
-		/*
+		
 		if (lb)
 		PORTD &= ~(1<<0);
 		else
@@ -50,7 +57,7 @@ int main(void)
 		PORTD &= ~(1<<1);
 		else
 		PORTD |= (1<<1);
-		*/
+		
 		
 		msg->id=15;
 		msg->length=8;
@@ -75,7 +82,8 @@ int main(void)
 			default:
 				break;
 				
-		}
+		}*/
+		
 
 	}
 }

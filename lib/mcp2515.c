@@ -16,7 +16,7 @@
 #include "../ATmega162/board.h"
 #elif defined(__AVR_ATMega2560__)
 #include "../ArduinoMega2560/board.h"
-#elif defined(__AVR_AT90usb1287__)
+#elif defined(__AVR_AT90USB1287__)
 #include "../AT90USB1287/board.h"
 #endif
 
