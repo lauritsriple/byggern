@@ -40,13 +40,14 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../../lib/can.c \
+../../lib/mcp2515.c \
+../../lib/spi.c \
+../../lib/uart.c \
 ../analog/adc.c \
 ../analog/joy.c \
 ../ATmega162.c \
-../communication/can.c \
-../communication/mcp2515.c \
-../communication/spi.c \
-../communication/uart.c \
+../board.c \
 ../display/font.c \
 ../display/gui.c \
 ../display/menu.c \
@@ -61,13 +62,14 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-analog/adc.o \
-analog/joy.o \
-ATmega162.o \
 communication/can.o \
 communication/mcp2515.o \
 communication/spi.o \
 communication/uart.o \
+analog/adc.o \
+analog/joy.o \
+ATmega162.o \
+board.o \
 display/font.o \
 display/gui.o \
 display/menu.o \
@@ -75,13 +77,14 @@ display/oled.o \
 sram/SRAM_test.o
 
 OBJS_AS_ARGS +=  \
-analog/adc.o \
-analog/joy.o \
-ATmega162.o \
 communication/can.o \
 communication/mcp2515.o \
 communication/spi.o \
 communication/uart.o \
+analog/adc.o \
+analog/joy.o \
+ATmega162.o \
+board.o \
 display/font.o \
 display/gui.o \
 display/menu.o \
@@ -89,13 +92,14 @@ display/oled.o \
 sram/SRAM_test.o
 
 C_DEPS +=  \
-analog/adc.d \
-analog/joy.d \
-ATmega162.d \
 communication/can.d \
 communication/mcp2515.d \
 communication/spi.d \
 communication/uart.d \
+analog/adc.d \
+analog/joy.d \
+ATmega162.d \
+board.d \
 display/font.d \
 display/gui.d \
 display/menu.d \
@@ -103,13 +107,14 @@ display/oled.d \
 sram/SRAM_test.d
 
 C_DEPS_AS_ARGS +=  \
-analog/adc.d \
-analog/joy.d \
-ATmega162.d \
 communication/can.d \
 communication/mcp2515.d \
 communication/spi.d \
 communication/uart.d \
+analog/adc.d \
+analog/joy.d \
+ATmega162.d \
+board.d \
 display/font.d \
 display/gui.d \
 display/menu.d \
@@ -152,6 +157,15 @@ LIB_DEP+=
 
 
 
+
+
+communication/%.o: ../../lib/%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 4.8.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega162 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 analog/%.o: ../analog/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
@@ -160,13 +174,6 @@ analog/%.o: ../analog/%.c
 	
 
 ./%.o: .././%.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega162 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-communication/%.o: ../communication/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega162 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

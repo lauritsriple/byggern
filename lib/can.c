@@ -5,21 +5,20 @@
  *  Author: shahrukk
  */ 
 
+#if defined(__AVR_ATMega162__)
+#include "../ATmega162/board.h"
+#elif defined(__AVR_ATMega2560__)
+#include "../ATmega2560/board.h"
+#elif defined(__AVR_AT90USB1287__)
+#include "../AT90USB1287/board.h"
+#endif
+
 #include "can.h"
 #include "mcp2515.h"
 #include "mcp2515defines.h"
 #include "uart.h"
 #include <stdlib.h>
 #include <string.h> //needed?
-
-#if defined(__AVR_ATMega162__)
-#include "../ATmega162/board.h"
-#elif defined(__AVR_ATMega2560__)
-#include "../ArduinoMega2560/board.h"
-#elif defined(__AVR_AT90USB1287__)
-#include "../AT90USB1287/board.h"
-#endif
-
 
 void can_init(uint8_t operationMode){
 	mcp2515_init();

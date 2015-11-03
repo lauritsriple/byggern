@@ -9,7 +9,15 @@
 #include "uart.h"
 #include <stdio.h>
 
-#define ubrr (F_CPU/16/BAUD - 1)
+#if defined (__AVR_AT90USB1287__)
+	#define ubrr 103 //9600
+#elif defined (__AVR_ATmega162__)
+	#define ubrr (F_CPU/16/BAUD - 1)
+#elif defined (__AVR_ATmega2560__)
+	#define ubrr(F_CPU/16/BAUD - 1)
+#endif
+
+//#define ubrr (F_CPU/16/BAUD - 1)
 
 void uart_init(void){
 	#if defined (__AVR_AT90USB1287__)
@@ -30,7 +38,7 @@ void uart_init(void){
 
 	
 	#if defined(__AVR_ATmega162_)
-		USCSR0C |= ( 1 << URSEL0)
+		UCSR0C |= ( 1 << URSEL0)
 				| ( 1 << UCSZ00); //char size to 8bit
 	#elif defined(__AVR_ATmega2560__)
 		UCSR0C |= (3 << UCSZ00); // char size to 8

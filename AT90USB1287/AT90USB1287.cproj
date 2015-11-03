@@ -65,29 +65,34 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <AvrGcc>
-        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
-        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
-        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
-        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
-        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
-        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
-        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
-        <avrgcc.compiler.symbols.DefSymbols>
-          <ListValues>
-            <Value>NDEBUG</Value>
-          </ListValues>
-        </avrgcc.compiler.symbols.DefSymbols>
-        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
-        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
-        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-        <avrgcc.linker.libraries.Libraries>
-          <ListValues>
-            <Value>libm</Value>
-          </ListValues>
-        </avrgcc.linker.libraries.Libraries>
-      </AvrGcc>
+  <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>NDEBUG</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.Libraries>
+  <avrgcc.linker.libraries.LibrarySearchPaths>
+    <ListValues>
+      <Value>Z:\brukere\Laurits Riple\byggern\lib</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.LibrarySearchPaths>
+</AvrGcc>
     </ToolchainSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -106,12 +111,13 @@
       <Value>DEBUG</Value>
       <Value>_QMATRIX_</Value>
       <Value>_ROTOR_SLIDER_</Value>
+      <Value>QT_DELAY_CYCLES=1</Value>
       <Value>QT_NUM_CHANNELS=16</Value>
       <Value>QT_MAX_NUM_ROTORS_SLIDERS=2</Value>
       <Value>NUM_X_LINES=8</Value>
-      <Value>QT_DELAY_CYCLES=1</Value>
       <Value>NUM_Y_LINES=2</Value>
       <Value>NUM_X_PORTS=2</Value>
+      <Value>PORT_NUM_1=1</Value>
       <Value>PORT_NUM_2=2</Value>
       <Value>PORT_X_1=E</Value>
       <Value>PORT_X_2=C</Value>
@@ -119,13 +125,13 @@
       <Value>PORT_YB=F</Value>
       <Value>PORT_SMP=F</Value>
       <Value>SMP_PIN=5</Value>
-      <Value>burst_qm_1</Value>
-      <Value>F_CPU=8000000</Value>
+      <Value>F_CPU=16000000</Value>
     </ListValues>
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value>..</Value>
+      <Value>../../lib</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -157,39 +163,39 @@
   <ItemGroup>
     <Compile Include="..\lib\can.c">
       <SubType>compile</SubType>
-      <Link>drivers\can.c</Link>
+      <Link>can.c</Link>
     </Compile>
     <Compile Include="..\lib\can.h">
       <SubType>compile</SubType>
-      <Link>drivers\can.h</Link>
+      <Link>can.h</Link>
     </Compile>
     <Compile Include="..\lib\mcp2515.c">
       <SubType>compile</SubType>
-      <Link>drivers\mcp2515.c</Link>
+      <Link>mcp2515.c</Link>
     </Compile>
     <Compile Include="..\lib\mcp2515.h">
       <SubType>compile</SubType>
-      <Link>drivers\mcp2515.h</Link>
+      <Link>mcp2515.h</Link>
     </Compile>
     <Compile Include="..\lib\mcp2515defines.h">
       <SubType>compile</SubType>
-      <Link>drivers\mcp2515defines.h</Link>
+      <Link>mcp2515defines.h</Link>
     </Compile>
     <Compile Include="..\lib\spi.c">
       <SubType>compile</SubType>
-      <Link>drivers\spi.c</Link>
+      <Link>spi.c</Link>
     </Compile>
     <Compile Include="..\lib\spi.h">
       <SubType>compile</SubType>
-      <Link>drivers\spi.h</Link>
+      <Link>spi.h</Link>
     </Compile>
     <Compile Include="..\lib\uart.c">
       <SubType>compile</SubType>
-      <Link>drivers\uart.c</Link>
+      <Link>uart.c</Link>
     </Compile>
     <Compile Include="..\lib\uart.h">
       <SubType>compile</SubType>
-      <Link>drivers\uart.h</Link>
+      <Link>uart.h</Link>
     </Compile>
     <Compile Include="AT90USB1287.c">
       <SubType>compile</SubType>
@@ -215,9 +221,6 @@
     <Compile Include="touch_qm_config.h">
       <SubType>compile</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="drivers" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

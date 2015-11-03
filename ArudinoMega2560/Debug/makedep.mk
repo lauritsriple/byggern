@@ -2,29 +2,33 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-analog\adc.c
+..\lib\can.c
 
-analog\ir.c
+..\lib\mcp2515.c
+
+..\lib\spi.c
+
+..\lib\uart.c
+
+drivers\adc.c
+
+drivers\communication\max520.c
+
+drivers\communication\TWI_Master.c
+
+drivers\ir.c
 
 ArudinoMega2560.c
 
-communication\can.c
+board.c
 
-communication\main.c
+board.c
 
-communication\max520.c
+board.c
 
-communication\mcp2515.c
+drivers\motor.c
 
-communication\spi.c
-
-communication\TWI_Master.c
-
-communication\uart.c
-
-digital\pwm.c
+drivers\pwm.c
 
 game.c
-
-motor.c
 
