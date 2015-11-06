@@ -9,18 +9,18 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include "../lib/uart.h"
-#include "sram/SRAM_test.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <avr/interrupt.h>
 #include "analog/adc.h"
+#include "../lib/uart.h"
+#include "sram/SRAM_test.h"
 #include "analog/joy.h"
 #include "display/oled.h"
 #include "../lib/can.h"
 #include "../lib/mcp2515defines.h"
 #include "../lib/mcp2515.h"
-#include "board.h"
+#include "../ATmega162/board.h"
 
 int main(void) {
 	//DDRB |= (1 << PB0); Moved to board.h

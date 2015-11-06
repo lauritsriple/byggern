@@ -15,7 +15,7 @@
 #if defined(__AVR_ATmega162__)
 	#include "../ATmega162/board.h"
 #elif defined(__AVR_ATmega2560__)
-	#include "../ATmega2560/board.h"
+	#include "../ArudinoMega2560/boardhack.h"
 #elif defined(__AVR_AT90USB1287__)
 	#include "../AT90USB1287/board.h"
 #endif

@@ -8,7 +8,7 @@
 #include <stdint.h>
 #include "adc.h"
 #include "ir.h"
-#include "../board.h"
+#include "../boardhack.h"
 
 uint8_t ir_signal(void){
 	uint16_t value = adc_read(IR_CHANNEL);

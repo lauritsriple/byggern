@@ -161,6 +161,14 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\lib\adc.c">
+      <SubType>compile</SubType>
+      <Link>adc.c</Link>
+    </Compile>
+    <Compile Include="..\lib\adc.h">
+      <SubType>compile</SubType>
+      <Link>adc.h</Link>
+    </Compile>
     <Compile Include="..\lib\can.c">
       <SubType>compile</SubType>
       <Link>can.c</Link>
@@ -168,6 +176,14 @@
     <Compile Include="..\lib\can.h">
       <SubType>compile</SubType>
       <Link>can.h</Link>
+    </Compile>
+    <Compile Include="..\lib\joy.c">
+      <SubType>compile</SubType>
+      <Link>joy.c</Link>
+    </Compile>
+    <Compile Include="..\lib\joy.h">
+      <SubType>compile</SubType>
+      <Link>joy.h</Link>
     </Compile>
     <Compile Include="..\lib\mcp2515.c">
       <SubType>compile</SubType>

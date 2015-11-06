@@ -81,14 +81,9 @@
   <avrgcc.compiler.symbols.DefSymbols>
     <ListValues>
       <Value>DEBUG</Value>
+      <Value>F_CPU=16000000</Value>
     </ListValues>
   </avrgcc.compiler.symbols.DefSymbols>
-  <avrgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>../../lib</Value>
-      <Value>../drivers/communication</Value>
-    </ListValues>
-  </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
   <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
   <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
@@ -104,6 +99,14 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\lib\adc.c">
+      <SubType>compile</SubType>
+      <Link>adc.c</Link>
+    </Compile>
+    <Compile Include="..\lib\adc.h">
+      <SubType>compile</SubType>
+      <Link>adc.h</Link>
+    </Compile>
     <Compile Include="..\lib\can.c">
       <SubType>compile</SubType>
       <Link>drivers\communication\can.c</Link>
@@ -140,12 +143,6 @@
       <SubType>compile</SubType>
       <Link>drivers\communication\uart.h</Link>
     </Compile>
-    <Compile Include="drivers\adc.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="drivers\adc.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="drivers\communication\max520.c">
       <SubType>compile</SubType>
     </Compile>
@@ -167,12 +164,10 @@
     <Compile Include="ArudinoMega2560.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="board.c">
+    <Compile Include="boardhack.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="board.c" />
-    <Compile Include="board.c" />
-    <Compile Include="board.h">
+    <Compile Include="boardhack.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="drivers\motor.c">

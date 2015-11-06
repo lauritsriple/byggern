@@ -11,7 +11,7 @@
 #if defined(__AVR_ATmega162__)
 	#include "../ATmega162/board.h"
 #elif defined(__AVR_ATmega2560__)
-	#include "../ATmega2560/board.h"
+	#include "../ArudinoMega2560/boardhack.h"
 #elif defined(__AVR_AT90USB1287__)
 	#include "../AT90USB1287/board.h"
 #endif
@@ -20,8 +20,8 @@
 
 void spi_init(void){
 	//SCK UT, MISO IN, MOSI UT, SS UT
-	SPI_PORT |= (1 << SPI_MOSI) | (1 << SPI_SCK) | (1 << SPI_CS_MCP2515);
-	SPI_PORT &= ~(1 << SPI_MISO);
+	SPI_DDR |= (1 << SPI_MOSI) | (1 << SPI_SCK) | (1 << SPI_CS_MCP2515);
+	SPI_DDR &= ~(1 << SPI_MISO);
 	// NOT interrupt driven
 	// mcp2515, max frequency is 10mhz
 	// with external clock, F_CPU is defined to 4,9mhz. we divide by 4, so our sck is 1,2mhz

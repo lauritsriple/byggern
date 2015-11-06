@@ -17,7 +17,7 @@ enum adc_ch{
 	joy_y = 7,
 };
 
-uint8_t adc_read(adc_ch ch);
+uint8_t adc_read8(adc_ch ch);
 volatile uint8_t adc_conversion;
 void adc_init(void);
 

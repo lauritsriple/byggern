@@ -1,4 +1,4 @@
-0/*
+/*
  * board.h
  *
  * Created: 01.11.2015 16.08.00
@@ -6,8 +6,12 @@
  */ 
 
 
-#ifndef BOARD_H_
-#define BOARD_H_
+#ifndef BOARD__H_
+#define BOARD__H_
+
+#include <avr/io.h>
+
+void board_init_hack(void);
 
 //DEBUG LED
 #define LED_DDR		DDRH
@@ -39,6 +43,7 @@
 #define ENCODER_PIN			PINK
 
 //SPI
+#define SPI_DDR			DDRB
 #define SPI_PORT		PORTB
 #define SPI_SCK			1
 #define SPI_MOSI		2
@@ -49,9 +54,5 @@
 #define CAN_INT_PORT	PORTB
 #define CAN_INT_PIN		PINB
 #define CAN_INT			4
-
-//void static init_led();
-
-
 
 #endif /* BOARD_H_ */

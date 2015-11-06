@@ -4,6 +4,8 @@
 
 ..\lib\can.c
 
+..\lib\joy.c
+
 ..\lib\mcp2515.c
 
 ..\lib\spi.c
@@ -11,8 +13,6 @@
 ..\lib\uart.c
 
 analog\adc.c
-
-analog\joy.c
 
 ATmega162.c
 

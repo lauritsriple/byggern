@@ -95,12 +95,6 @@
       <Value>F_CPU=4915200</Value>
     </ListValues>
   </avrgcc.compiler.symbols.DefSymbols>
-  <avrgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>../../lib</Value>
-      <Value>../..</Value>
-    </ListValues>
-  </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
   <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
   <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
@@ -123,6 +117,14 @@
     <Compile Include="..\lib\can.h">
       <SubType>compile</SubType>
       <Link>communication\can.h</Link>
+    </Compile>
+    <Compile Include="..\lib\joy.c">
+      <SubType>compile</SubType>
+      <Link>analog\joy.c</Link>
+    </Compile>
+    <Compile Include="..\lib\joy.h">
+      <SubType>compile</SubType>
+      <Link>analog\joy.h</Link>
     </Compile>
     <Compile Include="..\lib\mcp2515.c">
       <SubType>compile</SubType>
@@ -156,12 +158,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="analog\adc.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="analog\joy.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="analog\joy.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="ATmega162.c">
@@ -203,8 +199,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="analog" />
-    <Folder Include="communication" />
     <Folder Include="display" />
+    <Folder Include="communication" />
     <Folder Include="sram" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />

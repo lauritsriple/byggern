@@ -14,81 +14,75 @@
 //oled control from atmega162 over parallel if extsel
 
 
-//#define F_CPU 8000000
+//#define F_CPU 8000000 defined in toolchain
 
 #include <avr/io.h>
 #include <util/delay.h>
-//#include "../lib/can.h"
-//#include "../lib/uart.h"
-//#include "touch.h"
+#include "can.h"
+#include "mcp2515defines.h"
+#include "touch.h"
 #include "uart.h"
-#include "spi.h"
-
-
-
+#include "pwm.h"
+#include "board.h"
+#include "adc.h"
+#include "joy.h"
 
 int main(void){
+	board_init();
 	uart_init();
-	touch_init(30, 30, 30, 30);
-	//TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
-	spi_init();
-	can_init();
+	touch_init(30, 30, 30, 30); //TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
 	adc_init();
+	pwm_init();
+	joy_init();
+	can_init(MODE_NORMAL);
 	
 	uint8_t ls, rs, lb, rb;
-	//DDRB |= (1<<0)|(1<<1)|(1<<2)|(1<<3);
-	DDRD |= (1 << 0);
-	//DDRD |= (1 << 2);
 
-	//can_message_t* msg = malloc(sizeof(can_message_t));
-	//uint8_t oled[8]=0;
+	can_message_t* msg13 = malloc(sizeof(can_message_t));
+	can_message_t* msg77 = malloc(sizeof(can_message_t));
+	//can_message_t receive;
+	joy_pos_t pos = joy_getPos();
+	printf("Initialization complete");
 	
-	while(1)
-	{
-		_delay_ms(50);
-		PORTD ^= (1 << 0);
-		//spi_transmit(0x01);
-		//for (uint16_t i =0; i<2048;i++){
-		//	DDRD^=(1<<0);
-		//}
-		printf("Sending char 0x01\r");
-		//uart_putChar('f');
-		/*touch_measure(&ls, &rs, &lb, &rb);
-		printf("touchymeasure");
-		printf("left slider: %4i\r",ls);
-		printf("right slider: %4i\r",rs);
-		printf("right button: %4i\r",lb);
-		printf("left button: %4i\r",rb);*/
-		//joy_pos_t pos = joy_getPos();
-		//pwm_set(1,ls);
-		//pwm_set(2,rs);
+	while(1){
+		touch_measure(&ls, &rs, &lb, &rb);
+		pwm_set(1,255-ls);
+		pwm_set(2,rs);
+		pos=joy_getPos();
 		
+		msg13->id=13;
+		msg13->length=4;
+		msg13->data[0]=pos.x>>8;
+		msg13->data[1]=pos.x;
+		msg13->data[2]=pos.y>>8;
+		msg13->data[3]=pos.y;
 		
-		/*msg->id=15;
-		msg->length=8;
-		msg->data[0]=pos.x>>8;
-		msg->data[1]=pos.x;
-		msg->data[2]=pos.y>>8;
-		msg->data[3]=pos.y;
-		msg->data[4]=ls;
-		msg->data[5]=lb;
-		msg->data[6]=rs;
-		msg->data[7]=rb;
-		can_messageSend(msg);
+		msg77->id=77;
+		msg77->length=4;
+		msg77->data[0]=255-ls;
+		msg77->data[1]=rs;
+		msg77->data[2]=lb;
+		msg77->data[3]=rb;
 		
-		can_message_t receive = can_dataReceive();
+		printf("sending:  ");
+		can_print(*msg13);
+		can_messageSend(msg13,MCP_TXB1CTRL);
 		
+		LED_PORT ^= (1 << LED1);
 		
-		switch (receive.id){
-			case 20: ;
-				for (uint8_t i = 0 ;i<8;i++){
-					//oled_put(receive->data[i]); or something like this
-				}
-			default:
-				break;
-				
+		/*if (!(SPI_PIN & SPI_CS_MCP2515)){
+			can_message_t receive = can_dataReceive();
+			switch (receive.id){
+				case 20: ;
+					for (uint8_t i = 0 ;i<8;i++){
+						//oled_put(receive->data[i]); or something like this
+					}
+				case 46:
+					//message that contains confidential information
+					break;
+				default:
+					break;	
+			}
 		}*/
-		
-
 	}
 }

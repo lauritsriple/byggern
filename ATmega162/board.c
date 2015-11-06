@@ -5,7 +5,7 @@
  *  Author: laura
  */ 
 
-#include "board.h"
+#include "../ATmega162/board.h"
 
 void board_init(void){
 	LED_DDR |= (1 << LED1); //Debug led

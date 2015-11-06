@@ -7,8 +7,8 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "ADC.h"
-#include "../board.h"
+#include "adc.h"
+#include "../ATmega162/board.h"
 
 volatile uint8_t adc_conversion;
 
@@ -19,7 +19,7 @@ void adc_init(void){
 }
 
 
-uint8_t adc_read(adc_ch ch){
+uint8_t adc_read8(adc_ch ch){
 		volatile char *adc_ram = (char *) 0x1400; // Start address for the ADC
 		adc_ram[0] = (uint8_t)ch;
 		adc_conversion = 1;

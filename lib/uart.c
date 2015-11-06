@@ -14,7 +14,7 @@
 #elif defined (__AVR_ATmega162__)
 	#define ubrr (F_CPU/16/BAUD - 1)
 #elif defined (__AVR_ATmega2560__)
-	#define ubrr(F_CPU/16/BAUD - 1)
+	#define ubrr 103 //9600
 #endif
 
 //#define ubrr (F_CPU/16/BAUD - 1)

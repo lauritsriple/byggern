@@ -22,8 +22,11 @@
 #define ADC_PORT	PORTE
 #define ADC_DDR		DDRE
 #define ADC_INT		0
+#define ADC_JOY_X	1 //NOT IN USE, because of lib
+#define ADC_JOY_Y	1 //NOT IN USE, because of lib
 
 //SPI
+#define SPI_DDR			DDRB
 #define SPI_PORT		PORTB
 #define SPI_SCK			7
 #define SPI_MOSI		5

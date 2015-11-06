@@ -10,7 +10,7 @@
 #include "motor.h"
 #include <stdint.h>
 #include "communication/max520.h"
-#include "board.h"
+#include "../boardhack.h"
 
 static void motor_enable (uint8_t enable){
 	if (enable){
