@@ -24,6 +24,10 @@
 #define ADC_JOY_X 0	//ADC0 - PF0
 #define ADC_JOY_Y 1 //ADC1 - PP1
 
+//PWM
+#define PWM_PORT	PORTB
+#define PWM1		7
+#define PWM2		6
 
 //TOUCH
 //Predefined in touchdriver, touch.h and touch.c

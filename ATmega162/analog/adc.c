@@ -6,15 +6,16 @@
  */ 
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include "ADC.h"
 #include "../board.h"
 
 volatile uint8_t adc_conversion;
 
 void adc_init(void){
-	GICR |= (1 << INT2);
-	EMCUCR &= ~(1 << ISC2);
-	ADC_PORT &= ~(1 << ADC_INT); 
+	GICR |= (1 << INT2); //interupt mask to enable the int2 vector
+	EMCUCR &= ~(1 << ISC2); //rising edge interrupt
+	ADC_DDR &= ~(1 << ADC_INT); //interupt pin as input
 }
 
 

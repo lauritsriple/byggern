@@ -27,15 +27,13 @@
 
 
 
-int main(void)
-{
-	//touch_init(30, 30, 30, 30);
-	//DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
-	
-	spi_init();
+int main(void){
 	uart_init();
-	//can_init();
-	//adc_init();
+	touch_init(30, 30, 30, 30);
+	//TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
+	spi_init();
+	can_init();
+	adc_init();
 	
 	uint8_t ls, rs, lb, rb;
 	//DDRB |= (1<<0)|(1<<1)|(1<<2)|(1<<3);
@@ -49,7 +47,7 @@ int main(void)
 	{
 		_delay_ms(50);
 		PORTD ^= (1 << 0);
-		spi_transmit(0x01);
+		//spi_transmit(0x01);
 		//for (uint16_t i =0; i<2048;i++){
 		//	DDRD^=(1<<0);
 		//}

@@ -9,6 +9,8 @@
 #ifndef MENU_H_
 #define MENU_H_
 
+#include <stdint.h>
+
 //Struct has private initializer in menu.c
 typedef struct menu_item_t menu_item_t;
 struct menu_item_t {

@@ -1,4 +1,4 @@
-/*
+0/*
  * board.h
  *
  * Created: 01.11.2015 16.08.00
@@ -21,6 +21,11 @@
 
 //ADC
 #define IR_CHANNEL 0
+
+//SOLENOID
+#define SOLENOID_PORT	PORTB
+#define SOLENOID_DDR	DDRB
+#define SOLENOID		5
 
 //MOTOR
 #define MOTOR_PORT			PORTF

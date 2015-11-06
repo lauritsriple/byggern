@@ -9,22 +9,19 @@
 #ifndef BOARD_H_
 #define BOARD_H_
 
+#include <avr/io.h>
+
 //PORTB
-#define LED_PORT PORTB
-#define SW1_PORT PORTB
-#define LED1 0
-#define SW1 1
+#define LED_PORT	PORTB
+#define LED_DDR		DDRB
+#define SW1_PORT	PORTB
+#define LED1		0
+#define SW1			1
 
 //ADC
-#define ADC_PORT PORTE
-#define ADC_INT 0
-
-//TOUCH
-#define TOUCH_PORT PORTB
-#define TOUCH_SW_R 2
-#define TOUCH_SW_L 3
-//L_SLIDER on ADC
-//R_SlIDER on ADC
+#define ADC_PORT	PORTE
+#define ADC_DDR		DDRE
+#define ADC_INT		0
 
 //SPI
 #define SPI_PORT		PORTB
