@@ -14,37 +14,45 @@
 //oled control from atmega162 over parallel if extsel
 
 
-//#define F_CPU 8000000 defined in toolchain
+//#define F_CPU 16000000 //defined in toolchain
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include "can.h"
-#include "mcp2515defines.h"
-#include "touch.h"
-#include "uart.h"
-#include "pwm.h"
+//#include "can.h"
+//#include "mcp2515defines.h"
+//#include "touch.h"
+//#include "uart.h"
+//#include "pwm.h"
 #include "board.h"
-#include "adc.h"
-#include "joy.h"
+//#include "adc.h"
+//#include "joy.h"
+#include "display/oled.h"
 
 int main(void){
 	board_init();
-	uart_init();
-	touch_init(30, 30, 30, 30); //TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
-	adc_init();
-	pwm_init();
-	joy_init();
-	can_init(MODE_NORMAL);
+	//uart_init();
+	//touch_init(30, 30, 30, 30); //TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
+	//adc_init();
+	//pwm_init();
+	//joy_init();
+	//can_init(MODE_NORMAL);
 	
 	uint8_t ls, rs, lb, rb;
 
-	can_message_t* msg13 = malloc(sizeof(can_message_t));
-	can_message_t* msg77 = malloc(sizeof(can_message_t));
+	//can_message_t* msg13 = malloc(sizeof(can_message_t));
+	//can_message_t* msg77 = malloc(sizeof(can_message_t));
 	//can_message_t receive;
-	joy_pos_t pos = joy_getPos();
-	printf("Initialization complete");
-	
+	//joy_pos_t pos = joy_getPos();
+	//printf("Initialization complete");
+	//_delay_ms(100);
+	oled_init();
+	//_delay_ms(100);
+	//oled_home();
+	//oled_clear_all();
 	while(1){
+		//oled_fill_page(4);
+		//printf("tried to print c to oled\n\r");
+/*
 		touch_measure(&ls, &rs, &lb, &rb);
 		pwm_set(1,255-ls);
 		pwm_set(2,rs);
@@ -66,7 +74,7 @@ int main(void){
 		
 		printf("sending:  ");
 		can_print(*msg13);
-		can_messageSend(msg13,MCP_TXB1CTRL);
+		can_messageSend(msg13,MCP_TXB1CTRL);*/
 		
 		LED_PORT ^= (1 << LED1);
 		

@@ -11,6 +11,11 @@
 
 #include <avr/io.h>
 
+//OLED
+//#define OLED_PORT	PORTC
+//#define OLED_CS		0
+//#define OLED_CD		1
+
 //PORTB
 #define LED_PORT	PORTB
 #define LED_DDR		DDRB
