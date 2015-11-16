@@ -6,15 +6,17 @@
  */ 
 
 #include "joy.h"
-#include "adc.h"
 #include <stdint.h>
 
 #if defined (__AVR_AT90USB1287__)
 #include "../AT90USB1287/board.h"
+#include "adc.h"
 #elif defined(__AVR_ATmega2560__)
 #include "../ArudinoMega2560/board.h"
+#include "adc.h"
 #elif defined (__AVR_ATmega162__)
 #include "../ATmega162/board.h"
+#include "../ATmega162/analog/adc.h"
 #endif
 
 static int16_t x_center;

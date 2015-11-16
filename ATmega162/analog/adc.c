@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "adc.h"
-#include "../ATmega162/board.h"
+#include "../board.h"
 
 volatile uint8_t adc_conversion;
 

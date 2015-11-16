@@ -161,14 +161,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\lib\adc.c">
-      <SubType>compile</SubType>
-      <Link>adc.c</Link>
-    </Compile>
-    <Compile Include="..\lib\adc.h">
-      <SubType>compile</SubType>
-      <Link>adc.h</Link>
-    </Compile>
     <Compile Include="..\lib\can.c">
       <SubType>compile</SubType>
       <Link>can.c</Link>
@@ -212,6 +204,12 @@
     <Compile Include="..\lib\uart.h">
       <SubType>compile</SubType>
       <Link>uart.h</Link>
+    </Compile>
+    <Compile Include="adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="adc.h">
+      <SubType>compile</SubType>
     </Compile>
     <Compile Include="AT90USB1287.c">
       <SubType>compile</SubType>

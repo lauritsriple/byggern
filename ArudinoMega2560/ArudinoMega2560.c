@@ -16,7 +16,7 @@
 #include "../lib/uart.h"
 #include "../lib/can.h"
 #include "../lib/mcp2515defines.h"
-#include "../lib/adc.h"
+#include "drivers/adc.h"
 #include "../lib/joy.h"
 #include "drivers/pwm.h"
 #include "drivers/motor.h"
