@@ -14,9 +14,9 @@
 void board_init_hack(void);
 
 //DEBUG LED
-#define LED_DDR		DDRH
-#define LED_PORT	PORTH
-#define LED1		3
+#define LED_DDR		DDRB
+#define LED_PORT	PORTB
+#define LED1		7
 
 //PWM
 #define PWM_PORT	PORTE
@@ -27,9 +27,9 @@ void board_init_hack(void);
 #define IR_CHANNEL 0
 
 //SOLENOID
-#define SOLENOID_PORT	PORTB
-#define SOLENOID_DDR	DDRB
-#define SOLENOID		5
+#define SOLENOID_PORT	PORTH
+#define SOLENOID_DDR	DDRH
+#define SOLENOID		3
 
 //MOTOR
 #define MOTOR_PORT			PORTF

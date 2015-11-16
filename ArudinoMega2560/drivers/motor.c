@@ -80,9 +80,11 @@ void motor_speed(uint8_t speed){
 int16_t motor_encoderRead(void){
 	motor_encoderOuptutEnable(1);
 	motor_encoderSelectByte(EB_HIGH);
-	uint8_t msb = reverse_bits(ENCODER_PIN);
-	motor_encoderSelectByte(EB_LOW);
+	_delay_us(20);
 	uint8_t lsb = reverse_bits(ENCODER_PIN);
+	motor_encoderSelectByte(EB_LOW);
+	_delay_us(20);
+	uint8_t msb = reverse_bits(ENCODER_PIN);
 	motor_encoderOuptutEnable(0); 
 	//2s komplement
 	return -((msb << 8) | lsb);

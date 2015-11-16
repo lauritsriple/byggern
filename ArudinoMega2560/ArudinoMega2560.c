@@ -23,13 +23,27 @@
 #include "drivers/ir.h"
 #include "game.h"
 
+uint16_t encoder_startUp(void){
+	motor_direction(left);
+	motor_speed(85);
+	_delay_ms(2500);
+	motor_speed(0);
+	_delay_ms(500);
+	motor_direction(right);
+	motor_encoderCounterReset();
+	motor_speed(85);
+	_delay_ms(2500);
+	motor_speed(0);
+	_delay_ms(500);
+	return motor_encoderRead();
+}
 
 
 int main(void){
 	//Set start values for pins and center the servo
 	//DDRE |= (1<<PE3); //PWM
-	//DDRH |= (1 << PH3); //LED
-	//DDRB |= (1 << PB7); what is on PB7?
+	//DDRH |= (1 << PH3); //solenoid
+	//DDRB |= (1 << PB7); led
 	//DDRD |= (1 << PD0) | (1<<PD1);
 	board_init_hack();
 	uart_init();
