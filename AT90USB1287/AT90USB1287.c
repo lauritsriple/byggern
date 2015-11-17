@@ -30,6 +30,7 @@
 
 int main(void){
 	board_init();
+	oled_init();
 	//uart_init();
 	//touch_init(30, 30, 30, 30); //TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
 	//adc_init();
@@ -37,7 +38,7 @@ int main(void){
 	//joy_init();
 	//can_init(MODE_NORMAL);
 	
-	uint8_t ls, rs, lb, rb;
+	//uint8_t ls, rs, lb, rb;
 
 	//can_message_t* msg13 = malloc(sizeof(can_message_t));
 	//can_message_t* msg77 = malloc(sizeof(can_message_t));
@@ -45,12 +46,25 @@ int main(void){
 	//joy_pos_t pos = joy_getPos();
 	//printf("Initialization complete");
 	//_delay_ms(100);
-	oled_init();
 	//_delay_ms(100);
 	//oled_home();
 	//oled_clear_all();
+	oled_clear_all();
 	while(1){
-		//oled_fill_page(4);
+		for (uint8_t i = 0; i<8;i++){
+			oled_fill_page(i);
+			_delay_ms(10);
+		}
+		oled_clear_all();
+		oled_home();
+		for(uint8_t j=0;j<4;j++){
+			oled_pos(j,0);
+			for (uint8_t i =0;i<8;i++){
+				oled_put_char('c');
+				_delay_ms(10);
+			}
+		}
+		
 		//printf("tried to print c to oled\n\r");
 /*
 		touch_measure(&ls, &rs, &lb, &rb);
@@ -77,6 +91,7 @@ int main(void){
 		can_messageSend(msg13,MCP_TXB1CTRL);*/
 		
 		LED_PORT ^= (1 << LED1);
+		_delay_ms(100);
 		
 		/*if (!(SPI_PIN & SPI_CS_MCP2515)){
 			can_message_t receive = can_dataReceive();

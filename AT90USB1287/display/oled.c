@@ -56,7 +56,10 @@ void oled_init(void){
 	
 	XMCRA |= (1<< SRE); //Enables external memory interface
 	XMCRB |= (1<<XMM2) | (1<<XMM1);
+	XMCRB |= (1<<XMBK);
 	
+	
+/*
 	volatile char *ext_ram = (char *) 0;
 	
 	ext_ram[OLED_COMMAND_BASE_ADDRESS] = COMMAND_SET_DISPLAY_ON;						//Turn display on
@@ -73,9 +76,9 @@ void oled_init(void){
 	ext_ram[OLED_COMMAND_BASE_ADDRESS] = 0;
 	ext_ram[OLED_COMMAND_BASE_ADDRESS] = 7;
 	//_delay_ms(4000);
-	ext_ram[OLED_COMMAND_BASE_ADDRESS] = COMMAND_ENTIRE_DISPLAY_ON_FORCE;
+	//ext_ram[OLED_COMMAND_BASE_ADDRESS] = COMMAND_ENTIRE_DISPLAY_ON_FORCE;
 	//_delay_ms(4000);
-/*
+
 	while(1){
 		for (uint16_t i=0; i < 128*8; i++){
 			if ( (i % 2) - 0 ){
@@ -91,11 +94,9 @@ void oled_init(void){
 			ext_ram[0] = i;
 			_delay_ms(2);
 		}
-	}*/
-	//clear();
-}
+	}
+	clear();*/
 
-/*
 	oled_write_cmd(0xae);    // display off
 	oled_write_cmd(0xa1);    //segment remap
 	oled_write_cmd(0xda);    //common pads hardware: alternative
@@ -117,12 +118,16 @@ void oled_init(void){
 	oled_write_cmd(0x00);
 	oled_write_cmd(0xa4);    //out follows RAM content
 	oled_write_cmd(0xa6);    //set normal display
+	_delay_ms(1000);
 	oled_write_cmd(0xaf);    // display on
+	_delay_ms(1000);
+
 	
-	oled_reset();
-	_delay_ms(1000);//fuck
-	oled_write_cmd(0xa5); //to fill screen command
-*/
+	//oled_reset();
+	//_delay_ms(1000);//fuck
+	//oled_write_cmd(0xa5); //to fill screen command
+
+}
 
 
 void clear(void){
