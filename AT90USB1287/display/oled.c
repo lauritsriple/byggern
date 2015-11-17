@@ -15,7 +15,6 @@
 
 #define OLED_DATA_BASE_ADDRESS				0x2600
 #define OLED_COMMAND_BASE_ADDRESS			0x2400
-static volatile uint8_t OLED_BUFFER[8*128] ={0}; 
 //PRIVATE
 
 //static FILE oled_stdout = FDEV_SETUP_STREAM(oled_put_char, NULL, _FDEV_SETUP_WRITE);
@@ -58,7 +57,6 @@ void oled_init(void){
 	XMCRB |= (1<<XMM2) | (1<<XMM1);
 	XMCRB |= (1<<XMBK);
 	
-	
 /*
 	volatile char *ext_ram = (char *) 0;
 	
@@ -96,31 +94,51 @@ void oled_init(void){
 		}
 	}
 	clear();*/
-
+	uint8_t delay=1000;
 	oled_write_cmd(0xae);    // display off
+	_delay_ms(delay);
 	oled_write_cmd(0xa1);    //segment remap
+	_delay_ms(delay);
 	oled_write_cmd(0xda);    //common pads hardware: alternative
+	_delay_ms(delay);
 	oled_write_cmd(0x12);
+	_delay_ms(delay);
 	oled_write_cmd(0xc8);    //common output scan direction:com63~com0
+	_delay_ms(delay);
 	oled_write_cmd(0xa8);    //multiplex ration mode:63
+	_delay_ms(delay);
 	oled_write_cmd(0x3f);
+	_delay_ms(delay);
 	oled_write_cmd(0xd5);    //display divide ratio/osc. freq. mode
+	_delay_ms(delay);
 	oled_write_cmd(0x80);
+	_delay_ms(delay);
 	oled_write_cmd(0x81);    //contrast control
+	_delay_ms(delay);
 	oled_write_cmd(0xf0);
+	_delay_ms(delay);
 	oled_write_cmd(0xd9);    //set pre-charge period
+	_delay_ms(delay);
 	oled_write_cmd(0x21);
+	_delay_ms(delay);
 	oled_write_cmd(0x20);    //Set Memory Addressing Mode
+	_delay_ms(delay);
 	oled_write_cmd(0x02);	//Set page adressing mode
+	_delay_ms(delay);
 	oled_write_cmd(0xdb);    //VCOM deselect level mode
+	_delay_ms(delay);
 	oled_write_cmd(0x30);
+	_delay_ms(delay);
 	oled_write_cmd(0xad);    //master configuration
+	_delay_ms(delay);
 	oled_write_cmd(0x00);
+	_delay_ms(delay);
 	oled_write_cmd(0xa4);    //out follows RAM content
+	_delay_ms(delay);
 	oled_write_cmd(0xa6);    //set normal display
-	_delay_ms(1000);
+	_delay_ms(delay);
 	oled_write_cmd(0xaf);    // display on
-	_delay_ms(1000);
+	_delay_ms(delay);
 
 	
 	//oled_reset();
@@ -129,23 +147,6 @@ void oled_init(void){
 
 }
 
-
-void clear(void){
-	volatile char *ext_ram = (char *) 0;
-	
-	for (uint16_t i=0; i < 128*8; i++){
-		ext_ram[OLED_DATA_BASE_ADDRESS] = 0x00;
-	}
-}
-
-void update_oled(void){
-	volatile char *ext_ram = (char *) 0;
-	
-	for (uint16_t i=0; i < 128*8; i++){
-		//ext_ram[OLED_DATA_BASE_ADDRESS] = ext_ram[OLED_BUFFER_BASE_ADDRESS + i];
-		ext_ram[OLED_DATA_BASE_ADDRESS] = OLED_BUFFER[i];
-	}
-}
 
 void oled_reset(void){
 	for (uint8_t i = 0; i<8;i++){
@@ -167,7 +168,7 @@ void oled_home(void){
 void oled_clear_page(uint8_t page){
 	oled_goto_page(page);
 	oled_goto_column(0);
-	for (uint16_t i = 0 ; i<SCREEN_ROWS; i++){
+	for (uint16_t i = 0 ; i<SCREEN_COLS; i++){
 		oled_write_data(0);
 	}
 }
@@ -202,6 +203,10 @@ void oled_put_char(char c){
 		oled_write_data(pgm_read_byte(&font[c - FONT_OFFSET][i]));
 		//oled_write_data(0xA5);
 	}
+}
+
+void oled_put(uint8_t c){
+	oled_write_data(c);
 }
 
 /*

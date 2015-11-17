@@ -24,6 +24,7 @@
 //#include "uart.h"
 //#include "pwm.h"
 #include "board.h"
+//#include "display/gui.h"
 //#include "adc.h"
 //#include "joy.h"
 #include "display/oled.h"
@@ -51,21 +52,36 @@ int main(void){
 	//oled_clear_all();
 	oled_clear_all();
 	while(1){
+/*
 		for (uint8_t i = 0; i<8;i++){
 			oled_fill_page(i);
-			_delay_ms(10);
+			_delay_ms(100);
 		}
 		oled_clear_all();
 		oled_home();
 		for(uint8_t j=0;j<4;j++){
 			oled_pos(j,0);
-			for (uint8_t i =0;i<8;i++){
+			for (uint8_t i =0;i<30;i++){
 				oled_put_char('c');
-				_delay_ms(10);
+				_delay_ms(100);
+			}
+		}*/
+		
+		//gui_drawLine(2,5,100,5);
+		for (uint8_t i = 0 ; i<16;i++){
+			for(uint8_t j = 0;j<32;j++){
+				gui_setPixel(j,i,1);
+				gui_update();
 			}
 		}
 		
+		gui_clearAll();
+		
+		gui_drawLine(40,40,20,20);
+		gui_update();
+		_delay_ms(1000);
 		//printf("tried to print c to oled\n\r");
+
 /*
 		touch_measure(&ls, &rs, &lb, &rb);
 		pwm_set(1,255-ls);
@@ -88,12 +104,11 @@ int main(void){
 		
 		printf("sending:  ");
 		can_print(*msg13);
-		can_messageSend(msg13,MCP_TXB1CTRL);*/
+		can_messageSend(msg13,MCP_TXB1CTRL);* /
 		
-		LED_PORT ^= (1 << LED1);
-		_delay_ms(100);
+
 		
-		/*if (!(SPI_PIN & SPI_CS_MCP2515)){
+		/ *if (!(SPI_PIN & SPI_CS_MCP2515)){
 			can_message_t receive = can_dataReceive();
 			switch (receive.id){
 				case 20: ;
@@ -107,5 +122,6 @@ int main(void){
 					break;	
 			}
 		}*/
+		LED_PORT ^= (1 << LED1);
 	}
 }
