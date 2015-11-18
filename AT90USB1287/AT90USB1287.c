@@ -28,11 +28,15 @@
 //#include "adc.h"
 //#include "joy.h"
 #include "display/oled.h"
+#include "display/menu.h"
+#include "display/gui.h"
 
 int main(void){
 	board_init();
 	oled_init();
-	//uart_init();
+	uart_init();
+	menu_create();
+	menu_item_t *menu=menu_get();
 	//touch_init(30, 30, 30, 30); //TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
 	//adc_init();
 	//pwm_init();
@@ -68,20 +72,17 @@ int main(void){
 		}*/
 		
 		//gui_drawLine(2,5,100,5);
-		for (uint8_t i = 0 ; i<16;i++){
+		/*for (uint8_t i = 0 ; i<16;i++){
 			for(uint8_t j = 0;j<32;j++){
 				gui_setPixel(j,i,1);
 				gui_update();
 			}
-		}
+		}*/
 		
-		gui_clearAll();
-		
-		gui_drawLine(40,40,20,20);
+		gui_drawMenu(menu);
 		gui_update();
-		_delay_ms(1000);
-		//printf("tried to print c to oled\n\r");
-
+		printf("tried to print shit to oled\n");
+		
 /*
 		touch_measure(&ls, &rs, &lb, &rb);
 		pwm_set(1,255-ls);

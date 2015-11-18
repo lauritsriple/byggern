@@ -19,7 +19,7 @@ struct menu_item_t {
 	uint8_t num_childMenus;
 	//menu_item_t *next; //Not needed but easier selection up and down
 	//menu_item_t *prev; //Not needed
-	char* name;
+	char * name;
 	void (*fn)(void);
 };
 
