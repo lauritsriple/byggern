@@ -55,7 +55,7 @@ void oled_init(void){
 	
 	XMCRA |= (1<< SRE); //Enables external memory interface
 	XMCRB |= (1<<XMM2) | (1<<XMM1);
-	XMCRB |= (1<<XMBK);
+	//XMCRB |= (1<<XMBK);
 	
 /*
 	volatile char *ext_ram = (char *) 0;
@@ -94,7 +94,7 @@ void oled_init(void){
 		}
 	}
 	clear();*/
-	uint8_t delay=1000;
+	uint8_t delay=1500;
 	oled_write_cmd(0xae);    // display off
 	_delay_ms(delay);
 	oled_write_cmd(0xa1);    //segment remap

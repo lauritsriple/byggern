@@ -20,11 +20,10 @@
 #include <util/delay.h>
 //#include "can.h"
 //#include "mcp2515defines.h"
-//#include "touch.h"
-//#include "uart.h"
+#include "touch.h"
+#include "uart.h"
 //#include "pwm.h"
 #include "board.h"
-//#include "display/gui.h"
 #include "adc.h"
 #include "joy.h"
 #include "display/oled.h"
@@ -32,57 +31,26 @@
 #include "display/gui.h"
 
 int main(void){
-	uint8_t selected=1;
 	board_init();
 	oled_init();
 	uart_init();
-	menu_item_t *menu=menu_get();
-	//touch_init(30, 30, 30, 30); //TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
+	touch_init(30, 30, 30, 30); //TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
 	adc_init();
 	//pwm_init();
 	joy_init();
 	//can_init(MODE_NORMAL);
-	
-	//uint8_t ls, rs, lb, rb;
-
+	uint8_t selected=1;
+	menu_item_t *menu=menu_get();
+	uint8_t ls, rs, lb, rb;
 	//can_message_t* msg13 = malloc(sizeof(can_message_t));
 	//can_message_t* msg77 = malloc(sizeof(can_message_t));
 	//can_message_t receive;
 	joy_pos_t pos = joy_getPos();
-	//printf("Initialization complete");
-	//_delay_ms(100);
-	//_delay_ms(100);
-	//oled_home();
-	//oled_clear_all();
 	oled_clear_all();
-	gui_drawMenu(menu,1);
+	gui_drawMenu(menu,selected);
 	while(1){
-/*
-		for (uint8_t i = 0; i<8;i++){
-			oled_fill_page(i);
-			_delay_ms(100);
-		}
-		oled_clear_all();
-		oled_home();
-		for(uint8_t j=0;j<4;j++){
-			oled_pos(j,0);
-			for (uint8_t i =0;i<30;i++){
-				oled_put_char('c');
-				_delay_ms(100);
-			}
-		}*/
-		
-		//gui_drawLine(2,5,100,5);
-		/*for (uint8_t i = 0 ; i<16;i++){
-			for(uint8_t j = 0;j<32;j++){
-				gui_setPixel(j,i,1);
-				gui_update();
-			}
-		}*/
-		
-		
-		
-		
+		touch_measure(&ls, &rs, &lb, &rb);
+		printf("ls:%4i,rs:%4i,lb:%4i,rb:%4i",ls,rs,lb,rb);
 		pos=joy_getPos();
 		printf("X:%4i Y:%4i\r",pos.x,pos.y);
 		if (pos.y<-80){
@@ -99,15 +67,18 @@ int main(void){
 		}
 		printf("selected: %i\n", selected);
 		if (!(JOY_PIN & (1<<JOY))){
-			printf("joy pressed\n");
-			if((selected<=menu->num_childMenus) && (menu->num_childMenus>0)){
-				menu=menu_down(menu);
-				gui_updateForce();
+			if((selected<=menu->childMenus[selected-1]->num_childMenus) && (menu->childMenus[selected-1]->num_childMenus>0)){
+				menu=menu->childMenus[selected-1];
+				selected=1;
+				gui_drawMenu(menu,selected);
 			}
 		}
-		
+		else if(lb){
+			menu=menu->parent;
+			selected=1;
+			gui_drawMenu(menu,selected);
+		}
 /*
-		touch_measure(&ls, &rs, &lb, &rb);
 		pwm_set(1,255-ls);
 		pwm_set(2,rs);
 		msg13->id=13;
@@ -128,8 +99,6 @@ int main(void){
 		can_print(*msg13);
 		can_messageSend(msg13,MCP_TXB1CTRL);* /
 		
-
-		
 		/ *if (!(SPI_PIN & SPI_CS_MCP2515)){
 			can_message_t receive = can_dataReceive();
 			switch (receive.id){
@@ -146,6 +115,5 @@ int main(void){
 		}*/
 		LED_PORT ^= (1 << LED1);
 		gui_update();
-		_delay_ms(100);
 	}
 }

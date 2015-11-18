@@ -90,7 +90,7 @@ menu_item_t* menu_up(menu_item_t* const menu){
 	return menu;
 }
 
-menu_item_t* menu_down(menu_item_t* const menu,uint8_t index){
+menu_item_t* menu_down(menu_item_t* const menu){
 	if (menu->childMenus[0]!=NULL){
 		return menu->childMenus[0];
 	}

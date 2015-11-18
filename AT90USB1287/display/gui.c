@@ -93,9 +93,6 @@ void gui_setPixel(uint8_t posx, uint8_t posy, uint8_t val){
 	
 }
 
-void gui_updateForce(void){
-	changed=1;
-}
 
 void gui_update(void){
 	if (changed){
