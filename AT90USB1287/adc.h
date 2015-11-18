@@ -13,5 +13,6 @@
 void adc_init(void);
 uint16_t adc_read10(uint8_t adc_ch);
 uint8_t adc_read8(uint8_t adc_ch);
+void adc_reset(void);
 
 #endif /* ADC_H_ */

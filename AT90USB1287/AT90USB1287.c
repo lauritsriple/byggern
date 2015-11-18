@@ -20,24 +20,27 @@
 #include <util/delay.h>
 //#include "can.h"
 //#include "mcp2515defines.h"
-#include "touch.h"
+
 #include "uart.h"
 //#include "pwm.h"
 #include "board.h"
-#include "adc.h"
+//#include "adc.h"
 #include "joy.h"
 #include "display/oled.h"
 #include "display/menu.h"
 #include "display/gui.h"
+#include "touch.h"
+#include <stdlib.h>
 
 int main(void){
 	board_init();
-	oled_init();
 	uart_init();
-	touch_init(30, 30, 30, 30); //TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
-	adc_init();
+	oled_init();
+	
+	touch_init(30, 30, 30, 30); //TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!! NOT WORKING WITH ADC
+	//WORKING ON ADC AND TOUCH FIX!
+	//adc_init();
 	//pwm_init();
-	joy_init();
 	//can_init(MODE_NORMAL);
 	uint8_t selected=1;
 	menu_item_t *menu=menu_get();
@@ -45,28 +48,22 @@ int main(void){
 	//can_message_t* msg13 = malloc(sizeof(can_message_t));
 	//can_message_t* msg77 = malloc(sizeof(can_message_t));
 	//can_message_t receive;
-	joy_pos_t pos = joy_getPos();
-	oled_clear_all();
 	gui_drawMenu(menu,selected);
 	while(1){
 		touch_measure(&ls, &rs, &lb, &rb);
-		printf("ls:%4i,rs:%4i,lb:%4i,rb:%4i",ls,rs,lb,rb);
-		pos=joy_getPos();
-		printf("X:%4i Y:%4i\r",pos.x,pos.y);
-		if (pos.y<-80){
-			if (selected < menu->num_childMenus){
-				selected++;
-			}
-			gui_drawMenu(menu,selected);
-		}
-		else if (pos.y>80){
-			if(selected>1){
-				selected--;
-			}
+		//printf("ls:%4i,rs:%4i,lb:%4i,rb:%4i\n",ls,rs,lb,rb);
+		
+		//MAP 0-255 to 1- num child menus
+		uint8_t mapValue=255/menu->num_childMenus;
+		ls=255-ls;
+		uint8_t touchSelected=ls/mapValue;
+		
+		if (touchSelected!=selected && touchSelected>=1){
+			selected=touchSelected;
 			gui_drawMenu(menu,selected);
 		}
 		printf("selected: %i\n", selected);
-		if (!(JOY_PIN & (1<<JOY))){
+		if (rb){
 			if((selected<=menu->childMenus[selected-1]->num_childMenus) && (menu->childMenus[selected-1]->num_childMenus>0)){
 				menu=menu->childMenus[selected-1];
 				selected=1;
@@ -74,9 +71,12 @@ int main(void){
 			}
 		}
 		else if(lb){
-			menu=menu->parent;
-			selected=1;
-			gui_drawMenu(menu,selected);
+			if (menu->parent!=NULL){
+				menu=menu->parent;
+				selected=1;
+				gui_drawMenu(menu,selected);
+			}
+			
 		}
 /*
 		pwm_set(1,255-ls);

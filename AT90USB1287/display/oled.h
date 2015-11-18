@@ -24,6 +24,5 @@ void oled_put_char(char c);
 void oled_put(uint8_t c);
 void oled_printf(char* fmt, ...);
 void oled_fill_page(uint8_t page);
-void oled_clear_all();
 
 #endif /* OLED_H_ */

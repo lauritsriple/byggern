@@ -103,7 +103,7 @@ void gui_update(void){
 			}
 			oled_pos(i+1,0);
 		}
-		changed=0;
+		changed=1;
 	}
 }
 

@@ -11,7 +11,6 @@
 #include "font.h"
 #include <util/delay.h>
 #include <stdio.h>
-#include "../board.h"
 
 #define OLED_DATA_BASE_ADDRESS				0x2600
 #define OLED_COMMAND_BASE_ADDRESS			0x2400
