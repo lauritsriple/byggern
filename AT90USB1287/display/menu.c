@@ -12,14 +12,14 @@ static menu_item_t* mainMenu;
 static uint8_t menu_initialized;
 
 //private: creates a new menuitem (initializer)
-static menu_item_t* menu_new(char* name, void(*fn)(void), uint8_t num_childMenus){
+static menu_item_t* menu_new(char* a_name, void(*a_fn)(void), uint8_t a_num_childMenus){
 	menu_item_t* menu= malloc(sizeof(menu_item_t));
-	if (num_childMenus){
-		menu->childMenus= malloc(sizeof(menu_item_t*) * num_childMenus);
+	if (a_num_childMenus){
+		menu->childMenus= malloc(sizeof(menu_item_t*) * a_num_childMenus);
 	}
-	menu->num_childMenus	= num_childMenus;
-	menu->name		= name;
-	menu->fn		= fn;
+	menu->num_childMenus=a_num_childMenus;
+	menu->name			=a_name;
+	menu->fn			=a_fn;
 
 	return menu;
 }
@@ -35,15 +35,19 @@ static void menu_fix_parents_recursive(menu_item_t* menu){
 
 //private: creates the whole menu structure
 //if full memory, the menu, and submenustrings can be stored in progmem
-void menu_create(void){
-	mainMenu= menu_new("Main menu",NULL,3);
+void static menu_create(void){
+	mainMenu= menu_new("Main menu",NULL,7);
 	mainMenu->childMenus[0]= menu_new("Submenu1",NULL,2);
 	mainMenu->childMenus[0]->childMenus[0]= menu_new("subsubmenu11",NULL,0);
-	mainMenu->childMenus[0]->childMenus[0]= menu_new("subsubmenu12",NULL,0);
-	mainMenu->childMenus[0]= menu_new("Submenu2",NULL,2);
-	mainMenu->childMenus[0]->childMenus[0]= menu_new("subsubmenu21",NULL,0);
-	mainMenu->childMenus[0]->childMenus[0]= menu_new("subsubmenu22",NULL,0);
-	mainMenu->childMenus[0]= menu_new("Submenu3",NULL,0);
+	mainMenu->childMenus[0]->childMenus[1]= menu_new("subsubmenu12",NULL,0);
+	mainMenu->childMenus[1]= menu_new("Submenu2",NULL,2);
+	mainMenu->childMenus[1]->childMenus[0]= menu_new("subsubmenu21",NULL,0);
+	mainMenu->childMenus[1]->childMenus[1]= menu_new("subsubmenu22",NULL,0);
+	mainMenu->childMenus[2]= menu_new("Submenu3",NULL,0);
+	mainMenu->childMenus[3]= menu_new("Submenu4",NULL,0);
+	mainMenu->childMenus[4]= menu_new("Submenu5",NULL,0);
+	mainMenu->childMenus[5]= menu_new("Submenu6",NULL,0);
+	mainMenu->childMenus[6]= menu_new("Submenu7",NULL,0);
 	menu_fix_parents_recursive(mainMenu);
 }
 
@@ -86,7 +90,7 @@ menu_item_t* menu_up(menu_item_t* const menu){
 	return menu;
 }
 
-menu_item_t* menu_down(menu_item_t* const menu){
+menu_item_t* menu_down(menu_item_t* const menu,uint8_t index){
 	if (menu->childMenus[0]!=NULL){
 		return menu->childMenus[0];
 	}

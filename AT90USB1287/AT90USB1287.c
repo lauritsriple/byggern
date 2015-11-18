@@ -25,22 +25,22 @@
 //#include "pwm.h"
 #include "board.h"
 //#include "display/gui.h"
-//#include "adc.h"
-//#include "joy.h"
+#include "adc.h"
+#include "joy.h"
 #include "display/oled.h"
 #include "display/menu.h"
 #include "display/gui.h"
 
 int main(void){
+	uint8_t selected=1;
 	board_init();
 	oled_init();
 	uart_init();
-	menu_create();
 	menu_item_t *menu=menu_get();
 	//touch_init(30, 30, 30, 30); //TOUCH DOES NOT WORK WITH JTAG CONNECTED!!!!!!!!!!!!!!!!!
-	//adc_init();
+	adc_init();
 	//pwm_init();
-	//joy_init();
+	joy_init();
 	//can_init(MODE_NORMAL);
 	
 	//uint8_t ls, rs, lb, rb;
@@ -48,13 +48,14 @@ int main(void){
 	//can_message_t* msg13 = malloc(sizeof(can_message_t));
 	//can_message_t* msg77 = malloc(sizeof(can_message_t));
 	//can_message_t receive;
-	//joy_pos_t pos = joy_getPos();
+	joy_pos_t pos = joy_getPos();
 	//printf("Initialization complete");
 	//_delay_ms(100);
 	//_delay_ms(100);
 	//oled_home();
 	//oled_clear_all();
 	oled_clear_all();
+	gui_drawMenu(menu,1);
 	while(1){
 /*
 		for (uint8_t i = 0; i<8;i++){
@@ -79,16 +80,36 @@ int main(void){
 			}
 		}*/
 		
-		gui_drawMenu(menu);
-		gui_update();
-		printf("tried to print shit to oled\n");
+		
+		
+		
+		pos=joy_getPos();
+		printf("X:%4i Y:%4i\r",pos.x,pos.y);
+		if (pos.y<-80){
+			if (selected < menu->num_childMenus){
+				selected++;
+			}
+			gui_drawMenu(menu,selected);
+		}
+		else if (pos.y>80){
+			if(selected>1){
+				selected--;
+			}
+			gui_drawMenu(menu,selected);
+		}
+		printf("selected: %i\n", selected);
+		if (!(JOY_PIN & (1<<JOY))){
+			printf("joy pressed\n");
+			if((selected<=menu->num_childMenus) && (menu->num_childMenus>0)){
+				menu=menu_down(menu);
+				gui_updateForce();
+			}
+		}
 		
 /*
 		touch_measure(&ls, &rs, &lb, &rb);
 		pwm_set(1,255-ls);
 		pwm_set(2,rs);
-		pos=joy_getPos();
-		
 		msg13->id=13;
 		msg13->length=4;
 		msg13->data[0]=pos.x>>8;
@@ -124,5 +145,7 @@ int main(void){
 			}
 		}*/
 		LED_PORT ^= (1 << LED1);
+		gui_update();
+		_delay_ms(100);
 	}
 }

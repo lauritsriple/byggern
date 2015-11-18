@@ -16,6 +16,8 @@
 void board_init(void){
 	LED_DDR |= (1 << LED1);
 	SPI_DDR |= (1<<SPI_CS_MCP2515);
+	JOY_DDR &= ~(1<<JOY);
+	JOY_PORT |= (1<<JOY);
 
 	//ADC_DDR &=~(1<<ADC_JOY_X);
 	//ADC_DDR &=~(1<<ADC_JOY_Y);

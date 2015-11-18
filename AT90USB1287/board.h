@@ -22,7 +22,10 @@
 #define SW1_PORT	PORTB
 #define SW_DDR		DDRB
 #define LED1		5
-#define SW1			1
+#define JOY			4
+#define JOY_DDR		DDRB
+#define JOY_PORT	PORTB
+#define JOY_PIN		PINB
 
 //ADC
 #define ADC_PORT	PORTF

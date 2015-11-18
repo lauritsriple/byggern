@@ -66,6 +66,7 @@ Page7 [                         ]
 #include "font.h"
 #include <avr/io.h>
 
+uint8_t static changed=1;
 uint8_t static shroom[9]={28,98,145,177,145,177,145,98,28};
 uint8_t static buffer_draw[SCREEN_PAGES][SCREEN_COLS]; // 8x128 and 8bit vertical values
 //uint8_t buffer_screen[128][64];
@@ -87,16 +88,25 @@ void gui_setPixel(uint8_t posx, uint8_t posy, uint8_t val){
 		else if (val=3){ //INVERT
 			buffer_draw[posy/SCREEN_PAGES][posx]=buffer_draw[posy/SCREEN_PAGES][posx] ^(1 << posy%SCREEN_PAGES);
 		}
+		changed=1;
 	}
+	
+}
+
+void gui_updateForce(void){
+	changed=1;
 }
 
 void gui_update(void){
-	oled_home();
-	for (uint8_t i =0;i<SCREEN_PAGES;i++){
-		for(uint8_t j =0;j<SCREEN_COLS;j++){
-			oled_put(buffer_draw[i][j]);
+	if (changed){
+		oled_home();
+		for (uint8_t i =0;i<SCREEN_PAGES;i++){
+			for(uint8_t j =0;j<SCREEN_COLS;j++){
+				oled_put(buffer_draw[i][j]);
+			}
+			oled_pos(i+1,0);
 		}
-		oled_pos(i+1,0);
+		changed=0;
 	}
 }
 
@@ -223,7 +233,7 @@ void gui_putChar(uint8_t x,uint8_t page, char c){
 	}
 }
 
-void oled_putString(uint8_t x,uint8_t page, char * string){
+void gui_putString(uint8_t x,uint8_t page, char * string){
 	uint8_t i = 0;
 	while(i < 254 && string[i]!='\0'){
 		uint8_t posx=x+(i*(FONT_WIDTH+1));
@@ -233,22 +243,27 @@ void oled_putString(uint8_t x,uint8_t page, char * string){
 }
 
 
-void gui_drawMenu(menu_item_t* menu){
+void gui_drawMenu(menu_item_t * menu,uint8_t selected){
 	//gui_drawRectangle(0,0,127,63); //Outer border
-	gui_drawLine(0,8,127,8);
-	gui_drawLine(10,9,10,64); //Draws the menuscroll
-	gui_invertPage(5,11);
-	gui_drawSelector(5);
-	gui_putChar(11,1,'s');
-	oled_putString(52,0,menu->parent->name);
+	gui_clearAll();
+	gui_drawLine(0,7,127,7);
+	gui_drawLine(10,8,10,64); //Draws the menuscroll
+	gui_putString(32,0,menu->name);
 	
-	/*
-	 * place title on page=0
-	 * place current menu on mid, page=4 [0 1 2 3 4 5 6 7]
-	 * iterate trhough nexts and print from page 5-7
-	 * iterate through prevs and print frmo page 3-1
-	 *
-	 */
+	if ((menu->num_childMenus)>7){
+		//WRAP IT NICELY, too many submenus to fit properly 
+	}
+	else{
+		for (uint8_t i=0;i<(menu->num_childMenus);i++){
+			gui_putString(13,i+1,(menu->childMenus[i]->name));
+		}
+		gui_drawSelector(selected);
+		//inverting many times to make it look right. Could have been done
+		//otherwise, but didn't want to make more functions
+		gui_invertPage(selected,0);
+		gui_invertPage(selected,10);
+		gui_invertPage(selected,11);
+	}
 }
 
 /*	gui_drawText(10,4*8,menu.name);
