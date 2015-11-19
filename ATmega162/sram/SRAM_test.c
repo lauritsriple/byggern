@@ -10,14 +10,15 @@
 #include "SRAM_test.h"
 //#include "../communication/uart.h"
 
-void SRAM_test(void)
+uint8_t * SRAM_test(void)
 {
+	uint8_t errors[2];
 	volatile char *ext_ram = (char *) 0x1800; // Start address for the SRAM
 	uint16_t ext_ram_size       = 0x800;
 	uint16_t write_errors       = 0;
 	uint16_t retrieval_errors   = 0;
 
-	printf("Starting SRAM test...\n");
+	//printf("Starting SRAM test...\n");
 
 	// rand() stores some internal state, so calling this function in a loop will
 	// yield different seeds each time (unless srand() is called before this function)
@@ -45,7 +46,10 @@ void SRAM_test(void)
 			retrieval_errors++;
 		}
 	}
-	printf("SRAM test completed with \n%4d errors in write phase and \n%4d errors in retrieval phase\n\n", write_errors, retrieval_errors);
+	//printf("SRAM test completed with \n%4d errors in write phase and \n%4d errors in retrieval phase\n\n", write_errors, retrieval_errors);
+	errors[0]=write_errors;
+	errors[1]=retrieval_errors;
+	return errors; 
 }
 
 
@@ -54,7 +58,7 @@ void SRAM_testADC(void){
 	volatile char *ext_ram = (char *) 0x1400; // Start address for the adc
 	uint8_t retreived_valuex = ext_ram[0x0];
 	uint8_t retreived_valuey = ext_ram[0x1];
-	printf("x-value: %4d , y-value: %4d\n",retreived_valuex, retreived_valuey);	
+	//printf("x-value: %4d , y-value: %4d\n",retreived_valuex, retreived_valuey);	
 }
 
 

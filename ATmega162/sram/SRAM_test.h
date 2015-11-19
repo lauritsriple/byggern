@@ -9,7 +9,7 @@
 #ifndef SRAM_TEST_H_
 #define SRAM_TEST_H_
 
-void SRAM_test(void);
+uint8_t* SRAM_test(void);
 void SRAM_testADC(void);
 
 #endif /* SRAM_TEST_H_ */

@@ -5,6 +5,8 @@
  *  Author: laurittr
  */ 
 
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 uint16_t volatile static timer=0; //Vet ikke om man kan ha static og volatile, men den skal være private
 

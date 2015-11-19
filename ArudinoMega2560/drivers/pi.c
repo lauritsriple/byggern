@@ -5,37 +5,27 @@
  *  Author: laurittr
  */ 
 
-struct PID_controller {
-	float reference;
-	
-	float Kp;
-	float Ki;
-	
-	float prev_error;
-	float integral;
-};
+#include "pi.h"
 
 //dt = (float)TIMER5_OCRB / (float)F_CPU)*1024;
 //Should be calculated every time pi() is called
 
-PI_controller* init_pi(float Kp, float Ki){
-	PID_controller* c = malloc(sizeof(PID_controller));
-	memset(c, 0, sizeof(PID_controller));
-	
+pi_controller_t* init_pi(float Kp, float Ki){
+	pi_controller_t* c = malloc(sizeof(pi_controller_t));
+	memset(c, 0, sizeof(pi_controller_t));
 	c->Kp = Kp;
 	c->Ki = Ki;
 	timer_start();
 	return c;
 }
 
-void pi_update(PI_Controller* c, float ref){
+void pi_update(pi_controller_t* c, float ref){
 	c->reference = ref;
 }
 
-float pi(PI_controller* c, float y){
-
+float pi_init(pi_controller_t* c, float y){
 	dt=timer_get();
-
+	
 	float position = y;
 	float error = c->reference - y;
 	
@@ -44,6 +34,5 @@ float pi(PI_controller* c, float y){
 
 	timer_reset();
 
-	return	c->Kp * error +
-	c->Ki * c->integral;
+	return	c->Kp * error + c->Ki * c->integral;
 }

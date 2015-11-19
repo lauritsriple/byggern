@@ -49,9 +49,10 @@ int main(void){
 	uint8_t game_running=0;
 	joy_pos_t pos;
 	can_message_t* msg = malloc(sizeof(can_message_t));
+	can_message_t receive;
 	encoder_startUp();
 	while(1){
-		can_message_t receive = can_dataReceive();
+		receive = can_dataReceive();
 		switch(receive.id){
 			case 120: ; // reciving message with adc and buttons
 				pos.x = receive.data[0]<<8 | receive.data[1];
@@ -90,7 +91,7 @@ int main(void){
 			
 			default:
 				break;
-		} //end switch
+		}
 		
 		if(ir_signal()){
 			game_timerStop();
