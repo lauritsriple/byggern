@@ -56,6 +56,7 @@
 
 #define SW_PORT		PORTD
 #define SW			4
+#define SW2			6
 #define SW_DDR		DDRD
 #define SW_PIN		PIND
 

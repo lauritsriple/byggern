@@ -32,5 +32,6 @@ void gui_drawPortB(void);
 void gui_drawAdcTouch(void);
 void gui_drawSomething(void);
 void gui_drawMalfunction(void);
+void gui_drawBluethooth(void);
 
 #endif /* GUI_H_ */

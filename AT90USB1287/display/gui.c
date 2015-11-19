@@ -292,7 +292,8 @@ void gui_drawPinout(char port){
 		gui_putString(68,7,"!TCH");
 		
 		gui_putString(100,5,"PD6");
-		gui_putString(100,6,"NC");
+		gui_putString(100,6,"SW");
+		gui_putString(100,7,"BLUE");
 		
 	}
 	else if (port=='f'){
@@ -319,7 +320,7 @@ void gui_drawAdcTouch(void){
 	gui_clearAll();
 	gui_drawRectangle(0,0,127,63);
 	gui_putString(4,1,"Use Joystick?");
-	gui_putString(4,2,"Hold down SW1 ");
+	gui_putString(4,2,"Hold down SW0 ");
 	gui_putString(4,3,"during reset.");
 	gui_putString(4,4,"ADC and");
 	gui_putString(4,5,"Qtouch don't");
@@ -375,4 +376,16 @@ void gui_drawMalfunction(void){
 		gui_drawLine(rs>>1,54,rs>>1,46);
 		gui_update();
 	}
+}
+
+void gui_drawBluethooth(void){
+	//info about how to enable bluethooth
+	gui_clearAll();
+	gui_drawRectangle(0,0,127,63);
+	gui_putString(4,1,"Use Nordic Card?");
+	gui_putString(4,2,"With Bluethooth?");
+	gui_putString(4,3,"Press SW1.");
+	gui_putString(4,4,"Will disable");
+	gui_putString(4,5,"touch or joystick");
+	gui_putString(4,6,"until send 'x'");	
 }

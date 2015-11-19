@@ -34,6 +34,7 @@
 
 int main(void){
 	uint8_t touchMode=1;
+	uint8_t bluethooth=0;
 	
 	board_init();
 	uart_init();
@@ -51,8 +52,8 @@ int main(void){
 		touch_init(30, 30, 30, 30);
 		pwm_init();
 	}
-	
 	uint8_t selected=1;
+	char blue_recv='i';
 	menu_item_t *menu=menu_get();
 	uint8_t ls, rs, lb, rb;
 	//can_message_t* msg13 = malloc(sizeof(can_message_t));
@@ -60,7 +61,15 @@ int main(void){
 	//can_message_t receive;
 	gui_drawMenu(menu,selected);
 	while(1){
-		if (touchMode){
+		if(!(SW_PIN & (1<<SW2))){
+			while(!(SW_PIN & (1<<SW2))); //take away all rebouncing
+			_delay_ms(1000);
+			if (bluethooth==0){
+				bluethooth=1;
+			}
+		}
+		
+		if ((touchMode==1) && (bluethooth==0)){
 			touch_measure(&ls, &rs, &lb, &rb);
 			//printf("ls:%4i,rs:%4i,lb:%4i,rb:%4i\n",ls,rs,lb,rb);
 			pwm_set(1,255-ls);
@@ -69,7 +78,6 @@ int main(void){
 			uint8_t mapValue=255/(menu->num_childMenus+1);
 			ls=255-ls;
 			uint8_t touchSelected=(ls/mapValue);
-		
 			if (touchSelected!=selected && touchSelected>=1 && touchSelected<menu->num_childMenus+1){
 				selected=touchSelected;
 				gui_drawMenu(menu,selected);
@@ -101,7 +109,7 @@ int main(void){
 				}
 			}
 		}
-		else{ //We are in adc-mode
+		else if ((touchMode==0) && (bluethooth==0)){ //We are in adc-mode
 			joy_pos_t pos=joy_getPos();
 			//printf("X:%4i Y:%4i\r",pos.x,pos.y);
 			if (pos.y>90 && selected > 1){
@@ -131,9 +139,40 @@ int main(void){
 					gui_drawMenu(menu,selected);
 				}
 			}
-			
 		}
-/*
+		if (bluethooth){
+			blue_recv=uart_getChar();
+			if (blue_recv=='u' && selected >1){ //up
+				selected--;
+				gui_drawMenu(menu,selected);
+			}
+			else if (blue_recv=='d' && selected < menu->num_childMenus){ //down
+				selected++;
+				gui_drawMenu(menu,selected);
+			}
+			else if (blue_recv=='p'){ //press
+				if((selected<=menu->childMenus[selected-1]->num_childMenus) && (menu->childMenus[selected-1]->num_childMenus>0)){
+					menu=menu->childMenus[selected-1];
+					selected=1;
+					gui_drawMenu(menu,selected);
+				}
+				else if (menu->childMenus[selected-1]->fn != NULL){
+					menu->childMenus[selected-1]->fn();
+				}
+				gui_update();
+			}
+			else if(blue_recv=='b'){ //back
+				if (menu->parent!=NULL){
+					menu=menu->parent;
+					selected=1;
+					gui_drawMenu(menu,selected);
+				}
+			}
+			else if (blue_recv=='x'){
+				bluethooth=0;
+			}
+		}
+		/*
 		msg13->id=13;
 		msg13->length=4;
 		msg13->data[0]=pos.x>>8;

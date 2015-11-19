@@ -54,7 +54,7 @@ void static menu_create(void){
 	mainMenu->childMenus[0]->childMenus[0]= menu_new("Play the game",NULL,0);
 	mainMenu->childMenus[0]->childMenus[1]= menu_new("See highscores",NULL,0);
 	mainMenu->childMenus[1]= menu_new("Settings",NULL,2);
-	mainMenu->childMenus[1]->childMenus[0]= menu_new("subsubmenu21",NULL,0);
+	mainMenu->childMenus[1]->childMenus[0]= menu_new("Enable Bluethooth",gui_drawBluethooth,0);
 	mainMenu->childMenus[1]->childMenus[1]= menu_new("subsubmenu22",NULL,0);
 	mainMenu->childMenus[2]= menu_new("Pinout",NULL,3);
 	mainMenu->childMenus[2]->childMenus[0]= menu_new("Port B",gui_drawPortB,0);
