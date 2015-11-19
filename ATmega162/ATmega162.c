@@ -50,6 +50,7 @@ int main(void) {
 	puts("Joystick\t initialized\r");
 		
 	can_message_t* msg = malloc(sizeof(can_message_t));
+	can_message_t receive;
 	
 	while(1) {
 		LED_PORT ^= (1 << LED1);
@@ -59,16 +60,24 @@ int main(void) {
 		//joy_pos_t pos = joy_getPos();
 		//printf("X:%4i Y:%4i\r",pos.x,pos.y);
 		//oled_printf("Shahrukh Er Best");
-		/*msg->id=5;
+		msg->id=5;
 		msg->length=4;
-		msg->data[0]=pos.x>>8;
+		msg->data[0]=8;
+		msg->data[1]=7;
+		msg->data[2]=6;
+		msg->data[3]=5;
+		
+		/*msg->data[0]=pos.x>>8;
 		msg->data[1]=pos.x;
 		msg->data[2]=pos.y>>8;
-		msg->data[3]=pos.y;
-		*/
+		msg->data[3]=pos.y;*/
+		
 		//printf("sending:  ");
 		//can_print(*msg);
 		//can_messageSend(msg,MCP_TXB1CTRL);
+		printf("received: ");
+		receive=can_dataReceive();
+		can_print(receive);
 		_delay_ms(100);
     }	
 }

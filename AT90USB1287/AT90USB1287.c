@@ -18,9 +18,8 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-//#include "can.h"
-//#include "mcp2515defines.h"
-
+#include "can.h"
+#include "mcp2515defines.h"
 #include "uart.h"
 #include "pwm.h"
 #include "board.h"
@@ -39,7 +38,7 @@ int main(void){
 	board_init();
 	uart_init();
 	oled_init();
-	//can_init(MODE_NORMAL);
+	can_init(MODE_NORMAL);
 	
 	/*Since the touch libary wont play nicely with the adc, choose slider or adc on 
 	reboot. No button -> touch. There might also be some problems with the adc and the jtag*/
@@ -56,11 +55,12 @@ int main(void){
 	char blue_recv='i';
 	menu_item_t *menu=menu_get();
 	uint8_t ls, rs, lb, rb;
-	//can_message_t* msg13 = malloc(sizeof(can_message_t));
+	can_message_t* msg13 = malloc(sizeof(can_message_t));
 	//can_message_t* msg77 = malloc(sizeof(can_message_t));
-	//can_message_t receive;
+	can_message_t receive;
 	gui_drawMenu(menu,selected);
 	while(1){
+		printf("loop\n");
 		if(!(SW_PIN & (1<<SW2))){
 			while(!(SW_PIN & (1<<SW2))); //take away all rebouncing
 			_delay_ms(1000);
@@ -172,26 +172,29 @@ int main(void){
 				bluethooth=0;
 			}
 		}
-		/*
+		
 		msg13->id=13;
 		msg13->length=4;
-		msg13->data[0]=pos.x>>8;
-		msg13->data[1]=pos.x;
-		msg13->data[2]=pos.y>>8;
-		msg13->data[3]=pos.y;
+		msg13->data[0]=8;
+		msg13->data[1]=3;
+		msg13->data[2]=2;
+		msg13->data[3]=1;
 		
+/*
 		msg77->id=77;
 		msg77->length=4;
 		msg77->data[0]=255-ls;
 		msg77->data[1]=rs;
 		msg77->data[2]=lb;
-		msg77->data[3]=rb;
+		msg77->data[3]=rb;*/
 		
 		printf("sending:  ");
 		can_print(*msg13);
-		can_messageSend(msg13,MCP_TXB1CTRL);* /
+		can_messageSend(msg13,MCP_TXB1CTRL);
+		printf("done sending\n");
 		
-		/ *if (!(SPI_PIN & SPI_CS_MCP2515)){
+/*
+		if (!(SPI_PIN & SPI_CS_MCP2515)){
 			can_message_t receive = can_dataReceive();
 			switch (receive.id){
 				case 20: ;

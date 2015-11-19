@@ -64,6 +64,7 @@ void can_messageSend(can_message_t* msg,uint8_t bufferSelect){
 	mcp2515_requestToSend(bufferControl);
 }
 
+/*
 //TODO: can use real interrupts to read from buffers when message is received
 can_message_t can_dataReceive(void){
 	//creating msg stuct. Also sets all elem to zero
@@ -91,6 +92,30 @@ can_message_t can_dataReceive(void){
 		mcp2515_bitModify(MCP_CANINTF, MCP_RX1IF, 0x00); //unset flag
 	}
 	
+	return m;
+}*/
+
+can_message_t can_dataReceive(void){
+	//creating msg stuct. Also sets all elem to zero
+	can_message_t m = {0};
+
+	if(mcp2515_read(MCP_CANINTF) & MCP_RX0IF){//get id and length
+		//id is 16bit, and needs some shifting of two registers which are then or'ed together
+		m.id=(uint16_t)((mcp2515_read(MCP_RXB0CTRL+2) >> 5) | (mcp2515_read(MCP_RXB0CTRL+1) << 3));
+		//length is 8bit, bit actual data only on 4 lsb. Therefore the bitmask
+		m.length = mcp2515_read(MCP_RXB0CTRL+5) & 0x0f;
+
+		//iterate all the data bytes
+		for (uint8_t i = 0; i < m.length; i++){
+			m.data[i] = mcp2515_read(MCP_RXB0CTRL + 6 + i);
+		}
+		
+		mcp2515_bitModify(MCP_CANINTF, MCP_RX0IF, 0x00); //unset flag
+		
+		} else {
+		m.id = 2050;
+	}
+
 	return m;
 }
 

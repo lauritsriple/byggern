@@ -74,6 +74,7 @@ int main(void){
 			printf("X:%4i Y:%4i\r",pos.x,pos.y);
 			break;
 			
+/*
 		case 13: ;
 			pos.x = receive.data[0]<<8 | receive.data[1];
 			pos.y = receive.data[2]<<8 | receive.data[3];
@@ -86,9 +87,17 @@ int main(void){
 				motor_direction(right);
 				motor_speed(abs(pos.y)*2);
 			}
-			break;
 			printf("X:%4i Y:%4i\r",pos.x,pos.y);
+			break;*/
+		case 13:
+			printf("received: ");
+			can_print(receive);
+			printf("new\n");
+			break;
 			
+		case 2050:
+			printf("invalid message or no message\n");
+			break;
 		default:
 			break;
 		}
