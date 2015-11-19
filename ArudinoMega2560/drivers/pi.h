@@ -10,7 +10,7 @@
 #ifndef PI_H_
 #define PI_H_
 
-typedef pi_controller_t pi_controller_t;
+typedef struct pi_controller_t pi_controller_t;
 struct pi_controller_t {
 	float reference;
 	
@@ -21,8 +21,8 @@ struct pi_controller_t {
 	float integral;
 };
 
-pi_controller_t* init_pi(float Kp, float Ki);
+pi_controller_t* pi_init(float Kp, float Ki);
 void pi_update(pi_controller_t* c, float y);
-float pi_init(pi_controller_t* c, float y);
+float pi_calculate(pi_controller_t* c, float y);
 
 #endif /* PI_H_ */

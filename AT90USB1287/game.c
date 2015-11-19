@@ -6,11 +6,13 @@
  */ 
 
 #include "can.h"
+#include "mcp2515defines.h"
 #include "touch.h"
 #include "joy.h"
 #include <stdint.h>
 #include "avr/io.h"
-#include "gui.h"
+#include "display/gui.h"
+#include "board.h"
 
 uint16_t static highscore[10];
 
@@ -32,15 +34,16 @@ call end game
 void game_start(void){
 	gui_drawGameStart();
 	uint8_t ls,rs,lb,rb;
+	extern uint8_t touchMode;
 	can_message_t receive;
 	can_message_t * msg = malloc(sizeof(can_message_t));
 	receive=can_dataReceive();
 	msg->id=100; //game starter id
 	msg->length=1;
 	msg->data[0]=1;
-	can_messageSend(msg);
+	can_messageSend(msg,MCP_TXB1CTRL);
 	while (receive.id!=7){ //game ender id
-		if (TOUCHMODE==1){
+		if (touchMode==1){
 			touch_measure(&ls,&rs,&lb,&rb);
 			msg->id=140; //touch id
 			msg->length=4;
@@ -62,9 +65,13 @@ void game_start(void){
 			msg->data[4]=btn;
 		}
 		receive=can_dataReceive();
-		gui_drawGame();
+		uint16_t static score=0;
+		if (receive.id==8){  //score id
+			score=(receive.data[0]<<8)|(receive.data[1]);
+		}
+		gui_drawGame(score);
 	}
-	game_end(receive);
+	game_end(receive,highscore);
 }
 
 
@@ -76,10 +83,12 @@ print placement in higscorelist
 */ 
 void game_end(can_message_t* endMsg){
 	uint16_t score=(endMsg->data[0]<<8)|(endMsg->data[1]);
+	uint8_t index=9;
 	for(uint8_t i = 9; i>=0;i--){
 		if (score>=highscore[i]){
 			highscoreSwap(score,highscore[i]);
+			index=i;
 		}
 	}
-	gui_drawGameEnd();
+	gui_drawGameEnd(highscore,index,score);
 }

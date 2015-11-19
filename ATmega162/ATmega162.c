@@ -61,9 +61,9 @@ int main(void) {
 		//printf("X:%4i Y:%4i\r",pos.x,pos.y);
 		receive = can_dataReceive();
 		switch(receive.id){
-			case 50: //sram test
+			case 50: ;//sram test
 				uint8_t* test = SRAM_test();
-				msg->id=51;
+				msg->id=51; //sram test complete
 				msg->length=2;
 				msg->data[0]=test[0];
 				msg->data[1]=test[1];

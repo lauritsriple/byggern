@@ -22,6 +22,7 @@
 #include "drivers/motor.h"
 #include "drivers/ir.h"
 #include "game.h"
+#include "drivers/pi.h"
 
 uint16_t encoder_startUp(void){
 	motor_direction(left);
@@ -50,7 +51,9 @@ int main(void){
 	joy_pos_t pos;
 	can_message_t* msg = malloc(sizeof(can_message_t));
 	can_message_t receive;
-	encoder_startUp();
+	uint16_t encoderMax=encoder_startUp();
+	uint16_t encoderMap=encoderMax/256;
+	pi_controller_t* c = pi_init(10,2);
 	while(1){
 		receive = can_dataReceive();
 		switch(receive.id){
@@ -74,7 +77,8 @@ int main(void){
 			
 			case 140:
 				pwm_setServoSlider(receive.data[1]); //use rs for servo control
-				pid_regulate(receive.data[0]); //ls -> pid controller
+				float position = (float)receive.data[0]*encoderMap;
+				pi_update(c,position); //ls -> pid controller
 				if (receive.data[2]){ //lb -> solenoid
 					game_solenoid();
 				}
@@ -110,5 +114,6 @@ int main(void){
 			motor_speed(0);
 		}
 		LED_PORT ^=(1 << LED1);
+		pi_calculate(c,motor_encoderRead());
 	}
 }

@@ -425,7 +425,7 @@ void gui_drawGameEnd(uint16_t * higscore, uint8_t index,uint16_t score){
 		gui_putString(10,i,"%i: %10i",index,higscore[i]);
 	}
 	if (index<8){
-		gui_invertPage(index+1);
+		gui_invertPage(index+1,0);
 	}
 	gui_update();
 	_delay_ms(4000);
