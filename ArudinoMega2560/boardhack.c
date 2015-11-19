@@ -12,4 +12,6 @@
 void board_init_hack(void){
 	LED_DDR |= (1 << LED1);
 	PWM_DDR |= (1 << PWM1);
+	SOLENOID_PORT |= (1 << SOLENOID);
+	SOLENOID_DDR |= (1 << SOLENOID);
 }

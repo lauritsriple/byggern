@@ -15,6 +15,7 @@ uint16_t game_getScore(void);
 void game_addPoints(void);
 void game_timerStart(void);
 void game_timerStop(void);
+void game_solenoid(void);
 
 
 #endif /* GAME_H_ */

@@ -52,4 +52,19 @@ void pwm_setServo(int16_t val){
 	}
 }
 
+//values between 0-255
+void pwm_setServoSlider(uint8_t val){
+	val=((val*18)/256)+PWM_MIN;
+	if ((val<=(PWM_MID+1)) && (val>=(PWM_MID-1))){
+		pwm_setValue(PWM_MID);
+	}
+	
+	else if ((val>=PWM_MIN) && (val<=PWM_MAX)){
+		pwm_setValue(val);
+	}
+	else{
+		pwm_setValue(PWM_MID);
+	}
+}
+
 

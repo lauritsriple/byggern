@@ -389,3 +389,44 @@ void gui_drawBluethooth(void){
 	gui_putString(4,5,"touch or joystick");
 	gui_putString(4,6,"until send 'x'");	
 }
+
+void gui_drawGameStart(void){
+	gui_clearAll();
+	gui_drawRectangle(0,0,127,63);
+	gui_putString(5,4,"Get ready to play");
+	gui_update();
+	_delay_ms(3000);
+	oled_pos(3,40);
+	oled_printf("Score:");
+	oled_clear_page(4);
+}
+
+//NOT USING THE BUFFER. 
+//We need more speed for this one.
+void gui_drawGame(uint16_t score){
+	oled_clear_page(5);
+	oled_pos(5,30);
+	oled_printf("%10i",score);
+}
+
+void gui_drawGameEnd(uint16_t * higscore, uint8_t index,uint16_t score){
+	gui_clearAll();
+	gui_putString(30,4,"GAME OVER");
+	gui_update();
+	_delay_ms(3000);
+	gui_clearAll();
+	gui_putString(30,3,"Your score was:");
+	gui_putString(30,4,"%10i",score);
+	gui_update();
+	_delay_ms(3000);
+	gui_clearAll();
+	gui_putString(30,0,"HIGHSCORES");
+	for (uint8_t i = 1;i<8;i++){
+		gui_putString(10,i,"%i: %10i",index,higscore[i]);
+	}
+	if (index<8){
+		gui_invertPage(index+1);
+	}
+	gui_update();
+	_delay_ms(4000);
+}

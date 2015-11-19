@@ -32,7 +32,6 @@
 #include <stdlib.h>
 
 int main(void){
-	uint8_t touchMode=1;
 	uint8_t bluethooth=0;
 	
 	board_init();
@@ -45,11 +44,12 @@ int main(void){
 	if (!(SW_PIN & (1<<SW))){
 		adc_init();
 		joy_init();
-		touchMode=0;
+		#define TOUCHMODE 0;
 	}
 	else{
 		touch_init(30, 30, 30, 30);
 		pwm_init();
+		#define TOUCHMODE 1;
 	}
 	uint8_t selected=1;
 	char blue_recv='i';
@@ -69,7 +69,7 @@ int main(void){
 			}
 		}
 		
-		if ((touchMode==1) && (bluethooth==0)){
+		if ((TOUCHMODE==1) && (bluethooth==0)){
 			touch_measure(&ls, &rs, &lb, &rb);
 			//printf("ls:%4i,rs:%4i,lb:%4i,rb:%4i\n",ls,rs,lb,rb);
 			pwm_set(1,255-ls);
@@ -109,7 +109,7 @@ int main(void){
 				}
 			}
 		}
-		else if ((touchMode==0) && (bluethooth==0)){ //We are in adc-mode
+		else if ((TOUCHMODE==0) && (bluethooth==0)){ //We are in adc-mode
 			joy_pos_t pos=joy_getPos();
 			//printf("X:%4i Y:%4i\r",pos.x,pos.y);
 			if (pos.y>90 && selected > 1){

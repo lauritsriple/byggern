@@ -7,7 +7,9 @@
 
 #include <avr/interrupt.h>
 #include <avr/io.h>
+#include "boardhack.h"
 #include "game.h"
+#include <util/delay.h>
 
 static volatile uint16_t score = 0;
 
@@ -28,6 +30,13 @@ void game_timerStart(void){
 void game_timerStop(void){
 	TCCR1B &= ~(1 << CS10);
 	TIMSK1 &= ~(1 << TOIE1);
+}
+
+//initialized in boardhack
+void game_solenoid(void){
+	SOLENOID_PORT &= ~(1<<SOLENOID);
+	_delay_ms(50);
+	SOLENOID_PORT |= (1<<SOLENOID);
 }
 
 ISR(TIMER1_OVF_vect){

@@ -33,5 +33,8 @@ void gui_drawAdcTouch(void);
 void gui_drawSomething(void);
 void gui_drawMalfunction(void);
 void gui_drawBluethooth(void);
+void gui_drawGameStart(void);
+void gui_drawGame(uint16_t score);
+void gui_drawGameEnd(uint16_t * higscore, uint8_t index,uint16_t score);
 
 #endif /* GUI_H_ */
