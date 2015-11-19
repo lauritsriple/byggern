@@ -25,5 +25,11 @@ void gui_drawMenu(menu_item_t* menu,uint8_t selected);
 void gui_putChar(uint8_t x,uint8_t page, char c);
 void gui_invertPage(uint8_t page,uint8_t offset);
 void gui_putString(uint8_t x,uint8_t page, char * string);
+void gui_drawPinout(char port);
+void gui_drawPortF(void);
+void gui_drawPortD(void);
+void gui_drawPortB(void);
+void gui_drawAdcTouch(void);
+void gui_drawSomething(void);
 
 #endif /* GUI_H_ */

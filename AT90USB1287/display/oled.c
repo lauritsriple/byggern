@@ -93,7 +93,7 @@ void oled_init(void){
 		}
 	}
 	clear();*/
-	uint8_t delay=1500;
+	uint8_t delay=200;
 	oled_write_cmd(0xae);    // display off
 	_delay_ms(delay);
 	oled_write_cmd(0xa1);    //segment remap

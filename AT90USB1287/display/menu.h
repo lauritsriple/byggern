@@ -23,6 +23,8 @@ struct menu_item_t {
 	void (*fn)(void);
 };
 
+void blink(void);
+
 menu_item_t* current_menuitem;
 
 //Returns the root node of the menu tree

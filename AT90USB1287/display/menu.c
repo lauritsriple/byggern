@@ -4,12 +4,25 @@
  * Created: 25.09.2015 11:15:06
  *  Author: laurittr
  */ 
-
 #include <stdlib.h>
 #include "menu.h"
 
+//Needed for function calls:
+#include "../board.h"	//blink
+#include <util/delay.h>	//blink
+#include "gui.h" //gui.h
+
+
 static menu_item_t* mainMenu;
 static uint8_t menu_initialized;
+
+void blink(void){
+	for (uint8_t i = 0;i<8;i++){
+		LED_PORT ^=(1<<LED1);
+		//printf("BLINK: %i",i);
+		_delay_ms(100);
+	}
+}
 
 //private: creates a new menuitem (initializer)
 static menu_item_t* menu_new(char* a_name, void(*a_fn)(void), uint8_t a_num_childMenus){
@@ -36,18 +49,21 @@ static void menu_fix_parents_recursive(menu_item_t* menu){
 //private: creates the whole menu structure
 //if full memory, the menu, and submenustrings can be stored in progmem
 void static menu_create(void){
-	mainMenu= menu_new("Main menu",NULL,7);
-	mainMenu->childMenus[0]= menu_new("Submenu1",NULL,2);
-	mainMenu->childMenus[0]->childMenus[0]= menu_new("subsubmenu11",NULL,0);
-	mainMenu->childMenus[0]->childMenus[1]= menu_new("subsubmenu12",NULL,0);
-	mainMenu->childMenus[1]= menu_new("Submenu2",NULL,2);
+	mainMenu= menu_new("Soleonid Balls!",NULL,7);
+	mainMenu->childMenus[0]= menu_new("Ping Pong",NULL,2);
+	mainMenu->childMenus[0]->childMenus[0]= menu_new("Play the game",NULL,0);
+	mainMenu->childMenus[0]->childMenus[1]= menu_new("See highscores",NULL,0);
+	mainMenu->childMenus[1]= menu_new("Settings",NULL,2);
 	mainMenu->childMenus[1]->childMenus[0]= menu_new("subsubmenu21",NULL,0);
 	mainMenu->childMenus[1]->childMenus[1]= menu_new("subsubmenu22",NULL,0);
-	mainMenu->childMenus[2]= menu_new("Submenu3",NULL,0);
-	mainMenu->childMenus[3]= menu_new("Submenu4",NULL,0);
-	mainMenu->childMenus[4]= menu_new("Submenu5",NULL,0);
-	mainMenu->childMenus[5]= menu_new("Submenu6",NULL,0);
-	mainMenu->childMenus[6]= menu_new("Submenu7",NULL,0);
+	mainMenu->childMenus[2]= menu_new("Pinout",NULL,3);
+	mainMenu->childMenus[2]->childMenus[0]= menu_new("Port B",gui_drawPortB,0);
+	mainMenu->childMenus[2]->childMenus[1]= menu_new("Port D",gui_drawPortD,0);
+	mainMenu->childMenus[2]->childMenus[2]= menu_new("Port F",gui_drawPortF,0);
+	mainMenu->childMenus[3]= menu_new("Blink the led",blink,0);
+	mainMenu->childMenus[4]= menu_new("Adc/Touch info",gui_drawAdcTouch,0);
+	mainMenu->childMenus[5]= menu_new("Draw random stuff",gui_drawSomething,0);
+	mainMenu->childMenus[6]= menu_new("Malfunction board",NULL,0);
 	menu_fix_parents_recursive(mainMenu);
 }
 

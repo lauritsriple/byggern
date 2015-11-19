@@ -14,49 +14,6 @@
 //Buffer 1 = buffer 2, and changes can be made to buffer 1 without affecting the display.
 //This ensures unfinished drawings to be animated
 //
-/*
-|Item1
-|Item2
-|Item3
-|Item4
-IItem5 (inverted)
-*/
-//the font is 5 pixels high and the pagesize is 8
-//
-/*
--------0 1 2 3 4 5 6 7 8 ... 127-----
-*************************************
-******[   127 elem list         ]
-      [   with 8 rows           ]
-      [   which is called       ]
-      [   one page              ]
-Page0 [                         ]
-      [                         ]
-      [                         ]
-******[                         ]
-*************************************
-******[                         ]
-      [                         ]
-      [                         ]
-Page1 [                         ]
-      [                         ]
-      [                         ]
-      [                         ]
-******[                         ]
-*************************************
-....
-*************************************
-******[                         ]
-      [                         ]
-      [                         ]
-Page7 [                         ]
-      [                         ]
-      [                         ]
-      [                         ]
-******[                         ]
-*************************************
-*/
-
 #include "stdint.h"
 #include "oled.h"
 #include "uart.h"
@@ -65,13 +22,14 @@ Page7 [                         ]
 #include <avr/pgmspace.h>
 #include "font.h"
 #include <avr/io.h>
+#include <util/delay.h>
 
-uint8_t static changed=1;
-uint8_t static shroom[9]={28,98,145,177,145,177,145,98,28};
+uint8_t static changed=1;  //Whether array has changed and not been printed on screen.
+uint8_t static shroom[9]={28,98,145,177,145,177,145,98,28}; //This is the selector shroom!
 uint8_t static buffer_draw[SCREEN_PAGES][SCREEN_COLS]; // 8x128 and 8bit vertical values
-//uint8_t buffer_screen[128][64];
+
 /*
-The mapping of the array is 8*128, but we want the to think of pixels as 64*128. 
+The mapping of the array is words in 8*128, but we want the to think of pixels as 64*128. 
 We will map it in the setPixel function
 */
 
@@ -140,24 +98,13 @@ void gui_drawLine(uint8_t pos1x, uint8_t pos1y,uint8_t pos2x, uint8_t pos2y){			
 		}
 	}
 	else{													//skraa, 4 case
-		//printf("Will print line\n\r");
 		float a = (float)(pos2y - pos1y)/(pos2x - pos1x);
-/*
-		printf("a=%4f \n\r",a);
-		printf("1->(%i,%i)\n\r",pos1x,pos1y);
-		printf("2->(%i,%i)\n\r",pos2x,pos2y);*/
 		if(pos2x < pos1x){
-			//printf("swap!\n\r");
 			gui_swap(&pos1x,&pos2x);
-			//printf("afterswap,a:%i,b:%i\n\r",pos1x,pos2x);
 			gui_swap(&pos1y,&pos2y);
 		}
-/*
-		printf("1->(%i,%i)\n\r",pos1x,pos1y);
-		printf("2->(%i,%i)\n\r",pos2x,pos2y);*/
 		for (uint8_t i = pos1x; i <= pos2x; i ++){
 			uint8_t posy = (a*(i - pos1x) + pos1y);
-			//printf("(x,y)=(%i,%i)",i,posy);
 			gui_setPixel(i, posy, 1); 
 		}		
 	}
@@ -241,11 +188,10 @@ void gui_putString(uint8_t x,uint8_t page, char * string){
 
 
 void gui_drawMenu(menu_item_t * menu,uint8_t selected){
-	//gui_drawRectangle(0,0,127,63); //Outer border
 	gui_clearAll();
 	gui_drawLine(0,7,127,7);
 	gui_drawLine(10,8,10,64); //Draws the menuscroll
-	gui_putString(32,0,menu->name);
+	gui_putString(16,0,menu->name);
 	
 	if ((menu->num_childMenus)>7){
 		//WRAP IT NICELY, too many submenus to fit properly 
@@ -263,31 +209,140 @@ void gui_drawMenu(menu_item_t * menu,uint8_t selected){
 	}
 }
 
-/*	gui_drawText(10,4*8,menu.name);
-	gui_invert(10,4*8,127,3*8-1); //selected elem
+void gui_drawPortB(void){
+	gui_drawPinout('b');
+}
 
-	menu_item_t * cur=menu;
-	menu_item_t * new=menu;
-	for (uint8_t i =0; i < 3;i++){
-		new=menu_next(cur);
-		if (cur!=new){ //still next elems in menu
-			gui_drawText(10,5*8+i*8,new.name);
-			cur=new;
-		else {
-			break;
-		}
+void gui_drawPortD(void){
+	gui_drawPinout('d');
+}
+
+void gui_drawPortF(void){
+	gui_drawPinout('f');
+}
+
+void gui_drawPinout(char port){
+	gui_clearAll();
+	gui_drawRectangle(0,0,127,63);
+	gui_drawLine(0,32,127,32);
+	for (uint8_t i = 0;i<4;i++){
+		gui_drawLine(i*32,0,i*32,63);
 	}
-        
-	cur=menu;
-	new=menu;
-	for (uint8_t i = 0; i <3; i++){
-		new=menu_next(cur);
-		if (cur!=new){ 
-			gui_drawText(10,1*8+i*8,new.name);
-			cur=new;
-		else {
-			break;
-		}
+	if (port=='b'){
+		gui_putString(4,1,"PB1");
+		gui_putString(4,2,"SPI");
+		gui_putString(4,3,"SCK");
+		
+		gui_putString(36,1,"PB3");
+		gui_putString(36,2,"SPI");
+		gui_putString(36,3,"MISO");
+		
+		gui_putString(68,1,"PB5");
+		gui_putString(68,2,"LED1");
+		
+		gui_putString(100,1,"PB7");
+		gui_putString(100,2,"PWM1");
+		
+		gui_putString(4,5,"PB0");
+		gui_putString(4,6,"SPI");
+		gui_putString(4,7,"CS");
+		
+		gui_putString(36,5,"PB2");
+		gui_putString(36,6,"SPI");
+		gui_putString(36,7,"MOSI");
+		
+		gui_putString(68,5,"PB4");
+		gui_putString(68,6,"JOY");
+		gui_putString(68,7,"BTN");
+		
+		gui_putString(100,5,"PB6");
+		gui_putString(100,6,"PWM2");
+	}
+	else if (port=='d'){
+		gui_putString(4,1,"PD1");
+		gui_putString(4,2,"CAN");
+		gui_putString(4,3,"INT");
+		
+		gui_putString(36,1,"PD3");
+		gui_putString(36,2,"UART");
+		gui_putString(36,3,"TX");
+		
+		gui_putString(68,1,"PD5");
+		gui_putString(68,2,"NC");
+		
+		gui_putString(100,1,"PD7");
+		gui_putString(100,2,"NC");
+		
+		gui_putString(4,5,"PD0");
+		gui_putString(4,6,"NC");
+		
+		gui_putString(36,5,"PD2");
+		gui_putString(36,6,"UART");
+		gui_putString(36,7,"RX");
+		
+		gui_putString(68,5,"PD4");
+		gui_putString(68,6,"SW");
+		gui_putString(68,7,"!TCH");
+		
+		gui_putString(100,5,"PD6");
+		gui_putString(100,6,"NC");
+		
+	}
+	else if (port=='f'){
+		gui_putString(4,1,"PF0");
+		gui_putString(4,2,"ADC");
+		gui_putString(4,3,"CH0");
+		
+		gui_putString(36,1,"PF1");
+		gui_putString(36,2,"ADC");
+		gui_putString(36,3,"CH1");
+		
+		gui_putString(68,1,"PF2");
+		gui_putString(68,2,"ADC");
+		gui_putString(68,3,"CH2");
+		
+		gui_putString(100,1,"PF3");
+		gui_putString(100,2,"ADC");
+		gui_putString(100,3,"CH3");
 	}
 }
-*/
+
+void gui_drawAdcTouch(void){
+	//info about stupid malfunction board
+	gui_clearAll();
+	gui_drawRectangle(0,0,127,63);
+	gui_putString(4,1,"Use Joystick?");
+	gui_putString(4,2,"Hold down SW1 during");
+	gui_putString(4,3,"reset ADC and");
+	gui_putString(4,4,"Qtouch don't");
+	gui_putString(4,5,"like each other.");
+}
+
+void gui_drawSomething(void){
+	gui_clearAll();
+	for (uint8_t i = 0;i<4;i++){
+		gui_drawCircle(10+i*20,50-i*10,5+i*10);
+		gui_update();
+		_delay_ms(1000);
+	}
+	gui_clearAll();
+	gui_drawLine(10,10,80,60);
+	gui_update();
+	_delay_ms(1000);
+	gui_drawLine(50,50,120,10);
+	gui_update();
+	_delay_ms(1000);
+	gui_drawRectangle(30,10,100,60);
+	gui_update();
+	_delay_ms(1000);
+	gui_drawRectangleFilled(100,40,127,63);
+	gui_update();
+	_delay_ms(1000);
+	gui_drawCircleFill(110,15,10);
+	gui_update();
+	_delay_ms(1000);
+	gui_clearAll();
+	gui_putString(10,4,"That's it!");
+	gui_putString(10,5,"go up or down");
+	gui_update();
+}
