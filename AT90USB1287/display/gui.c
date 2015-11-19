@@ -23,6 +23,7 @@
 #include "font.h"
 #include <avr/io.h>
 #include <util/delay.h>
+#include <stdio.h>
 
 uint8_t static changed=1;  //Whether array has changed and not been printed on screen.
 uint8_t static shroom[9]={28,98,145,177,145,177,145,98,28}; //This is the selector shroom!
@@ -177,11 +178,17 @@ void gui_putChar(uint8_t x,uint8_t page, char c){
 	}
 }
 
-void gui_putString(uint8_t x,uint8_t page, char * string){
+void gui_putString(uint8_t x,uint8_t page, char * string, ...){
+	char buffer[64];
+	va_list v;
+	va_start(v,string);
+	vsprintf(buffer, string, v);
+	va_end(v);
+	
 	uint8_t i = 0;
-	while(i < 254 && string[i]!='\0'){
+	while(i < 64 && buffer[i]!='\0'){
 		uint8_t posx=x+(i*(FONT_WIDTH+1));
-		gui_putChar(posx,page,string[i]);
+		gui_putChar(posx,page,buffer[i]);
 		i++;
 	}
 }
@@ -312,10 +319,11 @@ void gui_drawAdcTouch(void){
 	gui_clearAll();
 	gui_drawRectangle(0,0,127,63);
 	gui_putString(4,1,"Use Joystick?");
-	gui_putString(4,2,"Hold down SW1 during");
-	gui_putString(4,3,"reset ADC and");
-	gui_putString(4,4,"Qtouch don't");
-	gui_putString(4,5,"like each other.");
+	gui_putString(4,2,"Hold down SW1 ");
+	gui_putString(4,3,"during reset.");
+	gui_putString(4,4,"ADC and");
+	gui_putString(4,5,"Qtouch don't");
+	gui_putString(4,6,"like each other.");
 }
 
 void gui_drawSomething(void){
@@ -345,4 +353,26 @@ void gui_drawSomething(void){
 	gui_putString(10,4,"That's it!");
 	gui_putString(10,5,"go up or down");
 	gui_update();
+}
+
+
+void gui_drawMalfunction(void){
+	uint8_t ls,rs,lb,rb;
+	touch_measure(&ls,&rs,&lb,&rb);
+	while(lb!=1){
+		touch_measure(&ls,&rs,&lb,&rb);
+		gui_clearAll();
+		gui_putString(10,0,"Malfunction board");
+		gui_putString(10,1,"ls: ");
+		gui_putString(30,1,"%d",255-ls);
+		gui_putString(10,2,"rs: ");
+		gui_putString(30,2,"%d",rs);
+		gui_putString(10,3,"lb: ");
+		gui_putString(30,3,"%d",lb);
+		gui_putString(10,4,"rb: ");
+		gui_putString(30,4,"%d",rb);
+		gui_drawLine((255-ls)>>1,63,(255-ls)>>1,55);
+		gui_drawLine(rs>>1,54,rs>>1,46);
+		gui_update();
+	}
 }

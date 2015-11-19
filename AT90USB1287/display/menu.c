@@ -63,7 +63,7 @@ void static menu_create(void){
 	mainMenu->childMenus[3]= menu_new("Blink the led",blink,0);
 	mainMenu->childMenus[4]= menu_new("Adc/Touch info",gui_drawAdcTouch,0);
 	mainMenu->childMenus[5]= menu_new("Draw random stuff",gui_drawSomething,0);
-	mainMenu->childMenus[6]= menu_new("Malfunction board",NULL,0);
+	mainMenu->childMenus[6]= menu_new("Malfunction board",gui_drawMalfunction,0);
 	menu_fix_parents_recursive(mainMenu);
 }
 

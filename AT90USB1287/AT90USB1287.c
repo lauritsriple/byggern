@@ -74,7 +74,6 @@ int main(void){
 				selected=touchSelected;
 				gui_drawMenu(menu,selected);
 			}
-			//printf("\n\rRANDOM\n\r");
 			if (rb){
 				if((selected<=menu->childMenus[selected-1]->num_childMenus) && (menu->childMenus[selected-1]->num_childMenus>0)){
 					menu=menu->childMenus[selected-1];
@@ -82,10 +81,10 @@ int main(void){
 					gui_drawMenu(menu,selected);
 				}
 				else if (menu->childMenus[selected-1]->fn != NULL){
-					printf("function");
 					menu->childMenus[selected-1]->fn();
 				}
 				//Touch is buggy. Needs to read a couple of time to accept changes.
+				//Also added some delay.
 				//This will prevent functions running many times!
 				gui_update();
 				_delay_ms(400);
@@ -104,7 +103,7 @@ int main(void){
 		}
 		else{ //We are in adc-mode
 			joy_pos_t pos=joy_getPos();
-			printf("X:%4i Y:%4i\r",pos.x,pos.y);
+			//printf("X:%4i Y:%4i\r",pos.x,pos.y);
 			if (pos.y>90 && selected > 1){
 				selected--;
 				gui_drawMenu(menu,selected);
@@ -120,7 +119,6 @@ int main(void){
 					gui_drawMenu(menu,selected);
 				}
 				else if (menu->childMenus[selected-1]->fn != NULL){
-					printf("function");
 					menu->childMenus[selected-1]->fn();
 				}
 				gui_update();
