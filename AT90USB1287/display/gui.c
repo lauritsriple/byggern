@@ -24,6 +24,8 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdio.h>
+#include "gui.h"
+#include "touch.h"
 
 uint8_t static changed=1;  //Whether array has changed and not been printed on screen.
 uint8_t static shroom[9]={28,98,145,177,145,177,145,98,28}; //This is the selector shroom!
@@ -133,9 +135,6 @@ void gui_drawCircle(uint8_t centreX, uint8_t centreY, uint8_t r){
 		gui_setPixel(i+centreX,-posy+centreY,1);
 	}
 		for(int i =-r; i <= r; i++){
-			uint32_t rad=r*r;
-			int j=i;
-			uint16_t sqr=sqrt(rad-j);
 			uint16_t posy=sqrt((uint16_t)r*r-((uint16_t)i*i));
 			gui_setPixel(posy+centreX,i+centreY,1);
 			gui_setPixel(-posy+centreX,i+centreY,1);

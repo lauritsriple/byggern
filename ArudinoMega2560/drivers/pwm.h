@@ -18,5 +18,6 @@
 void pwm_init(void);
 void pwm_setValue(uint8_t val);
 void pwm_setServo(int16_t val);
+void pwm_setServoSlider(uint8_t val);
 
 #endif /* PWM_H_ */

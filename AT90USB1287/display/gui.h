@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 void gui_update(void);
-void gui_swap(int* a, int *b);
+void gui_swap(uint8_t* a, uint8_t* b);
 void gui_setPixel(uint8_t posx, uint8_t posy, uint8_t val);
 void gui_drawLine(uint8_t pos1x, uint8_t pos1y,uint8_t pos2x, uint8_t pos2y);
 void gui_clearAll(void);

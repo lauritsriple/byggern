@@ -57,9 +57,6 @@ int main(void){
 	char blue_recv='i';
 	menu_item_t *menu=menu_get();
 	uint8_t ls, rs, lb, rb;
-	can_message_t* msg13 = malloc(sizeof(can_message_t));
-	//can_message_t* msg77 = malloc(sizeof(can_message_t));
-	can_message_t receive;
 	gui_drawMenu(menu,selected);
 	while(1){
 		printf("loop\n");
@@ -174,43 +171,6 @@ int main(void){
 				bluethooth=0;
 			}
 		}
-		
-		msg13->id=13;
-		msg13->length=4;
-		msg13->data[0]=8;
-		msg13->data[1]=3;
-		msg13->data[2]=2;
-		msg13->data[3]=1;
-		
-/*
-		msg77->id=77;
-		msg77->length=4;
-		msg77->data[0]=255-ls;
-		msg77->data[1]=rs;
-		msg77->data[2]=lb;
-		msg77->data[3]=rb;*/
-		
-		printf("sending:  ");
-		can_print(*msg13);
-		can_messageSend(msg13,MCP_TXB1CTRL);
-		printf("done sending\n");
-		
-/*
-		if (!(SPI_PIN & SPI_CS_MCP2515)){
-			can_message_t receive = can_dataReceive();
-			switch (receive.id){
-				case 20: ;
-					for (uint8_t i = 0 ;i<8;i++){
-						//oled_put(receive->data[i]); or something like this
-					}
-				case 46:
-					//message that contains confidential information
-					break;
-				default:
-					break;	
-			}
-		}*/
-		
 		gui_update();
 		LED_PORT ^= (1 << LED1);
 	}

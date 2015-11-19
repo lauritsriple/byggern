@@ -7,6 +7,9 @@
 
 #include "pi.h"
 #include "timer.h"
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h> //for memset
 
 //dt = (float)TIMER5_OCRB / (float)F_CPU)*1024;
 //Should be calculated every time pi() is called

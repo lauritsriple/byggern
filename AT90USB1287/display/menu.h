@@ -28,7 +28,7 @@ void blink(void);
 menu_item_t* current_menuitem;
 
 //Returns the root node of the menu tree
-menu_item_t* get_menu (void);
+menu_item_t* menu_get(void);
 
 //returns depth (number of parents)
 uint8_t menu_depth(menu_item_t* const menu);

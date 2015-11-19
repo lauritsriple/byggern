@@ -97,7 +97,7 @@ int main(void){
 				break;
 		}
 		
-		if(ir_signal()){
+		if(ir_signal()&&game_running){
 			game_timerStop();
 			game_running=0;
 			uint8_t score=game_getScore();

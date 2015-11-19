@@ -10,6 +10,6 @@
 #define SRAM_TEST_H_
 
 uint8_t* SRAM_test(void);
-void SRAM_testADC(void);
+//void SRAM_testADC(void); For debugging
 
 #endif /* SRAM_TEST_H_ */

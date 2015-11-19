@@ -18,7 +18,7 @@
 #include "mcp2515defines.h"
 #include "uart.h"
 #include <stdlib.h>
-#include <string.h> //needed?
+//#include <string.h> //needed?
 
 void can_init(uint8_t operationMode){
 	mcp2515_init();

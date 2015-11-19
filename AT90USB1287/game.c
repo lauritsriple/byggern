@@ -13,6 +13,8 @@
 #include "avr/io.h"
 #include "display/gui.h"
 #include "board.h"
+#include <stdlib.h>
+#include "game.h"
 
 uint16_t static highscore[10];
 
@@ -71,7 +73,7 @@ void game_start(void){
 		}
 		gui_drawGame(score);
 	}
-	game_end(receive,highscore);
+	game_end(receive);
 }
 
 
@@ -81,12 +83,12 @@ save score in array,
 print final score on screen,
 print placement in higscorelist
 */ 
-void game_end(can_message_t* endMsg){
-	uint16_t score=(endMsg->data[0]<<8)|(endMsg->data[1]);
+void game_end(can_message_t endMsg){
+	uint16_t score=(endMsg.data[0]<<8)|(endMsg.data[1]);
 	uint8_t index=9;
 	for(uint8_t i = 9; i>=0;i--){
 		if (score>=highscore[i]){
-			highscoreSwap(score,highscore[i]);
+			highscoreSwap(&score,&highscore[i]);
 			index=i;
 		}
 	}

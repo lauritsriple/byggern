@@ -8,11 +8,11 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include "SRAM_test.h"
-//#include "../communication/uart.h"
 
 uint8_t * SRAM_test(void)
 {
-	uint8_t errors[2];
+	uint8_t * errors;
+	errors=(uint8_t*) malloc(2*sizeof(uint8_t));
 	volatile char *ext_ram = (char *) 0x1800; // Start address for the SRAM
 	uint16_t ext_ram_size       = 0x800;
 	uint16_t write_errors       = 0;
@@ -54,11 +54,12 @@ uint8_t * SRAM_test(void)
 
 
 
+/*
 void SRAM_testADC(void){
 	volatile char *ext_ram = (char *) 0x1400; // Start address for the adc
 	uint8_t retreived_valuex = ext_ram[0x0];
 	uint8_t retreived_valuey = ext_ram[0x1];
-	//printf("x-value: %4d , y-value: %4d\n",retreived_valuex, retreived_valuey);	
-}
+	printf("x-value: %4d , y-value: %4d\n",retreived_valuex, retreived_valuey);	
+}*/
 
 
