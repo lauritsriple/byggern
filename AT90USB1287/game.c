@@ -65,13 +65,15 @@ void game_start(void){
 			msg->data[2]=pos.y>>8;
 			msg->data[3]=pos.y;
 			msg->data[4]=btn;
+			can_messageSend(msg,MCP_TXB1CTRL);
 		}
 		receive=can_dataReceive();
-		uint16_t static score=0;
+		uint16_t score=0;
 		if (receive.id==8){  //score id
 			score=(receive.data[0]<<8)|(receive.data[1]);
+			gui_drawGame(score);
 		}
-		gui_drawGame(score);
+		
 	}
 	game_end(receive);
 }

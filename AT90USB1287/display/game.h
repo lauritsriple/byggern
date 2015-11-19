@@ -8,6 +8,8 @@
 
 #ifndef GAME_H_
 #define GAME_H_
+#include "can.h"
+#include <stdint.h>
 
 void highscoreSwap(uint16_t* a, uint16_t* b);
 void game_start(void);

@@ -5,15 +5,6 @@
  *  Author: medlem
  */ 
 
-//read the values from joystick
-//read the values from touch
-//pwm the values from joystick on PB or PD
-//spi the values over canbus
-//uart to rs232 for debug
-//oled control from atmega162 over can
-//oled control from atmega162 over parallel if extsel
-
-
 //#define F_CPU 16000000 //defined in toolchain
 
 #include <avr/io.h>
@@ -92,7 +83,7 @@ int main(void){
 				}
 				//Touch is buggy. Needs to read a couple of time to accept changes.
 				//Also added some delay.
-				//This will prevent functions running many times!
+				//This will prevent functions from running many times!
 				gui_update();
 				_delay_ms(400);
 				for(uint8_t i =0;i<16;i++){

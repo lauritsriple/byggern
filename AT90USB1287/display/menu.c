@@ -11,6 +11,7 @@
 #include "../board.h"	//blink
 #include <util/delay.h>	//blink
 #include "gui.h" //gui.h
+#include "game.h"
 
 
 static menu_item_t* mainMenu;
@@ -49,13 +50,14 @@ static void menu_fix_parents_recursive(menu_item_t* menu){
 //private: creates the whole menu structure
 //if full memory, the menu, and submenustrings can be stored in progmem
 void static menu_create(void){
-	mainMenu= menu_new("Soleonid Balls!",NULL,7);
-	mainMenu->childMenus[0]= menu_new("Ping Pong",NULL,2);
-	mainMenu->childMenus[0]->childMenus[0]= menu_new("Play the game",NULL,0);
+	mainMenu= menu_new("Lightning Solenoid Balls!",NULL,7);
+	mainMenu->childMenus[0]= menu_new("Ping Pong",NULL,3);
+	mainMenu->childMenus[0]->childMenus[0]= menu_new("Play the game",game_start,0);
 	mainMenu->childMenus[0]->childMenus[1]= menu_new("See highscores",NULL,0);
+	mainMenu->childMenus[0]->childMenus[2]=menu_new("Play the game using AT162",NULL,0);
 	mainMenu->childMenus[1]= menu_new("Settings",NULL,2);
-	mainMenu->childMenus[1]->childMenus[0]= menu_new("Enable Bluethooth",gui_drawBluethooth,0);
-	mainMenu->childMenus[1]->childMenus[1]= menu_new("subsubmenu22",NULL,0);
+	mainMenu->childMenus[1]->childMenus[0]= menu_new("Enable Bluetooth",gui_drawBluethooth,0);
+	mainMenu->childMenus[1]->childMenus[1]= menu_new("SRAM-test",NULL,0);
 	mainMenu->childMenus[2]= menu_new("Pinout",NULL,3);
 	mainMenu->childMenus[2]->childMenus[0]= menu_new("Port B",gui_drawPortB,0);
 	mainMenu->childMenus[2]->childMenus[1]= menu_new("Port D",gui_drawPortD,0);

@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-uint16_t volatile static timer=0; //Vet ikke om man kan ha static og volatile, men den skal være private
+uint16_t volatile static timer=0;
 
 void timer_start(void){
 	TCCR5B |=  (1 << CS50) | (1<<CS52);  //Prescaler set to 1024

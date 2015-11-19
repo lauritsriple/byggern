@@ -28,14 +28,12 @@ void pi_update(pi_controller_t* c, float ref){
 }
 
 float pi_calculate(pi_controller_t* c, float y){
-	uint16_t dt=timer_get();
-	
+	float dt=(float)(timer_get()*1024/16000000);
+	timer_reset();
 	float error = c->reference - y;
 	
 	c->integral += error *dt;
 	c->prev_error = error;
-
-	timer_reset();
 
 	return	c->Kp * error + c->Ki * c->integral;
 }

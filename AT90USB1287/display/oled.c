@@ -16,7 +16,7 @@
 #define OLED_COMMAND_BASE_ADDRESS			0x2400
 //PRIVATE
 
-//static FILE oled_stdout = FDEV_SETUP_STREAM(oled_put_char, NULL, _FDEV_SETUP_WRITE);
+static FILE oled_stdout = FDEV_SETUP_STREAM(oled_put_char, NULL, _FDEV_SETUP_WRITE);
 
 static inline void oled_write_cmd(char cmd){
 	//NEEDED BECAUSE CHIP DOES NOT HAVE GAL IC
@@ -208,10 +208,10 @@ void oled_put(uint8_t c){
 	oled_write_data(c);
 }
 
-/*
+
 void oled_printf(char* fmt, ...){
 	va_list v;
 	va_start(v, fmt);
 	vfprintf(&oled_stdout, fmt, v);
 	va_end(v);
-}*/
+}

@@ -26,19 +26,18 @@
 
 uint16_t encoder_startUp(void){
 	motor_direction(left);
-	motor_speed(85);
-	_delay_ms(2500);
+	motor_speed(65);
+	_delay_ms(3500);
 	motor_speed(0);
 	_delay_ms(500);
 	motor_direction(right);
 	motor_encoderCounterReset();
-	motor_speed(85);
-	_delay_ms(2500);
+	motor_speed(65);
+	_delay_ms(3500);
 	motor_speed(0);
 	_delay_ms(500);
 	return motor_encoderRead();
 }
-
 
 int main(void){
 	board_init_hack();
@@ -53,21 +52,21 @@ int main(void){
 	can_message_t receive;
 	uint16_t encoderMax=encoder_startUp();
 	uint16_t encoderMap=encoderMax/256;
-	pi_controller_t* c = pi_init(10,2);
+	pi_controller_t* c = pi_init(0.05,0.08); //0.02 and 0.05
 	while(1){
 		receive = can_dataReceive();
 		switch(receive.id){
-			case 120: ; // reciving message with adc and buttons
+			case 120: ; // receiving message with adc and buttons
 				pos.x = receive.data[0]<<8 | receive.data[1];
 				pos.y = receive.data[2]<<8 | receive.data[3];
 				pwm_setServo(pos.x);
-				if (pos.y<0){
+				if (pos.y<-30){
 					motor_direction(left);
 					motor_speed(abs(pos.y)*2);
 				}
-				else{
+				else if (pos.y>30){
 					motor_direction(right);
-					motor_speed(abs(pos.y)*2);
+					motor_speed(pos.y*2);
 				}
 				if (receive.data[4]){
 					game_solenoid();
@@ -90,22 +89,22 @@ int main(void){
 				break;
 			
 			case 2050:
-				printf("invalid message or no message\n");
+				//printf("invalid message or no message\n"); debug
 				break;
 			
 			default:
 				break;
 		}
 		
-		if(ir_signal()&&game_running){
+		if(ir_signal() && game_running){
 			game_timerStop();
 			game_running=0;
-			uint8_t score=game_getScore();
-			msg->id=7;
+			uint16_t score=game_getScore();
+			msg->id=7; //end game id
 			msg->length=2;
 			//transfer uint16_t to two uint8_t
 			msg->data[0]=(score>>8)& 0xff;
-			msg->data[0]=score & 0xff;
+			msg->data[1]=score & 0xff;
 			can_messageSend(msg,MCP_TXB1CTRL);
 		}
 		
@@ -113,7 +112,36 @@ int main(void){
 			pwm_setServo(0);
 			motor_speed(0);
 		}
+		
+		if (game_running){
+			int16_t speed=(int16_t)pi_calculate(c,motor_encoderRead());
+			printf("motor_speed: %i\n",speed);
+			if (speed>0){
+				motor_direction(right);
+				if (speed<150){ //saturation
+					motor_speed((uint8_t)speed);
+				}
+				else{
+					motor_speed(150); 
+				}
+			}
+			else{
+				motor_direction(left);
+				if(speed>-150){
+					motor_speed((uint8_t)(-1*speed));
+				}
+				else{
+					motor_speed(150);
+				}
+			}
+			uint16_t score=game_getScore();
+			msg->id=8;
+			msg->length=2;
+			msg->data[0]=(score>>8)& 0xff;
+			msg->data[1]=score & 0xff;
+			can_messageSend(msg,MCP_TXB1CTRL);
+		}
 		LED_PORT ^=(1 << LED1);
-		pi_calculate(c,motor_encoderRead());
+		
 	}
 }
