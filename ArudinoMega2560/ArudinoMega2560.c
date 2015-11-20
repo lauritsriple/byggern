@@ -62,11 +62,11 @@ int main(void){
 				pwm_setServo(pos.y);
 				if (pos.x<-5){
 					motor_direction(left);
-					motor_speed(abs(pos.x)*2);
+					motor_speed((uint8_t)abs(pos.x));
 				}
 				else if (pos.x>5){
 					motor_direction(right);
-					motor_speed(abs(pos.x)*2);
+					motor_speed((uint8_t)abs(pos.x));
 				}
 				else{
 					motor_speed(0);
@@ -144,6 +144,7 @@ int main(void){
 		}
 		if(ir_signal() && (game_running!=0)){
 			game_timerStop();
+			_delay_ms(100);
 			game_running=0;
 			uint16_t score=game_getScore();
 			msg->id=7; //end game id
@@ -152,6 +153,8 @@ int main(void){
 			msg->data[0]=(score>>8)& 0xff;
 			msg->data[1]=score & 0xff;
 			can_messageSend(msg,MCP_TXB1CTRL);
+			_delay_ms(100);
+			can_messageSend(msg,MCP_TXB1CTRL);//send two times?
 		}
 		
 		if (game_running==0){
@@ -159,7 +162,7 @@ int main(void){
 			motor_speed(0);
 		}
 		
-		if (game_running==1){
+		else if (game_running==1){
 			int16_t speed=(int16_t)pi_calculate(c,motor_encoderRead());
 			if (speed>0){
 				motor_direction(right);
@@ -186,7 +189,7 @@ int main(void){
 			msg->data[1]=score & 0xff;
 			can_messageSend(msg,MCP_TXB1CTRL);
 		}
-/*
+
 		else if (game_running==2){
 			uint16_t score=game_getScore();
 			msg->id=8;
@@ -194,7 +197,7 @@ int main(void){
 			msg->data[0]=(score>>8)& 0xff;
 			msg->data[1]=score & 0xff;
 			can_messageSend(msg,MCP_TXB1CTRL);
-		}*/
+		}
 		printf("ir:%i\n",adc_read10(0));
 		LED_PORT ^=(1 << LED1);
 	}

@@ -41,9 +41,17 @@ void game_start(void){
 	can_message_t receive;
 	can_message_t * msg = malloc(sizeof(can_message_t));
 	receive=can_dataReceive();
-	msg->id=100; //game starter id
-	msg->length=1;
-	msg->data[0]=1;
+	if (touchMode==1){
+		msg->id=100; //game starter id
+		msg->length=1;
+		msg->data[0]=1;
+	}
+	else {
+		msg->id=101; //game starter id
+		msg->length=1;
+		msg->data[0]=1;
+	}
+
 	can_messageSend(msg,MCP_TXB1CTRL);
 	while (receive.id!=7){ //game ender id
 		if (touchMode==1){
@@ -96,10 +104,12 @@ void game_start(void){
 			can_messageSend(msg,MCP_TXB1CTRL);
 			break;	
 		}
+		if (receive.id==7){
+			game_end(receive);
+			break;
+		}
 	}
-	if (receive.id==7){
-		game_end(receive);
-	}
+
 	
 }
 

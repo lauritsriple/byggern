@@ -61,8 +61,8 @@ int main(void){
 		if ((touchMode==1) && (bluethooth==0)){
 			touch_measure(&ls, &rs, &lb, &rb);
 			//printf("ls:%4i,rs:%4i,lb:%4i,rb:%4i\n",ls,rs,lb,rb);
-			pwm_set(1,255-ls);
-			pwm_set(2,rs);
+			//pwm_set(1,255-ls);
+			//pwm_set(2,rs);
 			//MAP 0-255 to 1- num child menus
 			uint8_t mapValue=255/(menu->num_childMenus+1);
 			ls=255-ls;
@@ -96,16 +96,21 @@ int main(void){
 					selected=1;
 					gui_drawMenu(menu,selected);
 				}
+				_delay_ms(400);
+				for(uint8_t i =0;i<16;i++){
+					touch_measure(&ls, &rs, &lb, &rb);
+					_delay_ms(10);
+				}
 			}
 		}
 		else if ((touchMode==0) && (bluethooth==0)){ //We are in adc-mode
 			joy_pos_t pos=joy_getPos();
 			//printf("X:%4i Y:%4i\r",pos.x,pos.y);
-			if (pos.y>90 && selected > 1){
+			if (pos.y>80 && selected > 1){
 				selected--;
 				gui_drawMenu(menu,selected);
 			}
-			else if (pos.y<-90 && selected < menu->num_childMenus){
+			else if (pos.y<-80 && selected < menu->num_childMenus){
 				selected++;
 				gui_drawMenu(menu,selected);
 			}

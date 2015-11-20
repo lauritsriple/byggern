@@ -20,8 +20,8 @@ void board_init(void){
 	SW_PORT |= (1<<SW);
 	SW_DDR &= ~(1<<SW2);
 	SW_PORT |= (1<<SW2);
-	//JOY_DDR &= ~(1<<JOY);
-	//JOY_PORT |= (1<<JOY);
+	JOY_DDR &= ~(1<<JOY);
+	JOY_PORT |= (1<<JOY);
 
 	//ADC_DDR &=~(1<<ADC_JOY_X);
 	//ADC_DDR &=~(1<<ADC_JOY_Y);
