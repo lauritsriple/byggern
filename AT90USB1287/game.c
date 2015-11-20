@@ -78,6 +78,33 @@ void game_start(void){
 	game_end(receive);
 }
 
+void game_startAT(void){
+	gui_drawGameStart();
+	uint8_t ls,rs,lb,rb;
+	extern uint8_t touchMode;
+	can_message_t receive;
+	can_message_t * msg = malloc(sizeof(can_message_t));
+	receive=can_dataReceive();
+	msg->id=101; //game starterAT162 id
+	msg->length=1;
+	msg->data[0]=1;
+	can_messageSend(msg,MCP_TXB1CTRL);
+	while (receive.id!=7){ //game ender id
+		receive=can_dataReceive();
+		uint8_t btn=(!(SW_PIN & (1<<SW)));
+		msg->id=122; //joy id
+		msg->length=1;
+		msg->data[0]=btn;
+		can_messageSend(msg,MCP_TXB1CTRL);
+		uint16_t score=0;
+		if (receive.id==8){  //score id
+			score=(receive.data[0]<<8)|(receive.data[1]);
+			gui_drawGame(score);
+		}
+	}
+	game_end(receive);
+}
+
 
 //end game
 /*
@@ -95,4 +122,20 @@ void game_end(can_message_t endMsg){
 		}
 	}
 	gui_drawGameEnd(highscore,index,score);
+}
+
+void game_Sram(void){
+	can_message_t receive;
+	can_message_t * msg = malloc(sizeof(can_message_t));
+	msg->id=50;
+	msg->length=1;
+	msg->data[0]=0;
+	can_messageSend(msg,MCP_TXB1CTRL);
+	receive=can_dataReceive();
+	while (receive.id!=51);
+	gui_clearAll();
+	gui_drawRectangle(0,0,127,63);
+	gui_putString(25,1,"SRAM test");
+	gui_putString(25,2,"%4d write errors",receive.data[0]);
+	gui_putString(25,3,"%4d read errors",receive.data[1]);
 }

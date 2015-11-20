@@ -54,10 +54,10 @@ void static menu_create(void){
 	mainMenu->childMenus[0]= menu_new("Ping Pong",NULL,3);
 	mainMenu->childMenus[0]->childMenus[0]= menu_new("Play the game",game_start,0);
 	mainMenu->childMenus[0]->childMenus[1]= menu_new("See highscores",NULL,0);
-	mainMenu->childMenus[0]->childMenus[2]=menu_new("Play the game using AT162",NULL,0);
+	mainMenu->childMenus[0]->childMenus[2]=menu_new("Play the game using AT162",game_startAT,0);
 	mainMenu->childMenus[1]= menu_new("Settings",NULL,2);
 	mainMenu->childMenus[1]->childMenus[0]= menu_new("Enable Bluetooth",gui_drawBluethooth,0);
-	mainMenu->childMenus[1]->childMenus[1]= menu_new("SRAM-test",NULL,0);
+	mainMenu->childMenus[1]->childMenus[1]= menu_new("SRAM-test",game_Sram,0);
 	mainMenu->childMenus[2]= menu_new("Pinout",NULL,3);
 	mainMenu->childMenus[2]->childMenus[0]= menu_new("Port B",gui_drawPortB,0);
 	mainMenu->childMenus[2]->childMenus[1]= menu_new("Port D",gui_drawPortD,0);

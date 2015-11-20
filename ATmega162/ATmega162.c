@@ -53,6 +53,7 @@ int main(void) {
 	can_message_t receive;
 	
 	while(1) {
+		uint8_t adcRead=0;
 		LED_PORT ^= (1 << LED1);
 		//SRAM_testADC();
 		//TODO: add this print as function in joy.c
@@ -69,7 +70,12 @@ int main(void) {
 				msg->data[1]=test[1];
 				can_messageSend(msg,MCP_TXB1CTRL);
 				break;
-			
+			case 101: //read joy set adcreadmode
+				adcRead=1; //game AT162 read joystick
+				
+			case 7:
+				adcRead=0; //game over
+				
 			case 2050:
 				printf("invalid message or no message\n");
 				break;
@@ -77,6 +83,17 @@ int main(void) {
 			default:
 				break;
 		} 
+		
+		if (adcRead){
+			joy_pos_t pos = joy_getPos();
+			msg->id=121; //joy id
+			msg->length=4;
+			msg->data[0]=pos.x>>8;
+			msg->data[1]=pos.x;
+			msg->data[2]=pos.y>>8;
+			msg->data[3]=pos.y;
+			can_messageSend(msg,MCP_TXB1CTRL);
+		}
 		
 		/*msg->data[0]=pos.x>>8;
 		msg->data[1]=pos.x;

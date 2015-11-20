@@ -429,3 +429,5 @@ void gui_drawGameEnd(uint16_t * higscore, uint8_t index,uint16_t score){
 	gui_update();
 	_delay_ms(4000);
 }
+
+
