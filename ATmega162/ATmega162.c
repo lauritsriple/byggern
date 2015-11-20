@@ -51,41 +51,39 @@ int main(void) {
 		
 	can_message_t* msg = malloc(sizeof(can_message_t));
 	can_message_t receive;
-	
+	uint8_t static adcRead=1; //should be 0
 	while(1) {
-		uint8_t adcRead=0;
 		LED_PORT ^= (1 << LED1);
 		//SRAM_testADC();
 		//TODO: add this print as function in joy.c
-		//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read(0b00000100),adc_read(0b00000101), adc_read(0b00000110), adc_read(0b00000111));
+		//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read8(0b00000100),adc_read8(0b00000101), adc_read8(0b00000110), adc_read8(0b00000111));
 		//joy_pos_t pos = joy_getPos();
 		//printf("X:%4i Y:%4i\r",pos.x,pos.y);
 		receive = can_dataReceive();
 		switch(receive.id){
 			case 50: ;//sram test
 				uint8_t* test = SRAM_test();
+				printf("SRAM test complete\n");
 				msg->id=51; //sram test complete
 				msg->length=2;
 				msg->data[0]=test[0];
 				msg->data[1]=test[1];
 				can_messageSend(msg,MCP_TXB1CTRL);
 				break;
-			case 101: //read joy set adcreadmode
+			case 101: ;//read joy set adcreadmode
 				adcRead=1; //game AT162 read joystick
-				
-			case 7:
-				adcRead=0; //game over
-				
+		
 			case 2050:
-				printf("invalid message or no message\n");
+				//printf("invalid message or no message\n");
 				break;
 			
 			default:
 				break;
 		} 
-		
-		if (adcRead){
+		if (adcRead==1){
 			joy_pos_t pos = joy_getPos();
+			//printf("adc1: %i, adc2: %i, adc3: %i, adc4: %i\n", adc_read8(0b00000100),adc_read8(0b00000101), adc_read8(0b00000110), adc_read8(0b00000111));
+			printf("pos:%i,pos:%i\n",pos.x,pos.y);
 			msg->id=121; //joy id
 			msg->length=4;
 			msg->data[0]=pos.x>>8;
@@ -94,18 +92,5 @@ int main(void) {
 			msg->data[3]=pos.y;
 			can_messageSend(msg,MCP_TXB1CTRL);
 		}
-		
-		/*msg->data[0]=pos.x>>8;
-		msg->data[1]=pos.x;
-		msg->data[2]=pos.y>>8;
-		msg->data[3]=pos.y;*/
-		
-		//printf("sending:  ");
-		//can_print(*msg);
-		//can_messageSend(msg,MCP_TXB1CTRL);
-		printf("received: ");
-		receive=can_dataReceive();
-		can_print(receive);
-		_delay_ms(100);
     }	
 }

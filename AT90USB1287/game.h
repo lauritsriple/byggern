@@ -15,9 +15,10 @@
 void game_start(void);
 void game_end(can_message_t endMsg);
 void highscoreSwap(uint16_t* a, uint16_t* b);
-void game_Sram(void);
+void game_sram(void);
 void game_startAT(void);
-
+void game_highscore(void);
+void game_AT(void);
 
 
 #endif /* GAME_H_ */

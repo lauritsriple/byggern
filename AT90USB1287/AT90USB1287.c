@@ -50,7 +50,6 @@ int main(void){
 	uint8_t ls, rs, lb, rb;
 	gui_drawMenu(menu,selected);
 	while(1){
-		printf("loop\n");
 		if(!(SW_PIN & (1<<SW2))){
 			while(!(SW_PIN & (1<<SW2))); //take away all rebouncing
 			_delay_ms(1000);

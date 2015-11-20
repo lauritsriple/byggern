@@ -11,8 +11,7 @@
 
 uint8_t * SRAM_test(void)
 {
-	uint8_t * errors;
-	errors=(uint8_t*) malloc(2*sizeof(uint8_t));
+	uint8_t * errors=malloc(sizeof(uint8_t)*3);
 	volatile char *ext_ram = (char *) 0x1800; // Start address for the SRAM
 	uint16_t ext_ram_size       = 0x800;
 	uint16_t write_errors       = 0;
@@ -46,9 +45,11 @@ uint8_t * SRAM_test(void)
 			retrieval_errors++;
 		}
 	}
-	//printf("SRAM test completed with \n%4d errors in write phase and \n%4d errors in retrieval phase\n\n", write_errors, retrieval_errors);
+	printf("SRAM test completed with \n%4d errors in write phase and \n%4d errors in retrieval phase\n\n", write_errors, retrieval_errors);
 	errors[0]=write_errors;
+	printf("errorinsidefunction %i",errors[0]);
 	errors[1]=retrieval_errors;
+	printf("errorinsidefunction %i",errors[1]);
 	return errors; 
 }
 

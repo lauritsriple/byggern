@@ -25,7 +25,8 @@
 #include <util/delay.h>
 #include <stdio.h>
 #include "gui.h"
-#include "touch.h"
+#include "../touch.h"
+#include "../game.h"
 
 uint8_t static changed=1;  //Whether array has changed and not been printed on screen.
 uint8_t static shroom[9]={28,98,145,177,145,177,145,98,28}; //This is the selector shroom!
@@ -64,7 +65,7 @@ void gui_update(void){
 			}
 			oled_pos(i+1,0);
 		}
-		changed=1;
+		changed=0;
 	}
 }
 
@@ -197,7 +198,7 @@ void gui_drawMenu(menu_item_t * menu,uint8_t selected){
 	gui_clearAll();
 	gui_drawLine(0,7,127,7);
 	gui_drawLine(10,8,10,64); //Draws the menuscroll
-	gui_putString(16,0,menu->name);
+	gui_putString(10,0,menu->name);
 	
 	if ((menu->num_childMenus)>7){
 		//WRAP IT NICELY, too many submenus to fit properly 
@@ -398,17 +399,25 @@ void gui_drawGameStart(void){
 	oled_pos(3,40);
 	oled_printf("Score:");
 	oled_clear_page(4);
+	oled_pos(4,0);
+	oled_put(0xff);
+	oled_pos(4,127);
+	oled_put(0xff);
 }
 
 //NOT USING THE BUFFER. 
 //We need more speed for this one.
 void gui_drawGame(uint16_t score){
 	oled_clear_page(5);
+	oled_pos(5,0);
+	oled_put(0xff);
 	oled_pos(5,30);
 	oled_printf("%10i",score);
+	oled_pos(5,127);
+	oled_put(0xff);
 }
 
-void gui_drawGameEnd(uint16_t * higscore, uint8_t index,uint16_t score){
+void gui_drawGameEnd(uint16_t * highscore, uint8_t index,uint16_t score){
 	gui_clearAll();
 	gui_putString(30,4,"GAME OVER");
 	gui_update();
@@ -420,8 +429,8 @@ void gui_drawGameEnd(uint16_t * higscore, uint8_t index,uint16_t score){
 	_delay_ms(3000);
 	gui_clearAll();
 	gui_putString(30,0,"HIGHSCORES");
-	for (uint8_t i = 1;i<8;i++){
-		gui_putString(10,i,"%i: %10i",index,higscore[i]);
+	for (uint8_t i = 0;i<8;i++){
+		gui_putString(10,i+1,"%i: %10i",i+1,highscore[i]);
 	}
 	if (index<8){
 		gui_invertPage(index+1,0);

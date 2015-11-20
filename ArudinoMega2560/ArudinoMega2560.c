@@ -59,14 +59,17 @@ int main(void){
 			case 120: ; // receiving message with adc and buttons
 				pos.x = receive.data[0]<<8 | receive.data[1];
 				pos.y = receive.data[2]<<8 | receive.data[3];
-				pwm_setServo(pos.x);
-				if (pos.y<-30){
+				pwm_setServo(pos.y);
+				if (pos.x<-5){
 					motor_direction(left);
-					motor_speed(abs(pos.y)*2);
+					motor_speed(abs(pos.x)*2);
 				}
-				else if (pos.y>30){
+				else if (pos.x>5){
 					motor_direction(right);
-					motor_speed(pos.y*2);
+					motor_speed(abs(pos.x)*2);
+				}
+				else{
+					motor_speed(0);
 				}
 				if (receive.data[4]){
 					game_solenoid();
@@ -74,26 +77,36 @@ int main(void){
 				//printf("X:%4i Y:%4i\r",pos.x,pos.y);
 				break;
 				
+/*
 			case 121:
-				pos.x = receive.data[0]<<8 | receive.data[1];
-				pos.y = receive.data[2]<<8 | receive.data[3];
-				pwm_setServo(pos.x);
-				if (pos.y<-30){
-					motor_direction(left);
-					motor_speed(abs(pos.y)*2);
+				if (game_running==2){
+					//printf("121\n");
+					pos.x = receive.data[0]<<8 | receive.data[1];
+					pos.y = receive.data[2]<<8 | receive.data[3];
+					//printf("pos:%i,pos:%i\n",pos.x,pos.y);
+					pwm_setServo(pos.y);
+					if (pos.x<-5){
+						motor_direction(left);
+						motor_speed(abs(pos.x)*2);
+					}
+					else if (pos.x>5){
+						motor_direction(right);
+						motor_speed(abs(pos.x)*2);
+					}
+					else{
+						motor_speed(0);
+					}
+					//printf("X:%4i Y:%4i\r",pos.x,pos.y);				
 				}
-				else if (pos.y>30){
-					motor_direction(right);
-					motor_speed(pos.y*2);
-				}
-				//printf("X:%4i Y:%4i\r",pos.x,pos.y);
-				break;
+				break;	*/
+
 				
+/*
 			case 122:
-				if (receive.data[4]){
+				if (receive.data[0]){
 					game_solenoid();
 				}
-				break;
+				break;*/
 			
 			case 140:
 				pwm_setServoSlider(receive.data[1]); //use rs for servo control
@@ -113,7 +126,15 @@ int main(void){
 				game_running=2;
 				game_timerStart();
 				break;
-			
+				
+			case 250:
+				game_running=0;
+				game_timerStop();
+				uint16_t score=0;
+				encoderMax=encoder_startUp();
+				encoderMap=encoderMax/256;
+				break;
+				
 			case 2050:
 				//printf("invalid message or no message\n"); debug
 				break;
@@ -121,7 +142,6 @@ int main(void){
 			default:
 				break;
 		}
-		
 		if(ir_signal() && (game_running!=0)){
 			game_timerStop();
 			game_running=0;
@@ -141,7 +161,6 @@ int main(void){
 		
 		if (game_running==1){
 			int16_t speed=(int16_t)pi_calculate(c,motor_encoderRead());
-			printf("motor_speed: %i\n",speed);
 			if (speed>0){
 				motor_direction(right);
 				if (speed<150){ //saturation
@@ -167,6 +186,7 @@ int main(void){
 			msg->data[1]=score & 0xff;
 			can_messageSend(msg,MCP_TXB1CTRL);
 		}
+/*
 		else if (game_running==2){
 			uint16_t score=game_getScore();
 			msg->id=8;
@@ -174,8 +194,8 @@ int main(void){
 			msg->data[0]=(score>>8)& 0xff;
 			msg->data[1]=score & 0xff;
 			can_messageSend(msg,MCP_TXB1CTRL);
-		}
+		}*/
+		printf("ir:%i\n",adc_read10(0));
 		LED_PORT ^=(1 << LED1);
-		
 	}
 }

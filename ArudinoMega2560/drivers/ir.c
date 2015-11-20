@@ -11,9 +11,9 @@
 #include "../boardhack.h"
 
 uint8_t ir_signal(void){
-	uint16_t value = adc_read8(IR_CHANNEL);
-	if (value > 700){
-		return 1;
+	uint16_t value = adc_read10(IR_CHANNEL);
+	if (value > 300){
+		return 0;
 	}
-	return 0;
+	return 1;
 }
